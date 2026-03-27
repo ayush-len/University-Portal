@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research & Innovation | Global Tech University</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- Global Tech Theme Variables --- */
+        :root {
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --text-main: #222222;
+            --text-light: #555555;
+            --white: #ffffff;
+            --border-color: #e5e5e5;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--white); color: var(--text-main); line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+
+        /* --- Global Navigation (Identical) --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
+        .logo span { color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--secondary-color); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
+
+        /* --- MIT-Style Minimalist Hero --- */
+        .research-hero { padding: 6rem 5% 3rem; max-width: 1400px; margin: auto; border-bottom: 2px solid var(--primary-color); margin-bottom: 3rem; }
+        .research-hero h1 { font-size: 4rem; color: var(--primary-color); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; max-width: 900px; }
+        .research-hero p { font-size: 1.3rem; color: var(--text-light); max-width: 700px; }
+
+        /* --- Layout Containers --- */
+        .container { max-width: 1400px; margin: 0 auto 5rem; padding: 0 5%; }
+        .section-header { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-color); border-top: 4px solid var(--primary-color); padding-top: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .view-all { font-size: 0.9rem; color: var(--secondary-color); text-decoration: none; font-weight: bold; }
+        .view-all:hover { color: var(--primary-color); }
+
+        /* --- MIT "Bento Grid" (News & Spotlights) --- */
+        .bento-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; margin-bottom: 5rem; }
+        
+        /* Large Feature Article */
+        .feature-article { position: relative; cursor: pointer; group: hover; }
+        .feature-img-wrapper { width: 100%; height: 500px; overflow: hidden; margin-bottom: 1.5rem; background-color: var(--primary-color); }
+        .feature-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, opacity 0.3s ease; }
+        .feature-article:hover .feature-img-wrapper img { transform: scale(1.03); opacity: 0.9; }
+        .kicker { color: var(--secondary-color); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; display: block; margin-bottom: 0.5rem; }
+        .feature-article h2 { font-size: 2.5rem; line-height: 1.2; margin-bottom: 1rem; color: var(--primary-color); transition: color 0.3s; }
+        .feature-article:hover h2 { color: var(--secondary-color); }
+        .feature-article p { font-size: 1.1rem; color: var(--text-light); }
+
+        /* Sidebar Articles */
+        .sidebar-articles { display: flex; flex-direction: column; gap: 2rem; }
+        .side-article { cursor: pointer; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; }
+        .side-article:last-child { border-bottom: none; }
+        .side-img-wrapper { width: 100%; height: 180px; overflow: hidden; margin-bottom: 1rem; }
+        .side-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .side-article:hover .side-img-wrapper img { transform: scale(1.05); }
+        .side-article h3 { font-size: 1.3rem; line-height: 1.3; margin-top: 0.5rem; transition: color 0.3s; }
+        .side-article:hover h3 { color: var(--secondary-color); }
+
+        /* --- Institutes & Labs Grid --- */
+        .labs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .lab-card { padding: 2.5rem; background-color: var(--bg-light); border-left: 4px solid transparent; transition: all 0.3s ease; cursor: pointer; }
+        .lab-card:hover { background-color: var(--white); border-left: 4px solid var(--secondary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateX(5px); }
+        .lab-card i { font-size: 2rem; color: var(--primary-color); margin-bottom: 1.5rem; transition: color 0.3s; }
+        .lab-card:hover i { color: var(--secondary-color); }
+        .lab-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-color); }
+        .lab-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .lab-link { font-weight: bold; font-size: 0.9rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 5px; }
+        .lab-card:hover .lab-link { color: var(--secondary-color); }
+
+        /* --- Undergraduate Research (UROP) --- */
+        .urop-section { background-color: var(--primary-color); color: var(--white); padding: 5rem 5%; margin: 5rem 0 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .urop-content h2 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.1; }
+        .urop-content p { color: #cccccc; font-size: 1.1rem; margin-bottom: 2rem; }
+        .btn-orange { background-color: var(--secondary-color); color: var(--white); padding: 1rem 2rem; text-decoration: none; font-weight: bold; display: inline-block; transition: background 0.3s; }
+        .btn-orange:hover { background-color: var(--accent-color); }
+        .urop-img { width: 100%; height: 400px; background-image: url('https://images.unsplash.com/photo-1581092335397-9583eb92d232?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'); background-size: cover; background-position: center; border-bottom: 8px solid var(--secondary-color); }
+
+        /* --- Footer --- */
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; border-top: 1px solid #333; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--white); text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .footer-logo span { color: var(--secondary-color); }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 992px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .feature-img-wrapper { height: 350px; }
+            .urop-section { grid-template-columns: 1fr; text-align: center; padding: 4rem 5%; }
+            .urop-img { height: 300px; order: -1; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .research-hero h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Global<span>Tech</span></a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="nav-links" id="nav-links">
+               <a href="index.html" target="_blank">Home</a>
+                <a href="about.html" target="_blank">About</a>
+                <a href="academics.html"  target="_blank">Academics</a>
+                <a href="admissions.html" target="_blank">Admissions</a>
+                <a href="research.html" target="_blank">Research</a>
+                <a href="placements.html" target="_blank">Placements</a>
+                <a href="happenings.html" target="_blank">Happenings</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="research-hero">
+        <h1>Research & Innovation</h1>
+        <p>At Global Tech, research is not confined to graduate students. We build autonomous systems, decode complex biological data, and engineer materials that define the next century.</p>
+    </section>
+
+    <div class="container">
+        
+        <div class="section-header">
+            <span>Breakthrough Spotlights</span>
+            <a href="#" class="view-all">View All News &rarr;</a>
+        </div>
+
+        <div class="bento-grid">
+            
+            <article class="feature-article">
+                <div class="feature-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Quantum Computing Processor">
+                </div>
+                <span class="kicker">Quantum Engineering</span>
+                <h2>Researchers achieve new milestone in room-temperature qubit stability.</h2>
+                <p>The Advanced Quantum Lab has successfully demonstrated a novel topological material that protects quantum states from thermal decoherence, paving the way for scalable quantum computers.</p>
+            </article>
+
+            <aside class="sidebar-articles">
+                
+                <article class="side-article">
+                    <div class="side-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Robotics test">
+                    </div>
+                    <span class="kicker">Robotics</span>
+                    <h3>New bipedal robot navigates unmapped terrain using real-time generative AI.</h3>
+                </article>
+
+                <article class="side-article">
+                    <div class="side-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bio lab">
+                    </div>
+                    <span class="kicker">Bio-Engineering</span>
+                    <h3>Synthetic polymers capable of breaking down ocean microplastics within weeks.</h3>
+                </article>
+
+            </aside>
+        </div>
+
+        <div class="section-header">
+            <span>Core Institutes & Labs</span>
+        </div>
+
+        <div class="labs-grid">
+            
+            <div class="lab-card">
+                <i class="fas fa-network-wired"></i>
+                <h3>CSAIL Equivalent</h3>
+                <p>The Computer Science and Artificial Intelligence Laboratory focusing on machine learning, cryptography, and systems architecture.</p>
+                <div class="lab-link">Explore Lab <i class="fas fa-long-arrow-alt-right"></i></div>
+            </div>
+
+            <div class="lab-card">
+                <i class="fas fa-satellite"></i>
+                <h3>AeroAstro Research</h3>
+                <p>Pioneering autonomous drones, satellite propulsion systems, and next-generation aerospace materials.</p>
+                <div class="lab-link">Explore Lab <i class="fas fa-long-arrow-alt-right"></i></div>
+            </div>
+
+            <div class="lab-card">
+                <i class="fas fa-dna"></i>
+                <h3>Broad Institute of Bio-Tech</h3>
+                <p>Mapping complex genomic structures and developing targeted computational therapeutics.</p>
+                <div class="lab-link">Explore Lab <i class="fas fa-long-arrow-alt-right"></i></div>
+            </div>
+
+            <div class="lab-card">
+                <i class="fas fa-microchip"></i>
+                <h3>Microsystems Technology</h3>
+                <p>Fabrication of nanoscale sensors, advanced semiconductors, and integrated photonic circuits.</p>
+                <div class="lab-link">Explore Lab <i class="fas fa-long-arrow-alt-right"></i></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <section class="urop-section">
+        <div class="urop-content">
+            <span class="kicker" style="color: var(--secondary-color);">Undergraduate Research</span>
+            <h2>Don't wait for graduate school to make an impact.</h2>
+            <p>Through our Undergraduate Research Opportunities Program (UROP), first-year students are paired directly with faculty to work on funded, cutting-edge projects in our primary labs. Over 85% of our undergrads publish a paper before graduation.</p>
+            <a href="#" class="btn-orange">Find a UROP Project</a>
+        </div>
+        <div class="urop-img"></div>
+    </section>
+
+    <footer>
+        <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech Research Institute. Hackathon Prototype.</p>
+    </footer>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+    </script>
+</body>
+</html>
