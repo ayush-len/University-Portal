@@ -8,8 +8,9 @@
 A high-performance, fully responsive university portal engineered for the 12-Hour Hackathon. This project replicates the structure, user experience, and prestige of a Tier-1 global engineering institution without relying on heavy frameworks.
 
 ## 🚀 Live Demonstration
-https://ayush-len.github.io/University-Portal/
-https://github.com/ayush-len/University-Portal
+WEBSITE -- https://ayush-len.github.io/University-Portal/
+
+GITHUB REPO LINK -- https://github.com/ayush-len/University-Portal
 ---
 
 ## 🏗️ Architecture & Features
