@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O-ZONE | Digital Ops</title>
+    <style>
+        /* --- CSS STYLING --- */
+        :root {
+            --bg-black: #050505;
+            --card-bg: #111111;
+            --orange: #ff6600;
+            --orange-dim: #cc5200;
+            --text-white: #ffffff;
+            --text-gray: #999999;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            border-bottom: 2px solid var(--orange);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--orange);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-white);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--orange);
+            text-shadow: 0 0 10px var(--orange);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--orange);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* Grid */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card with Hover Effect */
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--orange);
+            box-shadow: 0 10px 40px rgba(255, 102, 0, 0.2);
+        }
+
+        .event-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #222;
+        }
+
+        .event-info {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .event-info h3 {
+            margin: 0 0 12px 0;
+            color: var(--orange);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+
+        .event-info p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            padding: 0 25px 25px 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .btn-register {
+            background: var(--orange);
+            color: #000;
+        }
+
+        .btn-register:hover {
+            background: var(--text-white);
+        }
+
+        .btn-know {
+            background: transparent;
+            color: var(--orange);
+            border: 1px solid var(--orange);
+        }
+
+        .btn-know:hover {
+            background: rgba(255, 102, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            color: #333;
+            border-top: 1px solid #111;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">EVENTS-ZONE</div>
+        <ul class="nav-links">
+            <li><a id="ongoing-tab" onclick="render('ongoing')">ONGOING EVENTS</a></li>
+            <li><a id="upcoming-tab" onclick="render('upcoming')">UPCOMING EVENTS</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1 id="page-title">Ongoing Events</h1>
+            <!-- <h1 id="page-title">Ongoing Events</h1> -->
+            <p style="color: #555;">Select an active sector to proceed with registration.</p>
+        </header>
+
+        <div id="grid" class="event-grid">
+            </div>
+    </main>
+
+    <footer>&copy; 2026 O-ZONE COMMAND CENTER</footer>
+
+    <script>
+        const database = {
+            ongoing: [
+                { title: "HACKATHON", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", desc: "48 hours of intense coding and hardware exploitation." },
+                { title: "MYSTIC VAULT", img: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?w=400", desc: "Decipher the ancient digital codes hidden in the server." },
+                { title: "VAULT OF TRIALS", img: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400", desc: "A gauntlet of cybersecurity puzzles for the brave." },
+                { title: "ECO CANVAS", img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400", desc: "Digital art movement focused on environmental repair." },
+                { title: "MAYDAY", img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400", desc: "Global stress-test simulation for emergency protocols." },
+                { title: "THE CRISIS MARKET", img: "https://img.freepik.com/premium-vector/crisis-stock-crash-market-loss-trading-investment-indicators-downturn-vector-stock-exchange-market-financial-business-crisis-economic-fall-down-with-flow-charts-diagram_8071-6534.jpg?w=360", desc: "Trade assets in a simulated high-stakes economic collapse." }
+            ],
+            upcoming: [
+                { title: "CODEATHON", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500", desc: "The regional qualifiers for the next major coding league." },
+                { title: "SPARK GRID", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", desc: "Revolutionizing distributed energy grids via smart contracts." },
+                { title: "CHAINREACTION", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", desc: "Exploring the limits of blockchain scalability and speed." },
+                { title: "TREBLE CLEF", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500", desc: "AI-driven musical composition and sound design festival." }
+            ]
+        };
+
+        function render(type) {
+            const grid = document.getElementById('grid');
+            const title = document.getElementById('page-title');
+            
+            // Tab Toggle
+            document.getElementById('ongoing-tab').classList.toggle('active', type === 'ongoing');
+            document.getElementById('upcoming-tab').classList.toggle('active', type === 'upcoming');
+            title.innerText = type === 'ongoing' ? "Ongoing Operations" : "Upcoming Missions";
+
+            grid.innerHTML = '';
+
+            database[type].forEach(event => {
+                grid.innerHTML += `
+                    <div class="event-card">
+                        <img src="${event.img}" alt="${event.title}" class="event-img">
+                        <div class="event-info">
+                            <h3>${event.title}</h3>
+                            <p>${event.desc}</p>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-know">Know More</a>
+                            <a href="#" class="btn btn-register">Register</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Initialize with Ongoing
+        window.onload = () => render('ongoing');
+    </script>
+</body>
+</html>
