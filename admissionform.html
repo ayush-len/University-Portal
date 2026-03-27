@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form | Global Tech University</title>
+    <meta name="description" content="Official application form for admission to Global Tech University. Apply now for undergraduate, postgraduate, and PhD programs.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #003366; /* Deep University Blue */
+            --secondary-color: #00509E;
+            --accent-color: #F2A900; /* Academic Gold */
+            --bg-color: #F4F7F6;
+            --surface-color: #FFFFFF;
+            --text-main: #333333;
+            --text-light: #666666;
+            --border-color: #D1D5DB;
+            --error-color: #D32F2F;
+            --success-color: #2E7D32;
+            --focus-ring: rgba(0, 80, 158, 0.3);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--surface-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-title {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .intro h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 2rem;
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+
+        .progress-bar-fill {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            height: 4px;
+            background-color: var(--secondary-color);
+            z-index: 1;
+            transition: width 0.4s ease;
+            width: 0%; /* Dynamic width based on step */
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            background: var(--surface-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 4px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .step.active {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .step.completed {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+
+        .step-label {
+            position: absolute;
+            top: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-light);
+            white-space: nowrap;
+            transform: translateX(-50%);
+            left: 50%;
+        }
+
+        .step.active .step-label {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* Form Layout */
+        .form-container {
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .form-section {
+            padding: 2.5rem;
+            display: none; /* Hide all initially */
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-color);
+        }
+
+        .section-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header h2 i {
+            color: var(--secondary-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Form Controls */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .required-mark {
+            color: var(--error-color);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-main);
+            background-color: var(--surface-color);
+            transition: var(--transition);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9CA3AF;
+        }
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #9CA3AF;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        /* Custom styling for inputs */
+        .input-icon-wrapper {
+            position: relative;
+        }
+
+        .input-icon-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            pointer-events: none;
+        }
+
+        .input-icon-wrapper input,
+        .input-icon-wrapper select {
+            padding-left: 2.5rem;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Radio & Checkbox */
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-label, .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--secondary-color);
+        }
+
+        .declaration-box {
+            background-color: rgba(0, 80, 158, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* File Upload Styling */
+        .file-upload-wrapper {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FAFAFA;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-wrapper:hover, .file-upload-wrapper.dragover {
+            border-color: var(--secondary-color);
+            background-color: rgba(0, 80, 158, 0.02);
+        }
+
+        .file-upload-wrapper i {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-upload-wrapper span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-name-display {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: none;
+        }
+
+        /* Validation States */
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--error-color);
+            background-color: #FEF2F2;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-group.error .error-message {
+            display: flex;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            background-color: #F9FAFB;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: #E5E7EB;
+            border-color: #D1D5DB;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 80, 158, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 8px rgba(0, 80, 158, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Success Message overlay */
+        .success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--surface-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #E8F5E9;
+            color: var(--success-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .success-overlay h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-overlay p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .reference-no {
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            background: #F3F4F6;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container { padding: 0 1rem; }
+            main { padding: 0 1rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-section { padding: 1.5rem; }
+            .form-actions { padding: 1.5rem; flex-direction: column-reverse; gap: 1rem; }
+            .btn { width: 100%; justify-content: center; }
+            
+            .step-label { display: none; } /* Hide labels on very small screens to prevent overlap */
+            .step.active .step-label { display: block; } /* Only show active label */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span class="logo-text">Global Tech</span>
+            </a>
+            <span class="header-title">Admissions Portal</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="intro">
+            <h1>Application for Admission</h1>
+            <p>Fall 2026 Academic Session. Please fill all required fields carefully.</p>
+        </div>
+
+        <div class="progress-container" aria-hidden="true">
+            <div class="progress-steps">
+                <div class="progress-bar-fill" id="progressBar"></div>
+                <div class="step active" data-step="1">1<span class="step-label">Personal</span></div>
+                <div class="step" data-step="2">2<span class="step-label">Academic</span></div>
+                <div class="step" data-step="3">3<span class="step-label">Program</span></div>
+                <div class="step" data-step="4">4<span class="step-label">Review</span></div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+                <h2>Application Submitted Successfully!</h2>
+                <p>Thank you for applying to Global Tech University. Your application has been received and is under review.</p>
+                <p style="margin-bottom: 1rem;">Your Application Reference Number:</p>
+                <div class="reference-no" id="refNumber">GT-2026-XXXX</div>
+                <button type="button" class="btn btn-outline" style="margin-top: 2rem;" onclick="window.location.reload()">Return Home</button>
+            </div>
+
+            <form id="admissionForm" novalidate>
+                
+                <div class="form-section active" id="step1">
+                    <div class="section-header">
+                        <h2><i class="fa-regular fa-id-card"></i> Personal Information</h2>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="fullName">Full Name (as per official documents) <span class="required-mark">*</span></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" id="fullName" name="fullName" placeholder="e.g., Jane Doe" required>
+                            </div>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Full name is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob">Date of Birth <span class="required-mark">*</span></label>
+                            <input type="date" id="dob" name="dob" required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Valid date of birth required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gender <span class="required-mark">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="gender" value="male" required> Male</label>
+                                <label class="radio-label"><input type="radio" name="gender" value="female"> Female</label>
+                                <label class="radio-label"><input type="radio" name="gender" value="other"> Other</label>
+                            </div>
+                            <span class="error-message" id="genderError"><i class="fa-solid fa-circle-exclamation"></i> Please select a gender</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required-mark">*</span></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" id="email" name="email" placeholder="jane.doe@example.com" required>
+                            </div>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Valid email is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required-mark">*</span></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-phone"></i>
+                                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required pattern="^[0-9\-\+\s\(\)]+$">
+                            </div>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Valid phone number required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nationality">Nationality <span class="required-mark">*</span></label>
+                            <select id="nationality" name="nationality" required>
+                                <option value="" disabled selected>Select your nationality</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="IN">India</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Nationality is required</span>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 2.5rem;">
+                        <h2><i class="fa-solid fa-location-dot"></i> Contact Address</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="addressLine">Address Line 1 <span class="required-mark">*</span></label>
+                            <input type="text" id="addressLine" name="addressLine" placeholder="Street address, P.O. box, etc." required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Address is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">City <span class="required-mark">*</span></label>
+                            <input type="text" id="city" name="city" required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> City is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">State / Province <span class="required-mark">*</span></label>
+                            <input type="text" id="state" name="state" required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> State is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postalCode">Postal / Zip Code <span class="required-mark">*</span></label>
+                            <input type="text" id="postalCode" name="postalCode" required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Postal code required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country <span class="required-mark">*</span></label>
+                            <select id="country" name="country" required>
+                                <option value="" disabled selected>Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="IN">India</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Country is required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section" id="step2">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-book-open"></i> Academic Background</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="qualification">Highest Qualification <span class="required-mark">*</span></label>
+                            <select id="qualification" name="qualification" required>
+                                <option value="" disabled selected>Select qualification</option>
+                                <option value="highschool">High School Diploma / Equivalent</option>
+                                <option value="associate">Associate's Degree</option>
+                                <option value="bachelor">Bachelor's Degree</option>
+                                <option value="master">Master's Degree</option>
+                            </select>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Qualification required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="institution">Previous Institution Name <span class="required-mark">*</span></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <input type="text" id="institution" name="institution" placeholder="Name of school/college" required>
+                            </div>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Institution name required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="score">Marks / Percentage / CGPA <span class="required-mark">*</span></label>
+                            <input type="text" id="score" name="score" placeholder="e.g. 85% or 3.8/4.0" required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Score is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passingYear">Year of Passing <span class="required-mark">*</span></label>
+                            <input type="number" id="passingYear" name="passingYear" min="1990" max="2026" placeholder="YYYY" required>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Valid year required</span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Upload Transcripts / Certificates <span class="required-mark">*</span> (PDF, JPG, PNG)</label>
+                            <div class="file-upload-wrapper" id="dropZone">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span>Click to browse or drag & drop files here</span>
+                                <input type="file" id="certificate" name="certificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                            </div>
+                            <div class="file-name-display" id="fileNameDisplay"></div>
+                            <span class="error-message" id="fileError"><i class="fa-solid fa-circle-exclamation"></i> Please upload your document</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section" id="step3">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-graduation-cap"></i> Course Selection</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="programLevel">Program Level <span class="required-mark">*</span></label>
+                            <select id="programLevel" name="programLevel" required>
+                                <option value="" disabled selected>Select level</option>
+                                <option value="ug">Undergraduate (Bachelors)</option>
+                                <option value="pg">Postgraduate (Masters)</option>
+                                <option value="phd">Doctorate (PhD)</option>
+                            </select>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Select program level</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="course">Preferred Course / Major <span class="required-mark">*</span></label>
+                            <select id="course" name="course" required>
+                                <option value="" disabled selected>Select course</option>
+                                <option value="cs">Computer Science & Engineering</option>
+                                <option value="ai">Artificial Intelligence & Data Science</option>
+                                <option value="bus">Business Administration (BBA/MBA)</option>
+                                <option value="design">Design & Visual Arts</option>
+                                <option value="mech">Mechanical Engineering</option>
+                            </select>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Select a course</span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Preferred Start Term</label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="term" value="fall" checked> Fall 2026 (August)</label>
+                                <label class="radio-label"><input type="radio" name="term" value="spring"> Spring 2027 (January)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 2.5rem;">
+                        <h2><i class="fa-solid fa-pen-nib"></i> Additional Information</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="sop">Statement of Purpose <span class="required-mark">*</span></label>
+                            <textarea id="sop" name="sop" placeholder="Briefly describe why you wish to study this course and your future career goals..." required></textarea>
+                            <span class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Statement of Purpose is required</span>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="extracurricular">Extracurricular Activities & Achievements (Optional)</label>
+                            <textarea id="extracurricular" name="extracurricular" placeholder="List any relevant clubs, sports, awards, or volunteer work..." style="min-height: 80px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section" id="step4">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-clipboard-check"></i> Review & Declaration</h2>
+                    </div>
+
+                    <p style="margin-bottom: 1.5rem; color: var(--text-light);">Please review your information carefully before submission. You cannot modify the form once submitted.</p>
+
+                    <div class="declaration-box">
+                        <label class="checkbox-label" style="align-items: flex-start;">
+                            <input type="checkbox" id="declaration" name="declaration" required style="margin-top: 4px;">
+                            <span><strong>Declaration:</strong> I hereby declare that all the information provided in this application form is true, complete, and correct to the best of my knowledge and belief. I understand that any false information may lead to the cancellation of my admission at Global Tech University.</span>
+                        </label>
+                        <span class="error-message" id="declError" style="margin-left: 1.5rem;"><i class="fa-solid fa-circle-exclamation"></i> You must agree to the declaration</span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="prevBtn" style="display: none;">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+                    
+                    <button type="button" class="btn btn-outline" id="resetBtn">
+                        Reset Form
+                    </button>
+
+                    <button type="button" class="btn btn-primary" id="nextBtn" style="margin-left: auto;">
+                        Next Step <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none; margin-left: auto;">
+                        Submit Application <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('admissionForm');
+            const sections = document.querySelectorAll('.form-section');
+            const steps = document.querySelectorAll('.step');
+            const progressBar = document.getElementById('progressBar');
+            
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            
+            let currentStep = 0;
+
+            // Initialize Progress Bar
+            updateProgress();
+
+            // Next Button Click
+            nextBtn.addEventListener('click', () => {
+                if (validateSection(currentStep)) {
+                    sections[currentStep].classList.remove('active');
+                    steps[currentStep].classList.remove('active');
+                    steps[currentStep].classList.add('completed');
+                    
+                    currentStep++;
+                    
+                    sections[currentStep].classList.add('active');
+                    steps[currentStep].classList.add('active');
+                    
+                    updateButtons();
+                    updateProgress();
+                    window.scrollTo({ top: document.querySelector('.form-container').offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+
+            // Previous Button Click
+            prevBtn.addEventListener('click', () => {
+                sections[currentStep].classList.remove('active');
+                steps[currentStep].classList.remove('active');
+                
+                currentStep--;
+                
+                sections[currentStep].classList.add('active');
+                steps[currentStep].classList.remove('completed');
+                steps[currentStep].classList.add('active');
+                
+                updateButtons();
+                updateProgress();
+            });
+
+            // Reset Button Click
+            resetBtn.addEventListener('click', () => {
+                if(confirm('Are you sure you want to reset the form? All entered data will be lost.')) {
+                    form.reset();
+                    clearErrors();
+                    document.getElementById('fileNameDisplay').style.display = 'none';
+                    document.getElementById('fileNameDisplay').textContent = '';
+                    
+                    // Go back to step 1
+                    sections[currentStep].classList.remove('active');
+                    steps.forEach(step => {
+                        step.classList.remove('active', 'completed');
+                    });
+                    currentStep = 0;
+                    sections[currentStep].classList.add('active');
+                    steps[currentStep].classList.add('active');
+                    
+                    updateButtons();
+                    updateProgress();
+                }
+            });
+
+            // Form Submit
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                if (validateSection(currentStep)) {
+                    // Simulate API call and Show Success Overlay
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        // Generate random reference number
+                        const randomRef = Math.floor(100000 + Math.random() * 900000);
+                        document.getElementById('refNumber').textContent = `GT-2026-${randomRef}`;
+                        
+                        document.getElementById('successOverlay').classList.add('show');
+                    }, 1500);
+                }
+            });
+
+            // Input Validation on Blur
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('blur', () => {
+                    validateInput(input);
+                });
+                input.addEventListener('input', () => {
+                    if(input.closest('.form-group').classList.contains('error')) {
+                        validateInput(input);
+                    }
+                });
+            });
+
+            // File Upload Logic
+            const fileInput = document.getElementById('certificate');
+            const dropZone = document.getElementById('dropZone');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Drag and drop visual cues
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect();
+            });
+
+            function handleFileSelect() {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+                    
+                    if(validTypes.includes(file.type)) {
+                        fileNameDisplay.textContent = `Selected: ${file.name}`;
+                        fileNameDisplay.style.display = 'block';
+                        clearError(fileInput);
+                    } else {
+                        fileInput.value = ''; // clear invalid file
+                        fileNameDisplay.style.display = 'none';
+                        showError(fileInput);
+                        const errorSpan = fileInput.closest('.form-group').querySelector('.error-message');
+                        errorSpan.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Invalid format. Please use PDF, JPG, or PNG.';
+                    }
+                }
+            }
+
+            // Validation Functions
+            function validateSection(index) {
+                let isValid = true;
+                const currentSectionInputs = sections[index].querySelectorAll('input[required], select[required], textarea[required]');
+                
+                // Handle Radio Groups specifically
+                if(index === 0) {
+                    const genderRadios = document.querySelectorAll('input[name="gender"]');
+                    const isGenderChecked = Array.from(genderRadios).some(radio => radio.checked);
+                    if(!isGenderChecked) {
+                        document.getElementById('genderError').style.display = 'flex';
+                        isValid = false;
+                    } else {
+                        document.getElementById('genderError').style.display = 'none';
+                    }
+                }
+
+                currentSectionInputs.forEach(input => {
+                    if (!validateInput(input)) {
+                        isValid = false;
+                    }
+                });
+
+                // Checkbox for last step
+                if(index === 3) {
+                    const declaration = document.getElementById('declaration');
+                    if(!declaration.checked) {
+                        document.getElementById('declError').style.display = 'flex';
+                        isValid = false;
+                    } else {
+                        document.getElementById('declError').style.display = 'none';
+                    }
+                }
+
+                return isValid;
+            }
+
+            function validateInput(input) {
+                // Skip radio and checkboxes for general validation
+                if (input.type === 'radio' || input.type === 'checkbox') return true;
+
+                if (!input.value.trim()) {
+                    showError(input);
+                    return false;
+                }
+
+                if (input.type === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value)) {
+                        showError(input);
+                        return false;
+                    }
+                }
+
+                if (input.type === 'tel') {
+                    // Simple phone validation
+                    if (input.value.trim().length < 10) {
+                        showError(input);
+                        return false;
+                    }
+                }
+                
+                if (input.type === 'file' && input.required && input.files.length === 0) {
+                    showError(input);
+                    return false;
+                }
+
+                clearError(input);
+                return true;
+            }
+
+            function showError(input) {
+                const formGroup = input.closest('.form-group');
+                formGroup.classList.add('error');
+            }
+
+            function clearError(input) {
+                const formGroup = input.closest('.form-group');
+                formGroup.classList.remove('error');
+            }
+
+            function clearErrors() {
+                document.querySelectorAll('.form-group').forEach(group => group.classList.remove('error'));
+                document.getElementById('genderError').style.display = 'none';
+                if(document.getElementById('declError')) document.getElementById('declError').style.display = 'none';
+            }
+
+            function updateButtons() {
+                if (currentStep === 0) {
+                    prevBtn.style.display = 'none';
+                    resetBtn.style.display = 'flex';
+                } else {
+                    prevBtn.style.display = 'flex';
+                    resetBtn.style.display = 'none';
+                }
+
+                if (currentStep === sections.length - 1) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'flex';
+                } else {
+                    nextBtn.style.display = 'flex';
+                    submitBtn.style.display = 'none';
+                }
+            }
+
+            function updateProgress() {
+                // Calculate percentage: (currentStep / (total steps - 1)) * 100
+                const percent = (currentStep / (steps.length - 1)) * 100;
+                progressBar.style.width = percent + '%';
+            }
+            
+            // Handle radio changes to clear errors
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if(radio.name === 'gender') {
+                        document.getElementById('genderError').style.display = 'none';
+                    }
+                });
+            });
+            
+            // Handle checkbox
+            const declCheckbox = document.getElementById('declaration');
+            if(declCheckbox) {
+                declCheckbox.addEventListener('change', () => {
+                    if(declCheckbox.checked) {
+                        document.getElementById('declError').style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
