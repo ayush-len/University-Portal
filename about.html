@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Global Tech University</title>
     <meta name="description" content="Learn about the history, mission, leadership, and achievements of Global Tech University, a global leader in education and research.">
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
+        /* Smooth Page Fade-In */
+body {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         /* --- Global Tech Theme Variables (Caltech/MIT Style) --- */
         :root {
             --primary-color: #111111; 
@@ -25,14 +34,16 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        
+        /* Smooth Page Fade-In */
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; overflow-x: hidden; animation: fadeIn 0.6s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         h1, h2, h3, h4 { color: var(--primary-color); }
 
         /* Utility Classes */
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 5%; }
         .section-padding { padding: 6rem 0; }
-        
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; position: relative; text-transform: uppercase; letter-spacing: 1px; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--secondary-color); margin: 15px auto 0; }
         .text-center { text-align: center; }
@@ -52,12 +63,7 @@
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
 
         /* 2. Hero Section */
-        .hero {
-            height: 70vh;
-            min-height: 500px;
-            background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.9)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex; align-items: center; text-align: center; color: var(--white); border-bottom: 5px solid var(--secondary-color);
-        }
+        .hero { height: 70vh; min-height: 500px; background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.9)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover; display: flex; align-items: center; text-align: center; color: var(--white); border-bottom: 5px solid var(--secondary-color); }
         .hero h1 { color: var(--white); font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; }
         .hero p { font-size: 1.25rem; max-width: 800px; margin: 0 auto 30px; color: #cccccc; }
 
@@ -65,11 +71,9 @@
         .who-we-are { background: var(--white); }
         .core-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
         .core-card { background: var(--bg-light); padding: 40px; border-radius: 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s; position: relative; }
-        
         .core-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background-color: var(--secondary-color); transform: scaleX(0); transition: transform 0.3s ease-in-out; transform-origin: left; z-index: 10; }
         .core-card:hover::before { transform: scaleX(1); }
         .core-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        
         .core-card i { font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px; }
 
         /* 4. Statistics */
@@ -130,7 +134,7 @@
         .contact-info-card i { font-size: 1.5rem; color: var(--secondary-color); margin-top: 5px; }
         .contact-info-card h4 { color: var(--white); }
 
-        /* 10. Footer (Synced with other pages) */
+        /* 10. Footer */
         footer { background-color: var(--primary-color); color: var(--white); padding: 4rem 5% 2rem; border-top: 1px solid #222; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; max-width: 1400px; margin-inline: auto;}
         .footer-col h4 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary-color); }
@@ -141,10 +145,7 @@
         .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: #aaaaaa; font-size: 0.9rem; }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 3rem; }
-            .contact-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 992px) { .hero h1 { font-size: 3rem; } .contact-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
             .nav-links.active { display: flex; }
@@ -152,6 +153,25 @@
             .hero h1 { font-size: 2.5rem; }
             .carousel-slide img { height: 350px; }
         }
+
+        /* --- Chatbot Widget CSS --- */
+        .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .chat-toggle-btn { width: 65px; height: 65px; background-color: #ff6b00; color: white; border: none; border-radius: 50%; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); cursor: pointer; font-size: 28px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+        .chat-toggle-btn:hover { transform: scale(1.1); }
+        .chat-window { display: none; position: absolute; bottom: 85px; right: 0; width: 350px; height: 500px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
+        .chat-header { background-color: #111111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-header h4 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .chat-header i.fa-robot { color: #ff6b00; }
+        .close-chat { background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background-color: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; }
+        .msg-bot { background-color: #eeeeee; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .msg-user { background-color: #ff6b00; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-input-area { padding: 15px; background-color: white; border-top: 1px solid #ddd; display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; font-size: 0.95rem; }
+        .chat-input-area input:focus { border-color: #ff6b00; }
+        .chat-send-btn { background-color: #111111; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
+        .chat-send-btn:hover { background-color: #ff6b00; }
     </style>
 </head>
 <body>
@@ -159,15 +179,17 @@
     <header>
         <nav class="nav-container">
             <a href="index.html" class="logo">Global<span>Tech</span></a>
-            <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="menu-toggle" id="mobile-menu" aria-label="Toggle Mobile Menu" role="button"><i class="fas fa-bars"></i></div>
             <ul class="nav-links" id="nav-links">
-                  <a href="index.html" target="_blank">Home</a>
-                <a href="about.html" target="_blank">About</a>
-                <a href="academics.html" target="_blank">Academics</a>
-                <a href="admissions.html" target="_blank">Admissions</a>
-                <a href="research.html" target="_blank">Research</a>
-                <a href="placements.html" target="_blank">Placements</a>
-                <a href="happenings.html" target="_blank">Happenings</a>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" style="color: var(--secondary-color);">About</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="campus.html">Campus</a></li>
+                <li><a href="happenings.html">Happenings</a></li>
+                <li><a href="placements.html">Placement</a></li>
+                <li><a href="others.html">Others</a></li>
             </ul>
         </nav>
     </header>
@@ -232,21 +254,21 @@
                 <button class="carousel-btn prev-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track">
                     <div class="carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Students on campus">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Students on campus" loading="lazy">
                         <div class="carousel-caption">
                             <h3>The Main Quad</h3>
                             <p>The heart of our academic community.</p>
                         </div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Advanced Laboratory">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Advanced Laboratory" loading="lazy">
                         <div class="carousel-caption">
                             <h3>Advanced Research Facilities</h3>
                             <p>State-of-the-art labs driving global innovation.</p>
                         </div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Graduation Ceremony">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Graduation Ceremony" loading="lazy">
                         <div class="carousel-caption">
                             <h3>Commencement 2025</h3>
                             <p>Celebrating the next generation of engineering leaders.</p>
@@ -263,7 +285,7 @@
             <h2 class="section-title fade-up">Academic Leadership</h2>
             <div class="leadership-grid">
                 <div class="profile-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Dr. Eleanor Vance" class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Dr. Eleanor Vance" class="profile-img" loading="lazy">
                     <div class="profile-info">
                         <h3>Dr. Eleanor Vance</h3>
                         <p>President</p>
@@ -271,7 +293,7 @@
                     </div>
                 </div>
                 <div class="profile-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Dr. Marcus Thorne" class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Dr. Marcus Thorne" class="profile-img" loading="lazy">
                     <div class="profile-info">
                         <h3>Dr. Marcus Thorne</h3>
                         <p>Provost</p>
@@ -279,7 +301,7 @@
                     </div>
                 </div>
                 <div class="profile-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Prof. Sarah Jenkins" class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Prof. Sarah Jenkins" class="profile-img" loading="lazy">
                     <div class="profile-info">
                         <h3>Prof. Sarah Jenkins</h3>
                         <p>Dean of Research</p>
@@ -372,14 +394,14 @@
                         <i class="fa-solid fa-phone"></i>
                         <div>
                             <h4>Admissions Office</h4>
-                            <p>+1 (800) 555-TECH</p>
+                            <p><a href="tel:+18005550199" style="color: #cccccc; text-decoration: none;">+1 (800) 555-TECH</a></p>
                         </div>
                     </div>
                     <div class="contact-info-card">
                         <i class="fa-solid fa-envelope"></i>
                         <div>
                             <h4>Email Us</h4>
-                            <p>admissions@globaltech.edu</p>
+                            <p><a href="mailto:admissions@globaltech.edu" style="color: #cccccc; text-decoration: none;">admissions@globaltech.edu</a></p>
                         </div>
                     </div>
                 </div>
@@ -417,8 +439,8 @@
                 <h4>Contact Us</h4>
                 <ul>
                     <li><i class="fas fa-map-marker-alt"></i> University Campus Boulevard</li>
-                    <li><i class="fas fa-phone"></i> +1 (800) 555-0199</li>
-                    <li><i class="fas fa-envelope"></i> admissions@globaltech.edu</li>
+                    <li><i class="fas fa-phone"></i> <a href="tel:+18005550199" style="color: #cccccc; text-decoration: none;">+1 (800) 555-0199</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:admissions@globaltech.edu" style="color: #cccccc; text-decoration: none;">admissions@globaltech.edu</a></li>
                 </ul>
             </div>
         </div>
@@ -427,256 +449,167 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileMenu.querySelector('i');
-            if(navLinks.classList.contains('active')){
-                icon.classList.replace('fa-bars', 'fa-xmark');
-            } else {
-                icon.classList.replace('fa-xmark', 'fa-bars');
-            }
-        });
-
-        // Scroll Animations (Intersection Observer)
-        const fadeElements = document.querySelectorAll('.fade-up');
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('visible');
-                
-                // Trigger counter if it's a stats element
-                if (entry.target.classList.contains('stat-item')) {
-                    const counter = entry.target.querySelector('.counter');
-                    updateCounter(counter);
-                }
-                
-                observer.unobserve(entry.target);
-            });
-        }, observerOptions);
-
-        fadeElements.forEach(el => appearOnScroll.observe(el));
-
-        // Number Counter Animation
-        function updateCounter(counter) {
-            const target = +counter.getAttribute('data-target');
-            const duration = 2000; 
-            const increment = target / (duration / 16); 
-
-            let current = 0;
-            const update = () => {
-                current += increment;
-                if (current < target) {
-                    counter.innerText = Math.ceil(current).toLocaleString();
-                    requestAnimationFrame(update);
-                } else {
-                    counter.innerText = target.toLocaleString() + (target > 1000 ? '+' : '');
-                }
-            };
-            update();
-        }
-
-        // Carousel Functionality
-        const track = document.getElementById('track');
-        const slides = Array.from(track.children);
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        
-        let currentIndex = 0;
-        let slideInterval;
-
-        function updateCarousel() {
-            const slideWidth = slides[0].getBoundingClientRect().width;
-            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-        }
-
-        function moveToNextSlide() {
-            if (currentIndex === slides.length - 1) {
-                currentIndex = 0;
-            } else {
-                currentIndex++;
-            }
-            updateCarousel();
-        }
-
-        function moveToPrevSlide() {
-            if (currentIndex === 0) {
-                currentIndex = slides.length - 1;
-            } else {
-                currentIndex--;
-            }
-            updateCarousel();
-        }
-
-        nextBtn.addEventListener('click', () => {
-            moveToNextSlide();
-            resetInterval();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            moveToPrevSlide();
-            resetInterval();
-        });
-
-        // Autoplay
-        function startSlideShow() {
-            slideInterval = setInterval(moveToNextSlide, 5000);
-        }
-
-        function resetInterval() {
-            clearInterval(slideInterval);
-            startSlideShow();
-        }
-
-        // Handle resize for carousel
-        window.addEventListener('resize', updateCarousel);
-        
-        // Start autoplay
-        startSlideShow();
-    </script>
-    <style>
-    .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .chat-toggle-btn { width: 65px; height: 65px; background-color: #ff6b00; color: white; border: none; border-radius: 50%; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); cursor: pointer; font-size: 28px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
-    .chat-toggle-btn:hover { transform: scale(1.1); }
-    .chat-window { display: none; position: absolute; bottom: 85px; right: 0; width: 350px; height: 500px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
-    .chat-header { background-color: #111111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-    .chat-header h4 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-    .chat-header i.fa-robot { color: #ff6b00; }
-    .close-chat { background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; }
-    .chat-body { flex: 1; padding: 20px; overflow-y: auto; background-color: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
-    .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; }
-    .msg-bot { background-color: #eeeeee; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-    .msg-user { background-color: #ff6b00; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-    .chat-input-area { padding: 15px; background-color: white; border-top: 1px solid #ddd; display: flex; gap: 10px; }
-    .chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; font-size: 0.95rem; }
-    .chat-input-area input:focus { border-color: #ff6b00; }
-    .chat-send-btn { background-color: #111111; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
-    .chat-send-btn:hover { background-color: #ff6b00; }
-</style>
-
-<div class="chat-widget">
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h4><i class="fas fa-robot"></i> Global Tech Assistant</h4>
-            <button class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+    <div class="chat-widget">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4><i class="fas fa-robot"></i> Global Tech Assistant</h4>
+                <button class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="msg msg-bot">Hello! I am the Global Tech AI. Try asking me about 'fees', 'dorms', 'salaries', or say 'Take me to admissions'.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+                <button class="chat-send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
-        <div class="chat-body" id="chatBody">
-            <div class="msg msg-bot">Hello! I am the Global Tech AI. Try asking me about 'fees', 'dorms', 'salaries', or say 'Take me to admissions'.</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
-            <button class="chat-send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
+        <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="Open AI Assistant">
+            <i class="fas fa-comment-dots"></i>
+        </button>
     </div>
-    <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="Open AI Assistant">
-        <i class="fas fa-comment-dots"></i>
-    </button>
-</div>
+<style>
+        .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .chat-toggle-btn { width: 65px; height: 65px; background-color: #ff6b00; color: white; border: none; border-radius: 50%; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); cursor: pointer; font-size: 28px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+        .chat-toggle-btn:hover { transform: scale(1.1); }
+        .chat-window { display: none; position: absolute; bottom: 85px; right: 0; width: 350px; height: 500px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
+        .chat-header { background-color: #111111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-header h4 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .chat-header i.fa-robot { color: #ff6b00; }
+        .close-chat { background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background-color: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; }
+        .msg-bot { background-color: #eeeeee; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .msg-user { background-color: #ff6b00; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-input-area { padding: 15px; background-color: white; border-top: 1px solid #ddd; display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; font-size: 0.95rem; }
+        .chat-input-area input:focus { border-color: #ff6b00; }
+        .chat-send-btn { background-color: #111111; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
+        .chat-send-btn:hover { background-color: #ff6b00; }
+    </style>
 
-<script>
-    // --- UI Logic ---
-    const chatWindow = document.getElementById('chatWindow');
-    const chatBody = document.getElementById('chatBody');
-    const userInput = document.getElementById('userInput');
+    <div class="chat-widget">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4><i class="fas fa-robot"></i> Global Tech Assistant</h4>
+                <button class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="msg msg-bot">Hello! I am the Global Tech AI. Try asking me about 'fees', 'dorms', 'salaries', or say 'Take me to admissions'.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+                <button class="chat-send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="Open AI Assistant">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
 
-    function toggleChat() {
-        if (chatWindow.style.display === 'flex') {
-            chatWindow.style.display = 'none';
-        } else {
-            chatWindow.style.display = 'flex';
-        }
-    }
+    <script>
+        // --- Chatbot UI Logic & State Memory ---
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const userInput = document.getElementById('userInput');
 
-    function handleEnter(event) {
-        if (event.key === 'Enter') { sendMessage(); }
-    }
-
-    function sendMessage() {
-        const text = userInput.value.trim();
-        if (text === '') return;
-
-        addMessage(text, 'user');
-        userInput.value = '';
-
-        setTimeout(() => {
-            const botReply = generateBotResponse(text.toLowerCase());
-            addMessage(botReply.text, 'bot');
-            
-            if (botReply.redirect) {
-                setTimeout(() => { window.location.href = botReply.redirect; }, 1500);
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedChat = sessionStorage.getItem('globalTechChatHistory');
+            if (savedChat) {
+                chatBody.innerHTML = savedChat;
+                chatBody.scrollTop = chatBody.scrollHeight;
             }
-        }, 600); 
-    }
+            const isChatOpen = sessionStorage.getItem('globalTechChatState');
+            if (isChatOpen === 'true') {
+                chatWindow.style.display = 'flex';
+            }
+        });
 
-    function addMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'msg msg-' + sender; // Foolproof string formatting
-        msgDiv.innerText = text;
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    // --- The Smarter "Brain" (Synonym Arrays) ---
-    function generateBotResponse(input) {
-        let response = { text: "", redirect: null };
-        
-        const containsAny = (wordsArray) => wordsArray.some(word => input.includes(word));
-
-        // --- NAVIGATION COMMANDS ---
-        if (containsAny(['take me', 'go to', 'redirect', 'open', 'show me'])) {
-            if (containsAny(['admission', 'apply'])) {
-                response.text = "Navigating you to the Admissions portal..."; response.redirect = "admissions.html";
-            } else if (containsAny(['placement', 'job', 'career'])) {
-                response.text = "Taking you to the Placements office..."; response.redirect = "placements.html";
-            } else if (containsAny(['academic', 'course', 'major', 'degree'])) {
-                response.text = "Opening our Academic programs..."; response.redirect = "academics.html";
-            } else if (containsAny(['research', 'lab', 'urop'])) {
-                response.text = "Heading over to Research & Innovation..."; response.redirect = "research.html";
-            } else if (containsAny(['campus', 'life', 'dorm', 'hostel'])) {
-                response.text = "Let's explore the Campus facilities..."; response.redirect = "campus.html";
-            } else if (containsAny(['happening', 'event', 'fest'])) {
-                response.text = "Redirecting you to Campus Happenings..."; response.redirect = "happenings.html";
+        function toggleChat() {
+            if (chatWindow.style.display === 'flex') {
+                chatWindow.style.display = 'none';
+                sessionStorage.setItem('globalTechChatState', 'false');
             } else {
-                response.text = "I couldn't find that page. Try asking to go to Admissions, Placements, or Campus!";
+                chatWindow.style.display = 'flex';
+                sessionStorage.setItem('globalTechChatState', 'true');
             }
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') { sendMessage(); }
+        }
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (text === '') return;
+
+            addMessage(text, 'user');
+            userInput.value = '';
+
+            setTimeout(() => {
+                const botReply = generateBotResponse(text.toLowerCase());
+                addMessage(botReply.text, 'bot');
+                
+                if (botReply.redirect) {
+                    setTimeout(() => { window.location.href = botReply.redirect; }, 1500);
+                }
+            }, 600); 
+        }
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'msg msg-' + sender; 
+            msgDiv.innerText = text;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            sessionStorage.setItem('globalTechChatHistory', chatBody.innerHTML);
+        }
+
+        // --- The Chatbot Brain ---
+        function generateBotResponse(input) {
+            let response = { text: "", redirect: null };
+            const containsAny = (wordsArray) => wordsArray.some(word => input.includes(word));
+
+            if (containsAny(['take me', 'go to', 'redirect', 'open', 'show me'])) {
+                if (containsAny(['admission', 'apply'])) {
+                    response.text = "Navigating you to the Admissions portal..."; response.redirect = "admissions.html";
+                } else if (containsAny(['placement', 'job', 'career'])) {
+                    response.text = "Taking you to the Placements office..."; response.redirect = "placements.html";
+                } else if (containsAny(['academic', 'course', 'major', 'degree'])) {
+                    response.text = "Opening our Academic programs..."; response.redirect = "academics.html";
+                } else if (containsAny(['research', 'lab', 'urop'])) {
+                    response.text = "Heading over to Research & Innovation..."; response.redirect = "research.html";
+                } else if (containsAny(['campus', 'life', 'dorm', 'hostel'])) {
+                    response.text = "Let's explore the Campus facilities..."; response.redirect = "campus.html";
+                } else if (containsAny(['happening', 'event', 'fest'])) {
+                    response.text = "Redirecting you to Campus Happenings..."; response.redirect = "happenings.html";
+                } else {
+                    response.text = "I couldn't find that page. Try asking to go to Admissions, Placements, or Campus!";
+                }
+                return response;
+            }
+
+            if (containsAny(['fee', 'cost', 'tuition', 'price', 'pay'])) {
+                response.text = "Tuition is $18,500/semester. We also offer merit-based scholarships up to 40% based on your portfolio.";
+            } 
+            else if (containsAny(['hostel', 'dorm', 'housing', 'room', 'live'])) {
+                response.text = "We provide Tier-1 residential housing featuring high-speed Wi-Fi, 24/7 security, and fully furnished rooms.";
+            }
+            else if (containsAny(['placement', 'stat', 'salary', 'job', 'recruit', 'package'])) {
+                response.text = "Our placement rate is 96%! The highest package this year is 28.4 LPA. Top recruiters include Google, Microsoft, and Amazon.";
+            } 
+            else if (containsAny(['deadline', 'date', 'when'])) {
+                response.text = "Early action closes Nov 15th. Regular Decision is January 10th.";
+            }
+            else if (containsAny(['hi', 'hello', 'hey'])) {
+                response.text = "Hi there! I can explain our academics, admissions, placements, or navigate you to a specific page.";
+            } 
+            else {
+                response.text = "I am a prototype AI and I didn't quite catch that. Try asking about 'dorms', 'salaries', 'tuition', or say 'Take me to campus'.";
+            }
+
             return response;
         }
-
-        // --- INFORMATION COMMANDS ---
-        if (containsAny(['fee', 'cost', 'tuition', 'price', 'pay', 'expensive'])) {
-            response.text = "Tuition is $18,500/semester. We also offer merit-based scholarships up to 40% based on your application portfolio.";
-        } 
-        else if (containsAny(['hostel', 'dorm', 'housing', 'room', 'live', 'stay', 'bed'])) {
-            response.text = "We provide Tier-1 residential housing featuring high-speed Wi-Fi, 24/7 security, and fully furnished rooms for all engineering students.";
-        }
-        else if (containsAny(['placement', 'stat', 'salary', 'job', 'recruit', 'hire', 'package'])) {
-            response.text = "Our placement rate is 96%! The highest package this year is 28.4 LPA. Top recruiters include Google, Microsoft, Amazon, and Cisco.";
-        } 
-        else if (containsAny(['deadline', 'date', 'when'])) {
-            response.text = "Early action closes Nov 15th. Regular Decision is January 10th.";
-        }
-        else if (containsAny(['academic', 'course', 'program', 'major', 'study'])) {
-            response.text = "We offer programs in Embedded Systems & IoT, AR/VR & Spatial Computing, and Computer Science.";
-        } 
-        else if (containsAny(['hi', 'hello', 'hey', 'greetings'])) {
-            response.text = "Hi there! I can explain our academics, admissions, placements, or navigate you to a specific page. Try typing: 'Take me to placements'.";
-        } 
-        else {
-            response.text = "I am a prototype AI and I didn't quite catch that. Try asking about 'dorms', 'salaries', 'tuition', or say 'Take me to campus'.";
-        }
-
-        return response;
-    }
-</script>
-
+    </script>
+    
 </body>
 </html>
