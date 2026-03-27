@@ -7,6 +7,15 @@
     <title>Global Tech University | Innovating the Future</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Smooth Page Fade-In */
+body {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         /* --- Core Variables (High-Contrast Tech Theme) --- */
         :root {
             --primary-color: #111111; 
@@ -140,6 +149,7 @@
                 <a href="campus.html" target="_blank">Campus</a>
                 <a href="happenings.html" target="_blank">Happenings</a>
                 <a href="placements.html" target="_blank">Placement</a>
+                <a href="others.html" target="_blank">Others</a>
             </div>
         </nav>
     </header>
@@ -254,8 +264,8 @@
                 <h4>Contact Us</h4>
                 <ul>
                     <li><i class="fas fa-map-marker-alt"></i> University Campus Boulevard</li>
-                    <li><i class="fas fa-phone"></i> +1 (800) 555-0199</li>
-                    <li><i class="fas fa-envelope"></i> admissions@globaltech.edu</li>
+                    <li><i class="fas fa-phone"></i> <a href="tel:+18005550199" style="color: #cccccc; text-decoration: none;">+1 (800) 555-0199</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:admissions@globaltech.edu" style="color: #cccccc; text-decoration: none;">admissions@globaltech.edu</a></li>
                 </ul>
             </div>
         </div>
