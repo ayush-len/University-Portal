@@ -2,239 +2,178 @@
 <html lang="en">
 <head>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O-ZONE | Digital Ops</title>
+    <title>O-ZONE | Global Tech Events</title>
     <style>
-        /* --- CSS STYLING --- */
+        /* Smooth Page Fade-In */
+body {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+        /* --- EXISTING STYLES --- */
         :root {
-            --bg-black: #050505;
-            --card-bg: #111111;
+            --bg-light: #ffffff;
+            --bg-alt: #f8f9fa;
+            --card-bg: #ffffff;
             --orange: #ff6600;
-            --orange-dim: #cc5200;
-            --text-white: #ffffff;
-            --text-gray: #999999;
+            --orange-dim: #e65c00;
+            --text-dark: #1a1a1a;
+            --text-gray: #666666;
+            --border-color: #eeeeee;
         }
 
-        * {
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background-color: var(--bg-alt); color: var(--text-dark); }
 
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            background-color: var(--bg-black);
-            color: var(--text-white);
-        }
-
-        /* Navbar */
         .navbar {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(255, 255, 255, 0.98);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 8%;
-            border-bottom: 2px solid var(--orange);
+            padding: 15px 5%;
+            border-bottom: 3px solid var(--orange);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--orange);
-            letter-spacing: 2px;
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--orange); letter-spacing: 2px; text-decoration: none; }
+        .logo span { color: var(--text-dark); }
+
+        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; align-items: center; }
+        .nav-links li a { text-decoration: none; color: var(--text-dark); font-weight: 600; padding: 10px 12px; text-transform: uppercase; font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        .nav-links li a:hover { color: var(--orange); }
+
+        .dropdown-content { display: none; position: absolute; background-color: var(--bg-light); min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); top: 100%; left: 0; border: 1px solid var(--border-color); border-top: 2px solid var(--orange); border-radius: 0 0 4px 4px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { padding: 12px 16px !important; display: block; text-decoration: none; color: var(--text-dark); border-bottom: 1px solid var(--border-color); }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        header.page-header { text-align: center; margin-bottom: 50px; }
+        header.page-header h1 { font-size: 2.8rem; text-transform: uppercase; }
+        header.page-header h1 span { color: var(--orange); }
+
+        /* Grid & Cards */
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .event-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; }
+        .event-card:hover { transform: translateY(-8px); border-color: var(--orange); box-shadow: 0 10px 30px rgba(255, 102, 0, 0.15); }
+        .event-img { width: 100%; height: 200px; object-fit: cover; }
+        .event-info { padding: 25px; flex-grow: 1; }
+        .event-info h3 { margin: 0 0 12px 0; border-left: 4px solid var(--orange); padding-left: 10px; }
+
+        .btn-group { display: flex; gap: 12px; padding: 0 25px 25px 25px; }
+        .btn { flex: 1; padding: 12px; text-align: center; text-decoration: none; font-weight: bold; border-radius: 6px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; border: none; }
+        .btn-register { background: var(--orange); color: #fff; }
+        .btn-know { background: transparent; color: var(--orange); border: 1px solid var(--orange); }
+
+        /* --- NEW MODAL STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-        }
-
-        .nav-links li a {
-            text-decoration: none;
-            color: var(--text-white);
-            font-weight: 600;
-            cursor: pointer;
-            padding: 5px 10px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .nav-links li a:hover, .nav-links li a.active {
-            color: var(--orange);
-            text-shadow: 0 0 10px var(--orange);
-        }
-
-        /* Layout */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            color: var(--orange);
-            font-size: 2.8rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        /* Grid */
-        .event-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        /* Card with Hover Effect */
-        .event-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #222;
-            display: flex;
-            flex-direction: column;
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
             position: relative;
+            padding: 30px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease-out;
         }
 
-        .event-card:hover {
-            transform: translateY(-12px);
-            border-color: var(--orange);
-            box-shadow: 0 10px 40px rgba(255, 102, 0, 0.2);
-        }
+        @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .event-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid #222;
-        }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-gray); }
 
-        .event-info {
-            padding: 25px;
-            flex-grow: 1;
-        }
+        /* Form Styling */
+        .reg-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .reg-form input, .reg-form select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        .reg-form label { font-weight: 600; margin-bottom: -10px; font-size: 0.9rem; color: var(--text-gray); }
 
-        .event-info h3 {
-            margin: 0 0 12px 0;
-            color: var(--orange);
-            font-size: 1.4rem;
-            text-transform: uppercase;
-        }
+        .detail-tag { display: inline-block; background: #fff3e0; color: var(--orange); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
 
-        .event-info p {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        /* Buttons */
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            padding: 0 25px 25px 25px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 6px;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-
-        .btn-register {
-            background: var(--orange);
-            color: #000;
-        }
-
-        .btn-register:hover {
-            background: var(--text-white);
-        }
-
-        .btn-know {
-            background: transparent;
-            color: var(--orange);
-            border: 1px solid var(--orange);
-        }
-
-        .btn-know:hover {
-            background: rgba(255, 102, 0, 0.1);
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px;
-            color: #333;
-            border-top: 1px solid #111;
-        }
+        /* Chat Widget & Footer (remains same) */
+        .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1500; }
+        .chat-toggle-btn { width: 65px; height: 65px; background-color: var(--orange); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 28px; }
+        footer { text-align: center; padding: 40px; color: var(--text-gray); background: var(--bg-light); }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">EVENTS-ZONE</div>
+        <a href="#" class="logo">Global<span>Tech</span></a>
         <ul class="nav-links">
-            <li><a id="ongoing-tab" onclick="render('ongoing')" >ONGOING EVENTS</a></li>
-            <li><a id="upcoming-tab" onclick="render('upcoming')">UPCOMING EVENTS</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="academics.html">Academics</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="campus.html">Campus</a></li>
+            <li class="dropdown">
+                <a href="#" style="color: var(--orange);">Happenings <i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#" onclick="render('upcoming')">Upcoming Events</a>
+                    <a href="#" onclick="render('ongoing')">Ongoing Events</a>
+                </div>
+            </li>
+            <li><a href="placements.html">Placement</a></li>
+            <li><a href="others.html">Others</a></li>
         </ul>
     </nav>
 
     <main class="container">
-        <header>
-            <h1 id="page-title">Ongoing Events</h1>
-            <!-- <h1 id="page-title">Ongoing Events</h1> -->
-            <p style="color: #555;">Select an active sector to proceed with registration.</p>
+        <header class="page-header">
+            <h1 id="page-title">Ongoing <span>Events</span></h1>
+            <p style="color: var(--text-gray);">Select an active mission to proceed with registration.</p>
         </header>
 
-        <div id="grid" class="event-grid">
-            </div>
+        <div id="grid" class="event-grid"></div>
     </main>
 
-    <footer>&copy; 2026 O-ZONE COMMAND CENTER</footer>
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 O-ZONE COMMAND CENTER | GLOBAL TECH INTERFACE
+    </footer>
 
     <script>
         const database = {
             ongoing: [
-                { title: "HACKATHON", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", desc: "48 hours of intense coding and hardware exploitation." },
-                { title: "MYSTIC VAULT", img: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?w=400", desc: "Decipher the ancient digital codes hidden in the server." },
-                { title: "VAULT OF TRIALS", img: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400", desc: "A gauntlet of cybersecurity puzzles for the brave." },
-                { title: "ECO CANVAS", img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400", desc: "Digital art movement focused on environmental repair." },
-                { title: "MAYDAY", img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400", desc: "Global stress-test simulation for emergency protocols." },
-                { title: "THE CRISIS MARKET", img: "https://img.freepik.com/premium-vector/crisis-stock-crash-market-loss-trading-investment-indicators-downturn-vector-stock-exchange-market-financial-business-crisis-economic-fall-down-with-flow-charts-diagram_8071-6534.jpg?w=360", desc: "Trade assets in a simulated high-stakes economic collapse." }
+                { id: 1, title: "HACKATHON", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", desc: "48 hours of intense coding and hardware exploitation.", fullDesc: "Join 500+ developers in our annual flagship hackathon. Categories include Web3, AI Safety, and Cyber-Defense. Hardware kits provided on-site. Prize pool: $50,000.", date: "March 28-30, 2026", location: "Sector 7 Labs" },
+                { id: 2, title: "MYSTIC VAULT", img: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?w=400", desc: "Decipher the ancient digital codes hidden in the server.", fullDesc: "A digital archaeology challenge. Participants must navigate through legacy systems to find hidden 'Easter eggs' and data fragments. Perfect for those interested in reverse engineering.", date: "Ongoing", location: "Virtual Hub" },
+                { id: 3, title: "THE CRISIS MARKET", img: "https://img.freepik.com/premium-vector/crisis-stock-crash-market-loss-trading-investment-indicators-downturn-vector-stock-exchange-market-financial-business-crisis-economic-fall-down-with-flow-charts-diagram_8071-6534.jpg?w=360", desc: "Trade assets in a simulated high-stakes economic collapse.", fullDesc: "Test your financial nerves. A real-time simulator where market events trigger drastic shifts. Learn risk management and algorithmic trading under pressure.", date: "Daily Sessions", location: "Finance Wing" }
             ],
             upcoming: [
-                { title: "CODEATHON", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500", desc: "The regional qualifiers for the next major coding league." },
-                { title: "SPARK GRID", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", desc: "Revolutionizing distributed energy grids via smart contracts." },
-                { title: "CHAINREACTION", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", desc: "Exploring the limits of blockchain scalability and speed." },
-                { title: "TREBLE CLEF", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500", desc: "AI-driven musical composition and sound design festival." }
+                { id: 4, title: "CODEATHON", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500", desc: "The regional qualifiers for the next major coding league.", fullDesc: "Competitive programming at its finest. Algorithmic puzzles across 5 difficulty levels. Top 10 participants advance to the National Finals in June.", date: "April 15, 2026", location: "Main Auditorium" },
+                { id: 5, title: "TREBLE CLEF", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500", desc: "AI-driven musical composition and sound design festival.", fullDesc: "A workshop and performance festival where AI creates music in real-time. Learn how to use Generative Adversarial Networks (GANs) for audio synthesis.", date: "May 02, 2026", location: "Digital Arts Plaza" }
             ]
         };
 
         function render(type) {
             const grid = document.getElementById('grid');
             const title = document.getElementById('page-title');
-            
-            // Tab Toggle
-            document.getElementById('ongoing-tab').classList.toggle('active', type === 'ongoing');
-            document.getElementById('upcoming-tab').classList.toggle('active', type === 'upcoming');
-            title.innerText = type === 'ongoing' ? "Ongoing Operations" : "Upcoming Missions";
-
+            title.innerHTML = type === 'ongoing' ? "Ongoing <span>Operations</span>" : "Upcoming <span>Missions</span>";
             grid.innerHTML = '';
 
             database[type].forEach(event => {
@@ -246,150 +185,74 @@
                             <p>${event.desc}</p>
                         </div>
                         <div class="btn-group">
-                            <a href="#" class="btn btn-know">Know More</a>
-                            <a href="#" class="btn btn-register">Register</a>
+                            <button class="btn btn-know" onclick="openDetails('${type}', ${event.id})">Know More</button>
+                            <button class="btn btn-register" onclick="openRegister('${type}', ${event.id})">Register</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Initialize with Ongoing
+        // Modal Logic
+        const modal = document.getElementById('eventModal');
+        const modalBody = document.getElementById('modalBody');
+
+        function openDetails(type, id) {
+            const event = database[type].find(e => e.id === id);
+            modalBody.innerHTML = `
+                <div class="detail-tag">${event.date}</div>
+                <h2 style="color: var(--orange); margin-top:0;">${event.title}</h2>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+                <p style="line-height:1.6; color:#444;">${event.fullDesc}</p>
+                <button class="btn btn-register" style="width:100%; margin-top:20px;" onclick="openRegister('${type}', ${id})">Join Mission Now</button>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function openRegister(type, id) {
+            const event = database[type].find(e => e.id === id);
+            modalBody.innerHTML = `
+                <h2 style="margin-top:0;">Register for <span style="color:var(--orange)">${event.title}</span></h2>
+                <p style="font-size:0.9rem; color:var(--text-gray)">Complete the form to secure your spot in this operation.</p>
+                
+                <form class="reg-form" onsubmit="handleForm(event)">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                    
+                    <label>Email Address</label>
+                    <input type="email" placeholder="agent@globaltech.com" required>
+                    
+                    <label>Skill Level</label>
+                    <select>
+                        <option>Novice (Level 1)</option>
+                        <option>Expert (Level 5)</option>
+                        <option>Elite (Legendary)</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-register" style="margin-top:10px;">Confirm Registration</button>
+                </form>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() { modal.style.display = 'none'; }
+        
+        window.onclick = (event) => { if (event.target == modal) closeModal(); }
+
+        function handleForm(e) {
+            e.preventDefault();
+            modalBody.innerHTML = `
+                <div style="text-align:center; padding: 40px 0;">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: #4caf50; margin-bottom: 20px;"></i>
+                    <h2>Registration Complete!</h2>
+                    <p>Check your email for the mission briefing and access codes.</p>
+                    <button class="btn btn-know" onclick="closeModal()">Back to Dashboard</button>
+                </div>
+            `;
+        }
+
         window.onload = () => render('ongoing');
     </script>
-    <style>
-    .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .chat-toggle-btn { width: 65px; height: 65px; background-color: #ff6b00; color: white; border: none; border-radius: 50%; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); cursor: pointer; font-size: 28px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
-    .chat-toggle-btn:hover { transform: scale(1.1); }
-    .chat-window { display: none; position: absolute; bottom: 85px; right: 0; width: 350px; height: 500px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
-    .chat-header { background-color: #111111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-    .chat-header h4 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-    .chat-header i.fa-robot { color: #ff6b00; }
-    .close-chat { background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; }
-    .chat-body { flex: 1; padding: 20px; overflow-y: auto; background-color: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
-    .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; }
-    .msg-bot { background-color: #eeeeee; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-    .msg-user { background-color: #ff6b00; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-    .chat-input-area { padding: 15px; background-color: white; border-top: 1px solid #ddd; display: flex; gap: 10px; }
-    .chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; font-size: 0.95rem; }
-    .chat-input-area input:focus { border-color: #ff6b00; }
-    .chat-send-btn { background-color: #111111; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
-    .chat-send-btn:hover { background-color: #ff6b00; }
-</style>
-
-<div class="chat-widget">
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h4><i class="fas fa-robot"></i> Global Tech Assistant</h4>
-            <button class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="msg msg-bot">Hello! I am the Global Tech AI. Try asking me about 'fees', 'dorms', 'salaries', or say 'Take me to admissions'.</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
-            <button class="chat-send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-    <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="Open AI Assistant">
-        <i class="fas fa-comment-dots"></i>
-    </button>
-</div>
-
-<script>
-    // --- UI Logic ---
-    const chatWindow = document.getElementById('chatWindow');
-    const chatBody = document.getElementById('chatBody');
-    const userInput = document.getElementById('userInput');
-
-    function toggleChat() {
-        if (chatWindow.style.display === 'flex') {
-            chatWindow.style.display = 'none';
-        } else {
-            chatWindow.style.display = 'flex';
-        }
-    }
-
-    function handleEnter(event) {
-        if (event.key === 'Enter') { sendMessage(); }
-    }
-
-    function sendMessage() {
-        const text = userInput.value.trim();
-        if (text === '') return;
-
-        addMessage(text, 'user');
-        userInput.value = '';
-
-        setTimeout(() => {
-            const botReply = generateBotResponse(text.toLowerCase());
-            addMessage(botReply.text, 'bot');
-            
-            if (botReply.redirect) {
-                setTimeout(() => { window.location.href = botReply.redirect; }, 1500);
-            }
-        }, 600); 
-    }
-
-    function addMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'msg msg-' + sender; // Foolproof string formatting
-        msgDiv.innerText = text;
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    // --- The Smarter "Brain" (Synonym Arrays) ---
-    function generateBotResponse(input) {
-        let response = { text: "", redirect: null };
-        
-        const containsAny = (wordsArray) => wordsArray.some(word => input.includes(word));
-
-        // --- NAVIGATION COMMANDS ---
-        if (containsAny(['take me', 'go to', 'redirect', 'open', 'show me'])) {
-            if (containsAny(['admission', 'apply'])) {
-                response.text = "Navigating you to the Admissions portal..."; response.redirect = "admissions.html";
-            } else if (containsAny(['placement', 'job', 'career'])) {
-                response.text = "Taking you to the Placements office..."; response.redirect = "placements.html";
-            } else if (containsAny(['academic', 'course', 'major', 'degree'])) {
-                response.text = "Opening our Academic programs..."; response.redirect = "academics.html";
-            } else if (containsAny(['research', 'lab', 'urop'])) {
-                response.text = "Heading over to Research & Innovation..."; response.redirect = "research.html";
-            } else if (containsAny(['campus', 'life', 'dorm', 'hostel'])) {
-                response.text = "Let's explore the Campus facilities..."; response.redirect = "campus.html";
-            } else if (containsAny(['happening', 'event', 'fest'])) {
-                response.text = "Redirecting you to Campus Happenings..."; response.redirect = "happenings.html";
-            } else {
-                response.text = "I couldn't find that page. Try asking to go to Admissions, Placements, or Campus!";
-            }
-            return response;
-        }
-
-        // --- INFORMATION COMMANDS ---
-        if (containsAny(['fee', 'cost', 'tuition', 'price', 'pay', 'expensive'])) {
-            response.text = "Tuition is $18,500/semester. We also offer merit-based scholarships up to 40% based on your application portfolio.";
-        } 
-        else if (containsAny(['hostel', 'dorm', 'housing', 'room', 'live', 'stay', 'bed'])) {
-            response.text = "We provide Tier-1 residential housing featuring high-speed Wi-Fi, 24/7 security, and fully furnished rooms for all engineering students.";
-        }
-        else if (containsAny(['placement', 'stat', 'salary', 'job', 'recruit', 'hire', 'package'])) {
-            response.text = "Our placement rate is 96%! The highest package this year is 28.4 LPA. Top recruiters include Google, Microsoft, Amazon, and Cisco.";
-        } 
-        else if (containsAny(['deadline', 'date', 'when'])) {
-            response.text = "Early action closes Nov 15th. Regular Decision is January 10th.";
-        }
-        else if (containsAny(['academic', 'course', 'program', 'major', 'study'])) {
-            response.text = "We offer programs in Embedded Systems & IoT, AR/VR & Spatial Computing, and Computer Science.";
-        } 
-        else if (containsAny(['hi', 'hello', 'hey', 'greetings'])) {
-            response.text = "Hi there! I can explain our academics, admissions, placements, or navigate you to a specific page. Try typing: 'Take me to placements'.";
-        } 
-        else {
-            response.text = "I am a prototype AI and I didn't quite catch that. Try asking about 'dorms', 'salaries', 'tuition', or say 'Take me to campus'.";
-        }
-
-        return response;
-    }
-</script>
 </body>
 </html>
