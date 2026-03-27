@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,81 +6,121 @@
     <title>Global Tech University | Innovating the Future</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- Core Variables & Reset --- */
+        /* --- Core Variables (High-Contrast Tech Theme) --- */
         :root {
-            --primary-color: #0f172a;
-            --secondary-color: #3b82f6;
-            --accent-color: #1d4ed8;
-            --bg-light: #f8fafc;
-            --text-main: #334155;
-            --text-light: #94a3b8;
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --border-color: #dddddd;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
         html { scroll-behavior: smooth; }
 
-        /* --- Navigation --- */
-        header { background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        /* --- Global Navigation --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
         .logo span { color: var(--secondary-color); }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--secondary-color); }
-        .btn-apply { background-color: var(--secondary-color); color: white !important; padding: 0.5rem 1.5rem; border-radius: 25px; transition: background 0.3s; }
-        .btn-apply:hover { background-color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
 
-        /* --- Hero Section --- */
+        /* --- Dark Hero Section --- */
         .hero { 
-            height: 80vh; 
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;
+            height: 85vh; 
+            background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.9)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); padding: 0 20px;
+            border-bottom: 5px solid var(--secondary-color);
         }
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-inline: auto; }
+        .hero-content h1 { font-size: 4rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 700px; margin-inline: auto; color: #cccccc; }
         .hero-btns { display: flex; gap: 1rem; justify-content: center; }
-        .btn-primary, .btn-secondary { padding: 0.8rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s; }
-        .btn-primary { background-color: var(--secondary-color); color: white; }
-        .btn-secondary { background-color: transparent; border: 2px solid white; color: white; }
-        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); }
+        .btn-primary, .btn-secondary { padding: 0.8rem 2rem; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, background 0.3s; }
+        .btn-primary { background-color: var(--secondary-color); color: var(--white); border: 2px solid var(--secondary-color); }
+        .btn-secondary { background-color: transparent; border: 2px solid var(--white); color: var(--white); }
+        .btn-primary:hover { background-color: var(--accent-color); border-color: var(--accent-color); transform: translateY(-3px); }
+        .btn-secondary:hover { background-color: var(--white); color: var(--primary-color); transform: translateY(-3px); }
 
-        /* --- Stats Strip --- */
-        .stats { display: flex; justify-content: space-around; background-color: white; padding: 3rem 5%; box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 2rem; }
+        /* --- Stats Strip (Inverted Dark Theme) --- */
+        .stats { display: flex; justify-content: space-around; background-color: var(--primary-color); color: var(--white); padding: 3.5rem 5%; box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 2rem; }
         .stat-item { text-align: center; }
-        .stat-item h3 { font-size: 2.5rem; color: var(--secondary-color); }
-        .stat-item p { font-weight: 600; color: var(--text-light); text-transform: uppercase; font-size: 0.9rem; }
+        .stat-item h3 { font-size: 3rem; color: var(--secondary-color); line-height: 1; margin-bottom: 5px; }
+        .stat-item p { font-weight: 600; color: #aaaaaa; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
 
-        /* --- Section Styling (Academics & Campus) --- */
-        .section-header { text-align: center; margin: 5rem 0 3rem; }
-        .section-header h2 { font-size: 2.5rem; color: var(--primary-color); }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 0 5%; max-width: 1400px; margin: auto; }
+        /* --- Section Styling --- */
+        .section-header { text-align: center; margin: 6rem 0 3rem; }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; }
+        .section-header p { color: var(--text-light); font-size: 1.1rem; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; padding: 0 5%; max-width: 1400px; margin: auto; }
         
-        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .card-img { height: 200px; background-color: #ddd; background-size: cover; background-position: center; }
-        .card-content { padding: 1.5rem; }
-        .card-content h3 { margin-bottom: 0.5rem; color: var(--primary-color); }
+        /* --- Academic Cards (Sharp Edges + Image Zoom) --- */
+        .card { 
+            background: var(--white); 
+            border-radius: 0; /* Sharp engineering edges */
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            position: relative;
+        }
+        /* Top orange hover bar */
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background-color: var(--secondary-color); transform: scaleX(0); transition: transform 0.3s ease-in-out; transform-origin: left; z-index: 10; }
+        .card:hover::before { transform: scaleX(1); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        
+        .card-img-wrapper { height: 220px; overflow: hidden; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .card:hover .card-img-wrapper img { transform: scale(1.1); } /* Image zoom effect */
+        
+        .card-content { padding: 2rem; }
+        .card-content h3 { margin-bottom: 0.5rem; color: var(--primary-color); font-size: 1.4rem; }
         .card-content p { color: var(--text-light); margin-bottom: 1.5rem; }
-        .card-link { color: var(--secondary-color); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; }
+        .card-link { color: var(--secondary-color); text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 0.5rem; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        .card-link i { transition: transform 0.3s; }
+        .card:hover .card-link i { transform: translateX(5px); }
+
+        /* --- Campus Cards (Dark Interactive Overlays) --- */
+        .campus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; padding: 0 5%; max-width: 1400px; margin: auto; margin-bottom: 5rem;}
+        .campus-card {
+            position: relative;
+            height: 350px;
+            background-color: var(--primary-color);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .campus-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: transform 0.6s ease, opacity 0.6s ease; }
+        .campus-card:hover img { transform: scale(1.05); opacity: 0.2; } /* Darkens on hover */
         
+        .campus-content { position: absolute; bottom: 30px; left: 30px; right: 30px; transition: transform 0.4s ease; }
+        .campus-card:hover .campus-content { transform: translateY(-10px); }
+        .campus-content h3 { font-size: 2rem; color: var(--white); margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .campus-content p { color: #cccccc; font-size: 1rem; opacity: 0; transition: opacity 0.4s ease; transform: translateY(10px); }
+        .campus-card:hover .campus-content p { opacity: 1; transform: translateY(0); }
+
         /* --- Footer --- */
-        footer { background-color: var(--primary-color); color: white; padding: 4rem 5% 2rem; margin-top: 5rem; }
+        footer { background-color: var(--primary-color); color: var(--white); padding: 4rem 5% 2rem; margin-top: 5rem; border-top: 1px solid #222; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
         .footer-col h4 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary-color); }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 0.8rem; }
         .footer-col a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
-        .footer-col a:hover { color: white; }
+        .footer-col a:hover { color: var(--white); }
         .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-size: 0.9rem; }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
             .hero-content h1 { font-size: 2.5rem; }
             .hero-btns { flex-direction: column; }
+            .campus-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -92,10 +131,14 @@
             <a href="index.html" class="logo">Global<span>Tech</span></a>
             <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
             <div class="nav-links" id="nav-links">
-                <a href="index.html">Home</a>
-                <a href="academics.html">Academics</a>
-                <a href="campus.html">CAmpus Life</a>
-                <a href="index.html" class="btn-apply">Apply Now</a>
+                <a href="index.html" style="color: var(--secondary-color);">Home</a>
+                <a href="about.html" target="_blank">About</a>
+                <a href="academics.html" target="_blank">Academics</a>
+                <a href="admissions.html" target="_blank">Admissions</a>
+                <a href="research.html" target="_blank">Research</a>
+                <a href="campus.html" target="_blank">Campus</a>
+                <a href="happenings.html" target="_blank">Happenings</a>
+                <a href="placements.html" target="_blank">Placement</a>
             </div>
         </nav>
     </header>
@@ -105,8 +148,8 @@
             <h1>Engineer Your Future</h1>
             <p>Join a world-class institution dedicated to hands-on learning, emerging technologies, and shaping the innovators of tomorrow.</p>
             <div class="hero-btns">
-                <a href="#admissions" class="btn-primary">Start Application</a>
-                <a href="#campus" class="btn-secondary">Explore Campus</a>
+                <a href="admissions.html" class="btn-primary">Start Application</a>
+                <!-- <a href="campus.html" class="btn-secondary">Explore Campus</a> -->
             </div>
         </div>
     </section>
@@ -133,27 +176,33 @@
         </div>
         <div class="grid-container">
             <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hardware Engineering">
+                </div>
                 <div class="card-content">
                     <h3>Embedded Systems & IoT</h3>
                     <p>Master microcontrollers, sensor integration, and build interconnected hardware systems from the ground up.</p>
-                    <a href="#" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
+                    <a href="academics.html" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1617802690992-15d93263d3a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="AR/VR Development">
+                </div>
                 <div class="card-content">
                     <h3>AR/VR & Spatial Computing</h3>
                     <p>Develop immersive Augmented Reality applications using industry-standard game engines and 3D modeling.</p>
-                    <a href="#" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
+                    <a href="academics.html" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Computer Science">
+                </div>
                 <div class="card-content">
                     <h3>Computer Science</h3>
                     <p>Core foundations in algorithms, machine learning, and advanced software engineering principles.</p>
-                    <a href="#" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
+                    <a href="academics.html" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -164,39 +213,40 @@
             <h2>Campus & Facilities</h2>
             <p>Where ideas become reality.</p>
         </div>
-        <div class="grid-container">
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
+        <div class="campus-grid">
+            
+            <div class="campus-card" onclick="window.location.href='campus.html';">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="IdeaLAB">
+                <div class="campus-content">
                     <h3>The IdeaLAB Center</h3>
-                    <p>Our premier prototyping facility featuring advanced 3D printers, laser cutters, and hardware testing benches.</p>
-                    <a href="#" class="card-link">Explore the Lab <i class="fas fa-arrow-right"></i></a>
+                    <p>Our premier prototyping facility featuring advanced 3D printers, laser cutters, and robotics testing benches. Open 24/7 for engineering students.</p>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
+
+            <div class="campus-card" onclick="window.location.href='happenings.html';">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Tech Fest">
+                <div class="campus-content">
                     <h3>Annual Techno-Cultural Fest</h3>
-                    <p>Participate in 24-hour hackathons, robotics competitions, and major cultural performances.</p>
-                    <a href="#" class="card-link">See Event Gallery <i class="fas fa-arrow-right"></i></a>
+                    <p>Join thousands of peers in 24-hour hackathons, e-sports tournaments, and massive live music performances during our flagship spring event.</p>
                 </div>
             </div>
+
         </div>
     </section>
 
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="#" class="logo" style="color: white;">Global<span style="color: var(--secondary-color);">Tech</span></a>
+                <a href="index.html" class="logo" style="color: white;">Global<span style="color: var(--secondary-color);">Tech</span></a>
                 <p style="margin-top: 1rem; color: #cbd5e1;">Creating the next generation of engineering leaders through innovation and hands-on experience.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#academics">Academic Departments</a></li>
-                    <li><a href="#admissions">Admissions & Aid</a></li>
-                    <li><a href="#campus">Student Life</a></li>
-                    <li><a href="#">Alumni Network</a></li>
+                    <li><a href="academics.html">Academic Departments</a></li>
+                    <li><a href="admissions.html">Admissions & Aid</a></li>
+                    <li><a href="campus.html">Student Life</a></li>
+                    <li><a href="placements.html">Placement Office</a></li>
                 </ul>
             </div>
             <div class="footer-col">
