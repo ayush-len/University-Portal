@@ -3,84 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Tech University | Innovating the Future</title>
+    <title>Academics | Global Tech University</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- Core Variables & Reset --- */
+        /* --- Global Tech Theme Variables --- */
         :root {
-            --primary-color: #0f172a;
-            --secondary-color: #3b82f6;
-            --accent-color: #1d4ed8;
-            --bg-light: #f8fafc;
-            --text-main: #334155;
-            --text-light: #94a3b8;
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --text-main: #222222; /* Slightly darker for editorial readability */
+            --text-light: #555555;
+            --white: #ffffff;
+            --border-color: #dddddd;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+        body { background-color: var(--white); color: var(--text-main); line-height: 1.6; }
         html { scroll-behavior: smooth; }
 
-        /* --- Navigation --- */
-        header { background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        /* --- Global Navigation --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
         .logo span { color: var(--secondary-color); }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--secondary-color); }
-        .btn-apply { background-color: var(--secondary-color); color: white !important; padding: 0.5rem 1.5rem; border-radius: 25px; transition: background 0.3s; }
-        .btn-apply:hover { background-color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
 
-        /* --- Hero Section --- */
-        .hero { 
-            height: 80vh; 
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;
+        /* --- Stanford-Style Editorial Hero --- */
+        .editorial-hero { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            min-height: 80vh; 
+            background-color: var(--bg-light);
         }
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-inline: auto; }
-        .hero-btns { display: flex; gap: 1rem; justify-content: center; }
-        .btn-primary, .btn-secondary { padding: 0.8rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s; }
-        .btn-primary { background-color: var(--secondary-color); color: white; }
-        .btn-secondary { background-color: transparent; border: 2px solid white; color: white; }
-        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); }
+        .hero-text-box { 
+            padding: 8rem 5% 5rem 10%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+        }
+        .hero-kicker { 
+            color: var(--secondary-color); 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 1rem; 
+            font-size: 0.9rem;
+        }
+        .editorial-hero h1 { 
+            font-size: 4.5rem; 
+            line-height: 1.1; 
+            color: var(--primary-color); 
+            margin-bottom: 1.5rem; 
+            letter-spacing: -1.5px; 
+        }
+        .editorial-hero p { 
+            font-size: 1.2rem; 
+            color: var(--text-light); 
+            max-width: 500px; 
+            margin-bottom: 2.5rem; 
+        }
+        .hero-img-box { 
+            background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); 
+            background-size: cover; 
+            background-position: center; 
+            position: relative;
+        }
+        /* Orange decorative accent line */
+        .hero-img-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 10px;
+            background-color: var(--secondary-color);
+        }
 
-        /* --- Stats Strip --- */
-        .stats { display: flex; justify-content: space-around; background-color: white; padding: 3rem 5%; box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 2rem; }
-        .stat-item { text-align: center; }
-        .stat-item h3 { font-size: 2.5rem; color: var(--secondary-color); }
-        .stat-item p { font-weight: 600; color: var(--text-light); text-transform: uppercase; font-size: 0.9rem; }
+        /* --- Philosophy Section (Large Typography) --- */
+        .philosophy { 
+            padding: 6rem 5%; 
+            background-color: var(--primary-color); 
+            color: var(--white); 
+            text-align: center; 
+        }
+        .philosophy h2 { 
+            font-size: 2.5rem; 
+            font-weight: 300; 
+            max-width: 900px; 
+            margin: auto; 
+            line-height: 1.4; 
+        }
+        .philosophy strong { color: var(--secondary-color); font-weight: 700; }
 
-        /* --- Section Styling (Academics & Campus) --- */
-        .section-header { text-align: center; margin: 5rem 0 3rem; }
-        .section-header h2 { font-size: 2.5rem; color: var(--primary-color); }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 0 5%; max-width: 1400px; margin: auto; }
+        /* --- Academic Schools Grid (Magazine Style) --- */
+        .schools-section { padding: 6rem 5%; max-width: 1400px; margin: auto; }
+        .section-header { margin-bottom: 4rem; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem; }
+        .section-header h2 { font-size: 3rem; color: var(--primary-color); letter-spacing: -1px; }
         
-        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .card-img { height: 200px; background-color: #ddd; background-size: cover; background-position: center; }
-        .card-content { padding: 1.5rem; }
-        .card-content h3 { margin-bottom: 0.5rem; color: var(--primary-color); }
-        .card-content p { color: var(--text-light); margin-bottom: 1.5rem; }
-        .card-link { color: var(--secondary-color); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; }
-        
+        .schools-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 3rem; 
+        }
+        .school-card { 
+            text-decoration: none; 
+            color: inherit; 
+            display: block; 
+            group: hover;
+        }
+        .school-img { 
+            width: 100%; 
+            height: 280px; 
+            background-color: #eee; 
+            margin-bottom: 1.5rem; 
+            overflow: hidden; 
+        }
+        .school-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.6s ease; 
+            filter: grayscale(20%);
+        }
+        .school-card:hover .school-img img { 
+            transform: scale(1.05); 
+            filter: grayscale(0%);
+        }
+        .school-card h3 { 
+            font-size: 1.8rem; 
+            color: var(--primary-color); 
+            margin-bottom: 0.5rem; 
+            transition: color 0.3s; 
+        }
+        .school-card:hover h3 { color: var(--secondary-color); }
+        .school-card p { color: var(--text-light); margin-bottom: 1rem; }
+        .explore-link { 
+            font-weight: 700; 
+            color: var(--primary-color); 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            letter-spacing: 1px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 5px; 
+        }
+        .school-card:hover .explore-link i { transform: translateX(5px); color: var(--secondary-color); }
+        .explore-link i { transition: transform 0.3s, color 0.3s; }
+
+        /* --- Interdisciplinary Banner --- */
+        .interdisciplinary { 
+            margin: 4rem 5% 8rem; 
+            display: flex; 
+            background-color: var(--bg-light); 
+            border-left: 8px solid var(--secondary-color);
+        }
+        .id-content { padding: 4rem; flex: 1; }
+        .id-content h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-color); }
+        .id-content p { font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem; max-width: 600px; }
+        .btn-solid { background-color: var(--primary-color); color: var(--white); padding: 1rem 2rem; text-decoration: none; font-weight: bold; transition: background 0.3s; display: inline-block; }
+        .btn-solid:hover { background-color: var(--secondary-color); }
+
         /* --- Footer --- */
-        footer { background-color: var(--primary-color); color: white; padding: 4rem 5% 2rem; margin-top: 5rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-col h4 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary-color); }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 0.8rem; }
-        .footer-col a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
-        .footer-col a:hover { color: white; }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-size: 0.9rem; }
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--white); text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .footer-logo span { color: var(--secondary-color); }
 
         /* --- Mobile Responsiveness --- */
+        @media (max-width: 900px) {
+            .editorial-hero { grid-template-columns: 1fr; }
+            .hero-text-box { padding: 5rem 5%; text-align: center; align-items: center; }
+            .editorial-hero h1 { font-size: 3rem; }
+            .hero-img-box { min-height: 300px; }
+            .hero-img-box::before { width: 100%; height: 8px; bottom: 0; top: auto; }
+            .interdisciplinary { flex-direction: column; margin: 2rem 5% 4rem; }
+            .id-content { padding: 2rem; }
+            .section-header { flex-direction: column; align-items: flex-start; }
+        }
         @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-btns { flex-direction: column; }
         }
     </style>
 </head>
@@ -89,91 +193,101 @@
     <header>
         <nav class="nav-container">
             <a href="index.html" class="logo">Global<span>Tech</span></a>
-    
             <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
-    
             <div class="nav-links" id="nav-links">
-                <a href="index.html">Home</a>
-                <a href="academics.html">Academics</a>
-                <a href="campus.html">Campus Life</a>
-        
-                <a href="index.html" class="btn-apply">Apply Now</a>
+                <a href="index.html" target="_blank">Home</a>
+                <a href="about.html" target="_blank">About</a>
+                <a href="academics.html"  target="_blank">Academics</a>
+                <a href="admissions.html" target="_blank">Admissions</a>
+                <a href="research.html" target="_blank">Research</a>
+                <a href="placements.html" target="_blank">Placements</a>
+                <a href="happenings.html" target="_blank">Happenings</a>
             </div>
         </nav>
     </header>
 
-
-    <section id="academics">
-        <div class="section-header">
-            <h2>Pioneering Academic Programs</h2>
-            <p>Curriculums designed to meet the demands of Industry 4.0</p>
+    <section class="editorial-hero">
+        <div class="hero-text-box">
+            <span class="hero-kicker">Education & Discovery</span>
+            <h1>Where rigorous inquiry meets bold innovation.</h1>
+            <p>Our curriculum is designed not just to teach the current state of technology, but to give you the theoretical foundation to build what comes next.</p>
         </div>
-        <div class="grid-container">
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
-                    <h3>Embedded Systems & IoT</h3>
-                    <p>Master microcontrollers, sensor integration, and build interconnected hardware systems from the ground up.</p>
-                    <a href="#" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
+        <div class="hero-img-box"></div>
+    </section>
+
+    <section class="philosophy">
+        <h2>"We do not train students to memorize solutions. We train engineers to <strong>deconstruct the impossible</strong> into solvable algorithms."</h2>
+    </section>
+
+    <section class="schools-section">
+        <div class="section-header">
+            <h2>Schools & Departments</h2>
+            <p style="color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">7 Undergraduate • 14 Graduate Programs</p>
+        </div>
+
+        <div class="schools-grid">
+            
+            <a href="#" class="school-card">
+                <div class="school-img">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cybersecurity Server Room">
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1617802690992-15d93263d3a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
-                    <h3>AR/VR & Spatial Computing</h3>
-                    <p>Develop immersive Augmented Reality applications using industry-standard game engines and 3D modeling.</p>
-                    <a href="#" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
+                <span class="hero-kicker" style="color: var(--text-light); font-size: 0.8rem;">Department 01</span>
+                <h3>Computer & Information Sciences</h3>
+                <p>Advancing the frontiers of artificial intelligence, cryptography, and complex algorithmic theory.</p>
+                <div class="explore-link">Explore Programs <i class="fas fa-arrow-right"></i></div>
+            </a>
+
+            <a href="#" class="school-card">
+                <div class="school-img">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Robotics arm">
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
-                    <h3>Computer Science</h3>
-                    <p>Core foundations in algorithms, machine learning, and advanced software engineering principles.</p>
-                    <a href="#" class="card-link">View Curriculum <i class="fas fa-arrow-right"></i></a>
+                <span class="hero-kicker" style="color: var(--text-light); font-size: 0.8rem;">Department 02</span>
+                <h3>Robotics & Hardware Engineering</h3>
+                <p>Bridging the gap between software logic and physical kinematic systems through hands-on fabrication.</p>
+                <div class="explore-link">Explore Programs <i class="fas fa-arrow-right"></i></div>
+            </a>
+
+            <a href="#" class="school-card">
+                <div class="school-img">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Microchip design">
                 </div>
-            </div>
+                <span class="hero-kicker" style="color: var(--text-light); font-size: 0.8rem;">Department 03</span>
+                <h3>Embedded Systems & IoT</h3>
+                <p>Designing the micro-architecture that connects everyday devices to the global data ecosystem.</p>
+                <div class="explore-link">Explore Programs <i class="fas fa-arrow-right"></i></div>
+            </a>
+
+            <a href="#" class="school-card">
+                <div class="school-img">
+                    <img src="https://images.unsplash.com/photo-1531297172864-459c630422ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Data Analytics">
+                </div>
+                <span class="hero-kicker" style="color: var(--text-light); font-size: 0.8rem;">Department 04</span>
+                <h3>Applied Mathematics & Data</h3>
+                <p>Utilizing statistical modeling and quantitative analysis to solve macro-economic and engineering challenges.</p>
+                <div class="explore-link">Explore Programs <i class="fas fa-arrow-right"></i></div>
+            </a>
+
         </div>
     </section>
 
-  
+    <section class="interdisciplinary">
+        <div class="id-content">
+            <span class="hero-kicker">Cross-Disciplinary Innovation</span>
+            <h2>The Symbolic Systems Program</h2>
+            <p>Break out of the traditional academic silo. Our flagship interdisciplinary program allows students to combine Cognitive Psychology, Computer Science, and Linguistics to understand how humans and machines interact.</p>
+            <a href="#" class="btn-solid">Read the Curriculum</a>
+        </div>
+    </section>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <a href="#" class="logo" style="color: white;">Global<span style="color: var(--secondary-color);">Tech</span></a>
-                <p style="margin-top: 1rem; color: #cbd5e1;">Creating the next generation of engineering leaders through innovation and hands-on experience.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#academics">Academic Departments</a></li>
-                    <li><a href="#admissions">Admissions & Aid</a></li>
-                    <li><a href="#campus">Student Life</a></li>
-                    <li><a href="#">Alumni Network</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> University Campus Boulevard</li>
-                    <li><i class="fas fa-phone"></i> +1 (800) 555-0199</li>
-                    <li><i class="fas fa-envelope"></i> admissions@globaltech.edu</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Global Tech University. Hackathon Prototype.</p>
-        </div>
+        <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech Academics. Hackathon Prototype.</p>
     </footer>
 
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
     </script>
 </body>
 </html>
