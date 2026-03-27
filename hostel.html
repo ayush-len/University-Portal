@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Life | O-ZONE</title>
+    <style>
+        /* CSS STYLING - Consistent Orange Theme */
+        :root {
+            --primary-orange: #FF6600;
+            --dark-orange: #E65C00;
+            --bg-dark: #1a1a1a;
+            --bg-light: #fff5ed;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdfdfd;
+            color: var(--text-dark);
+        }
+
+        /* Header Section */
+        header {
+            background-color: var(--bg-dark);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--primary-orange);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* Hostel Grid */
+        .hostel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card Style */
+        .hostel-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .hostel-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
+            border-color: var(--primary-orange);
+        }
+
+        .hostel-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--primary-orange);
+        }
+
+        .hostel-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .hostel-content h2 {
+            margin: 0 0 10px 0;
+            color: var(--bg-dark);
+            font-size: 1.4rem;
+        }
+
+        .hostel-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Amenities Box */
+        .amenity-box {
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .amenity-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--dark-orange);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .amenity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: var(--primary-orange);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-dark);
+            color: white;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hostel Life</h1>
+        <p>A home away from home for every student.</p>
+    </header>
+
+    <div class="container">
+        <div class="hostel-grid">
+            
+            <div class="hostel-card">
+                <img src="https://livingspaceblr.com/assets/img/beds.jpg" alt="Student Room" class="hostel-image">
+                <div class="hostel-content">
+                    <h2>Living Spaces</h2>
+                    <p class="hostel-description">Spacious and well-ventilated rooms designed for comfort and focus. Options for single, double, and triple sharing are available.</p>
+                    <div class="amenity-box">
+                        <h4>Room Features</h4>
+                        <div class="amenity-tags">
+                            <span class="tag">WiFi 24/7</span>
+                            <span class="tag">Work Desk</span>
+                            <span class="tag">Storage Cabinets</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hostel-card">
+                <img src="https://images.unsplash.com/photo-1511871893393-82e9c16b81e3?auto=format&fit=crop&w=500&q=80" alt="Common Room" class="hostel-image">
+                <div class="hostel-content">
+                    <h2>Recreation Zone</h2>
+                    <p class="hostel-description">Unwind after a long day of classes. Our common rooms are equipped for indoor games, TV, and socializing with fellow students.</p>
+                    <div class="amenity-box">
+                        <h4>Activities</h4>
+                        <div class="amenity-tags">
+                            <span class="tag">Table Tennis</span>
+                            <span class="tag">Gaming Console</span>
+                            <span class="tag">Lounge Area</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hostel-card">
+                <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?auto=format&fit=crop&w=500&q=80" alt="Hostel Mess" class="hostel-image">
+                <div class="hostel-content">
+                    <h2>Hostel Mess</h2>
+                    <p class="hostel-description">Hygienic and nutritious meals served daily. Our menu changes weekly to ensure a variety of healthy dining options.</p>
+                    <div class="amenity-box">
+                        <h4>Services</h4>
+                        <div class="amenity-tags">
+                            <span class="tag">Veg & Non-Veg</span>
+                            <span class="tag">Hygiene Certified</span>
+                            <span class="tag">Morning Tea</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hostel-card">
+                <img src="https://www.hostelworld.com/blog/wp-content/uploads/Bunks-at-Rode-Hostel-Large-1.webp" alt="Security" class="hostel-image">
+                <div class="hostel-content">
+                    <h2>Safety & Support</h2>
+                    <p class="hostel-description">Student safety is our top priority. We provide round-the-clock security and on-campus medical assistance.</p>
+                    <div class="amenity-box">
+                        <h4>Safety</h4>
+                        <div class="amenity-tags">
+                            <span class="tag">CCTV Coverage</span>
+                            <span class="tag">24/7 Warden</span>
+                            <span class="tag">Medical Room</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Hostel Management | O-ZONE Facilities</p>
+    </footer>
+
+</body>
+</html>
