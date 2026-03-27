@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Library | O-ZONE</title>
+    <style>
+        /* CSS STYLING - Orange & Dark Theme */
+        :root {
+            --primary-orange: #ff6600;
+            --dark-orange: #e65c00;
+            --bg-dark: #1a1a1a;
+            --bg-light: #fff5ed;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        header {
+            background-color: var(--bg-dark);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--primary-orange);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Two-column Grid */
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .lib-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-bottom: 4px solid var(--primary-orange);
+        }
+
+        .lib-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.15);
+        }
+
+        .lib-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: #ddd;
+        }
+
+        .lib-content {
+            padding: 25px;
+        }
+
+        .lib-content h2 {
+            margin-top: 0;
+            color: var(--bg-dark);
+            border-left: 4px solid var(--primary-orange);
+            padding-left: 12px;
+        }
+
+        .lib-description {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Features Box */
+        .features-box {
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .features-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--dark-orange);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: var(--primary-orange);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-dark);
+            color: white;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .library-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Knowledge Center</h1>
+        <p>Your gateway to infinite learning and research.</p>
+    </header>
+
+    <div class="container">
+        <div class="library-grid">
+            
+            <div class="lib-card">
+                <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80" alt="Main Library Hall" class="lib-image">
+                <div class="lib-content">
+                    <h2>Physical Archives</h2>
+                    <p class="lib-description">Housing over 1,00,000+ books, journals, and rare manuscripts. Our multi-level reading halls provide a silent, peaceful environment for deep study.</p>
+                    <div class="features-box">
+                        <h4>Resources</h4>
+                        <div class="feature-tags">
+                            <span class="tag">Reference Books</span>
+                            <span class="tag">Periodicals</span>
+                            <span class="tag">Silent Zone</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lib-card">
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80" alt="Digital Library" class="lib-image">
+                <div class="lib-content">
+                    <h2>Digital Resources</h2>
+                    <p class="lib-description">Access high-speed internet and global databases. Our digital wing includes IEEE journals, e-books, and advanced research software.</p>
+                    <div class="features-box">
+                        <h4>Digital Suite</h4>
+                        <div class="feature-tags">
+                            <span class="tag">e-Journals</span>
+                            <span class="tag">High-Speed WiFi</span>
+                            <span class="tag">Desktop Units</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Central Library | O-ZONE Academic Services</p>
+    </footer>
+
+</body>
+</html>
