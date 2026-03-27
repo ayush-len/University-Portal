@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Faculty | Global Tech University</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- Global Tech Theme Variables --- */
+        :root {
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --bg-card: #ffffff;
+            --text-main: #222222; 
+            --text-light: #555555;
+            --text-muted: #777777;
+            --white: #ffffff;
+            --border-color: #dddddd;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+
+        /* --- Global Navigation --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
+        .logo span { color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--secondary-color); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
+        
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-flex; align-items: center; }
+        .dropdown .dropbtn i { font-size: 0.8rem; margin-left: 3px; transition: transform 0.3s; }
+        .dropdown:hover .dropbtn i { transform: rotate(180deg); }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: var(--white); min-width: 180px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 3px solid var(--secondary-color); z-index: 1001; flex-direction: column; }
+        .dropdown-content a { padding: 12px 20px; display: block; border-bottom: 1px solid var(--border-color); font-weight: 500; }
+        .dropdown-content a:hover { background-color: var(--bg-light); color: var(--secondary-color); padding-left: 25px; transition: all 0.3s ease; }
+        .dropdown:hover .dropdown-content { display: flex; }
+
+        /* --- Page Header --- */
+        .page-header { background-color: var(--primary-color); color: var(--white); padding: 4rem 5%; text-align: center; }
+        .page-header h1 { font-size: 3rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .page-header p { color: #cccccc; max-width: 600px; margin: auto; font-size: 1.1rem; }
+
+        /* --- Directory Controls (Search & Filter) --- */
+        .directory-controls { max-width: 1400px; margin: 3rem auto 2rem; padding: 0 5%; display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .search-bar { display: flex; align-items: center; background: var(--white); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem 1rem; width: 100%; max-width: 500px; margin: 0 auto; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .search-bar i { color: var(--text-light); margin-right: 10px; font-size: 1.2rem; }
+        .search-bar input { border: none; outline: none; width: 100%; font-size: 1.1rem; padding: 0.2rem 0; color: var(--primary-color); }
+
+        .filters { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+        .filter-btn { background: var(--white); border: 1px solid var(--border-color); padding: 0.6rem 1.2rem; border-radius: 50px; cursor: pointer; font-weight: 600; color: var(--text-light); transition: all 0.3s; font-size: 0.9rem; }
+        .filter-btn:hover { border-color: var(--secondary-color); color: var(--secondary-color); transform: translateY(-2px); }
+        .filter-btn.active { background: var(--secondary-color); color: var(--white); border-color: var(--secondary-color); }
+
+        /* --- Faculty Grid --- */
+        .stats-bar { max-width: 1400px; margin: 0 auto 1rem; padding: 0 5%; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-align: right; }
+        .faculty-grid { max-width: 1400px; margin: 0 auto 5rem; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        
+        /* --- Faculty Card --- */
+        .faculty-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--border-color); display: flex; flex-direction: column; }
+        .faculty-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); border-color: var(--secondary-color); }
+        
+        .card-header { display: flex; padding: 1.5rem; border-bottom: 1px solid var(--bg-light); align-items: center; gap: 1rem; }
+        .faculty-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-light); background-color: #eee; }
+        .faculty-titles h3 { color: var(--primary-color); font-size: 1.3rem; margin-bottom: 0.2rem; }
+        .designation { color: var(--secondary-color); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .department-tag { display: inline-block; background: var(--bg-light); color: var(--text-muted); font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; margin-top: 5px; font-weight: 600;}
+
+        .card-body { padding: 1.5rem; flex-grow: 1; }
+        .info-group { margin-bottom: 1rem; }
+        .info-group h4 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.2rem; letter-spacing: 0.5px; }
+        .info-group p { font-size: 0.95rem; color: var(--text-main); }
+        
+        .bio { font-size: 0.9rem; color: var(--text-light); font-style: italic; border-left: 3px solid var(--secondary-color); padding-left: 10px; margin-top: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .card-footer { padding: 1.2rem 1.5rem; background: #fafafa; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.5rem; }
+        .contact-link { display: flex; align-items: center; gap: 8px; color: var(--text-light); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .contact-link:hover { color: var(--secondary-color); }
+
+        /* --- Footer --- */
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--white); text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .footer-logo span { color: var(--secondary-color); }
+
+        /* --- Mobile --- */
+        @media (max-width: 900px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .dropdown { display: flex; flex-direction: column; width: 100%; }
+            .dropdown-content { position: static; box-shadow: none; border-top: none; background-color: var(--bg-light); width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Global<span>Tech</span></a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                
+                <div class="dropdown">
+                    <a href="academics.html" class="dropbtn">Academics <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="faculty.html">Faculty</a>
+                        <a href="courses.html">Courses</a>
+                        <a href="departments.html">Departments</a>
+                    </div>
+                </div>
+
+                <a href="admissions.html">Admissions</a>
+                <a href="research.html">Research</a>
+                <a href="placements.html">Placements</a>
+                <a href="happenings.html">Happenings</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h1>Faculty Directory</h1>
+        <p>Meet the brilliant minds leading research and education at Global Tech University. Search by name or filter by our 10 academic departments.</p>
+    </section>
+
+    <div class="directory-controls">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search 150+ faculty by name, research, or keyword...">
+        </div>
+        
+        <div class="filters" id="filterContainer">
+            <button class="filter-btn active" data-filter="all">All Departments</button>
+            </div>
+    </div>
+
+    <div class="stats-bar" id="resultStats">Showing 150 Faculty Members</div>
+
+    <div class="faculty-grid" id="facultyGrid">
+        </div>
+
+    <footer>
+        <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech Academics. Hackathon Prototype.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        document.getElementById('mobile-menu').addEventListener('click', () => { 
+            document.getElementById('nav-links').classList.toggle('active'); 
+        });
+
+        // --- DATA GENERATOR (Creates 10 Departments x 15 Faculty = 150 Profiles) ---
+        const departmentsList = [
+            { id: "CS", name: "Computer Science" },
+            { id: "ME", name: "Mechanical Engineering" },
+            { id: "EE", name: "Electrical Engineering" },
+            { id: "CE", name: "Civil Engineering" },
+            { id: "AE", name: "Aerospace Engineering" },
+            { id: "BME", name: "Biomedical Engineering" },
+            { id: "MSE", name: "Materials Science" },
+            { id: "CHE", name: "Chemical Engineering" },
+            { id: "DS", name: "Data Science & AI" },
+            { id: "PHY", name: "Applied Physics" }
+        ];
+
+        // Dummy data pools
+        const firstNames = ["Sarah", "Marcus", "Elena", "James", "Aisha", "Robert", "David", "Maria", "William", "Linda", "Richard", "Elizabeth", "Thomas", "Jennifer", "Charles", "Patricia", "Christopher", "Daniel", "Barbara", "Matthew", "Anthony", "Jessica", "Mark", "Karen", "Priya", "Rahul", "Kenji", "Wei"];
+        const lastNames = ["Chen", "Johnson", "Rodriguez", "Watt", "Patel", "Chang", "Smith", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Lee", "Kim", "Singh", "Das"];
+        const unis = ["MIT", "Stanford University", "UC Berkeley", "Caltech", "Carnegie Mellon University", "IIT Bombay", "Cambridge University", "Oxford University", "ETH Zurich", "Georgia Tech", "Harvard University", "Princeton University"];
+        const roles = ["Assistant Professor", "Associate Professor", "Professor", "Professor"]; // Weighted towards regular professors
+        const researchKeywords = ["Machine Learning", "Robotics", "Quantum Computing", "Fluid Dynamics", "Nanotechnology", "Biomechanics", "Renewable Energy", "Cryptography", "Structural Integrity", "Polymers", "Thermodynamics", "Data Mining", "Neural Networks", "Photonics", "Aerodynamics"];
+
+        let facultyData = [];
+        let idCounter = 1;
+
+        // Generate 15 members per department
+        departmentsList.forEach(dept => {
+            for(let i = 0; i < 15; i++) {
+                const fName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                const lName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                const uni1 = unis[Math.floor(Math.random() * unis.length)];
+                const uni2 = unis[Math.floor(Math.random() * unis.length)];
+                const role = (i === 0) ? "Department Chair" : roles[Math.floor(Math.random() * roles.length)];
+                const r1 = researchKeywords[Math.floor(Math.random() * researchKeywords.length)];
+                const r2 = researchKeywords[Math.floor(Math.random() * researchKeywords.length)];
+                
+                facultyData.push({
+                    id: idCounter++,
+                    name: `Dr. ${fName} ${lName}`,
+                    department: dept.id,
+                    deptName: dept.name,
+                    designation: role,
+                    // Generate a unique professional avatar using a random seed based on ID
+                    image: `https://i.pravatar.cc/150?u=${idCounter}${dept.id}`,
+                    education: `PhD, ${uni1} | MS, ${uni2}`,
+                    research: `${r1}, ${r2}, Applied ${dept.name.split(' ')[0]}`,
+                    email: `${fName.charAt(0).toLowerCase()}.${lName.toLowerCase()}@globaltech.edu`,
+                    office: `${dept.id} Building, Room ${Math.floor(Math.random() * 400) + 100}`,
+                    bio: `Dr. ${lName} joined Global Tech after completing a tenure at ${uni1}. Their research focuses heavily on ${r1.toLowerCase()} and its applications in modern industry.`
+                });
+            }
+        });
+
+        // --- RENDER UI ---
+        const grid = document.getElementById('facultyGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterContainer = document.getElementById('filterContainer');
+        const statsBar = document.getElementById('resultStats');
+
+        // Render Filter Buttons Dynamically
+        departmentsList.forEach(dept => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.setAttribute('data-filter', dept.id);
+            btn.textContent = dept.name;
+            filterContainer.appendChild(btn);
+        });
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Function to render cards
+        function renderCards(data) {
+            grid.innerHTML = '';
+            statsBar.textContent = `Showing ${data.length} Faculty Member${data.length !== 1 ? 's' : ''}`;
+            
+            if(data.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-light); padding: 3rem; font-size: 1.2rem;">No faculty members found matching your criteria.</p>';
+                return;
+            }
+
+            // Using DocumentFragment for performance with 150 items
+            const fragment = document.createDocumentFragment();
+            
+            data.forEach(person => {
+                const card = document.createElement('div');
+                card.className = 'faculty-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <img src="${person.image}" alt="${person.name}" class="faculty-img" loading="lazy">
+                        <div class="faculty-titles">
+                            <h3>${person.name}</h3>
+                            <span class="designation">${person.designation}</span>
+                            <br>
+                            <span class="department-tag">${person.deptName}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-group">
+                            <h4>Education</h4>
+                            <p>${person.education}</p>
+                        </div>
+                        <div class="info-group">
+                            <h4>Research Areas</h4>
+                            <p>${person.research}</p>
+                        </div>
+                        <p class="bio">"${person.bio}"</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="mailto:${person.email}" class="contact-link"><i class="fas fa-envelope"></i> ${person.email}</a>
+                        <span class="contact-link"><i class="fas fa-map-marker-alt"></i> ${person.office}</span>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+            
+            grid.appendChild(fragment);
+        }
+
+        // Initial Render
+        renderCards(facultyData);
+
+        // --- FILTERING & SEARCH LOGIC ---
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function updateDisplay() {
+            let filtered = facultyData;
+            
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(person => person.department === currentFilter);
+            }
+            
+            if (currentSearch !== '') {
+                const searchLower = currentSearch.toLowerCase();
+                filtered = filtered.filter(person => 
+                    person.name.toLowerCase().includes(searchLower) || 
+                    person.research.toLowerCase().includes(searchLower) ||
+                    person.deptName.toLowerCase().includes(searchLower)
+                );
+            }
+            
+            renderCards(filtered);
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            updateDisplay();
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-filter');
+                updateDisplay();
+            });
+        });
+    </script>
+</body>
+</html>
