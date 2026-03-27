@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Tech University</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
+        header { background-color: #003366; color: white; padding: 20px; text-align: center; }
+        nav { background-color: #00509e; display: flex; justify-content: center; padding: 10px; }
+        nav a { color: white; text-decoration: none; padding: 10px 20px; font-weight: bold; }
+        nav a:hover { background-color: #003366; border-radius: 5px; }
+        .hero { text-align: center; padding: 50px 20px; background-color: #e9ecef; }
+        .container { max-width: 1000px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }
+        button { background-color: #00509e; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; width: 100%; font-size: 16px;}
+        button:hover { background-color: #003366; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Global Tech University</h1>
+    <p>Empowering the Innovators of Tomorrow</p>
+</header>
+
+<nav>
+    <a href="#academics">Academics</a>
+    <a href="#admissions">Admissions</a>
+    <a href="#campus">Campus Life</a>
+</nav>
+
+<div class="hero">
+    <h2>Fall Admissions Now Open</h2>
+    <p>Join a community dedicated to cutting-edge research and hands-on engineering.</p>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <div class="card" id="academics">
+            <h3>📚 Academic Programs</h3>
+            <p>Explore our highly-ranked departments including Computer Science, Robotics, and Mechanical Engineering.</p>
+            <button>View Courses</button>
+        </div>
+        <div class="card" id="admissions">
+            <h3>📝 Admissions & Aid</h3>
+            <p>Review fee structures, scholarship opportunities, and application deadlines for the upcoming semester.</p>
+            <button>Apply Now</button>
+        </div>
+        <div class="card" id="campus">
+            <h3>💡 Campus Facilities</h3>
+            <p>Experience hands-on learning in our state-of-the-art innovation labs, featuring dedicated prototyping and hardware workstations.</p>
+            <button>Explore Campus</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
