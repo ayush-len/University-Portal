@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placements | Global Tech University</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- Global Tech Theme Variables (Caltech Style) --- */
+        :root {
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --border-color: #dddddd;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+
+        /* --- Global Navigation --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
+        .logo span { color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--secondary-color); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
+
+        /* --- Dark Hero Section --- */
+        .hero-dark { 
+            background-color: var(--primary-color); 
+            color: var(--white); 
+            padding: 5rem 5% 4rem; 
+            text-align: center;
+            border-bottom: 5px solid var(--secondary-color);
+            background-image: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.95)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-dark h1 { font-size: 3.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .hero-dark p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem; color: #cccccc; }
+        .btn-download { background-color: transparent; color: var(--secondary-color); border: 2px solid var(--secondary-color); padding: 0.8rem 2rem; text-decoration: none; font-weight: bold; transition: all 0.3s; display: inline-block; }
+        .btn-download:hover { background-color: var(--secondary-color); color: var(--white); }
+
+        /* --- Layout & Typography --- */
+        .container { max-width: 1200px; margin: 4rem auto; padding: 0 5%; }
+        .section-title { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 2rem; border-left: 6px solid var(--secondary-color); padding-left: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .section-subtitle { color: var(--text-light); margin-bottom: 2rem; font-size: 1.1rem; margin-top: -1.5rem; padding-left: 21px; }
+
+        /* --- Interactive Image Statistics --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 5rem; }
+        .stat-img-card { position: relative; height: 250px; background-color: var(--primary-color); overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; }
+        .stat-img-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: transform 0.6s ease, opacity 0.6s ease; }
+        .stat-img-card:hover img { transform: scale(1.1); opacity: 0.15; }
+        .stat-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 90%; transition: transform 0.4s ease; }
+        .stat-img-card:hover .stat-content { transform: translate(-50%, -55%); }
+        .stat-content h2 { font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 0; line-height: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .stat-content p { color: var(--white); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem; margin-top: 10px; }
+
+        /* --- NEW: Year-over-Year Growth Graph (Pure CSS) --- */
+        .trend-graph-container { background: var(--white); padding: 3rem 2rem; border: 1px solid var(--border-color); margin-bottom: 5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .trend-graph { display: flex; align-items: flex-end; justify-content: space-around; height: 300px; border-bottom: 2px solid var(--primary-color); border-left: 2px solid var(--primary-color); padding-bottom: 10px; padding-left: 10px; margin-top: 2rem; }
+        .trend-bar-wrapper { display: flex; flex-direction: column; align-items: center; width: 15%; height: 100%; justify-content: flex-end; }
+        .trend-bar { width: 100%; background-color: var(--secondary-color); border-radius: 4px 4px 0 0; position: relative; transition: transform 0.3s ease, background-color 0.3s ease; transform-origin: bottom; display: flex; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+        .trend-bar:hover { transform: scaleY(1.05); background-color: var(--accent-color); cursor: pointer; }
+        .trend-value { position: absolute; top: -30px; font-weight: bold; color: var(--primary-color); font-size: 1.1rem; opacity: 0.8; transition: opacity 0.3s; }
+        .trend-bar:hover .trend-value { opacity: 1; transform: scale(1.1); color: var(--accent-color); }
+        .trend-year { margin-top: 15px; font-weight: 800; color: var(--text-main); }
+
+        /* --- Placement Procedure (IIT Timeline Style) --- */
+        .procedure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 5rem; }
+        .step-card { background: var(--white); padding: 2rem; position: relative; border: 1px solid var(--border-color); transition: transform 0.3s; }
+        .step-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-bottom: 4px solid var(--secondary-color); }
+        .step-number { position: absolute; top: -15px; left: -15px; background: var(--secondary-color); color: var(--white); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
+        .step-card h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; margin-top: 10px; }
+        .step-card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* --- Colorful Interactive Company Logos --- */
+        .logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 5rem; }
+        .logo-card { position: relative; height: 140px; background: var(--white); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 20px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        
+        /* Removed grayscale filter so logos are colorful */
+        .logo-card img { max-width: 80%; max-height: 80%; object-fit: contain; transition: transform 0.4s ease; }
+        
+        .logo-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 107, 0, 0.95); color: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .logo-card:hover img { transform: scale(0.8); }
+        .logo-card:hover .logo-overlay { opacity: 1; transform: translateY(0); }
+        .logo-overlay i { font-size: 1.5rem; margin-bottom: 5px; }
+        .logo-overlay span { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+
+        /* --- Footer --- */
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--white); text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .footer-logo span { color: var(--secondary-color); }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .hero-dark h1 { font-size: 2.5rem; }
+            .trend-graph { height: 200px; }
+            .trend-value { font-size: 0.9rem; top: -25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Global<span>Tech</span></a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" target="_blank">Home</a>
+                <a href="about.html" target="_blank">About</a>
+                <a href="academics.html"  target="_blank">Academics</a>
+                <a href="admissions.html" target="_blank">Admissions</a>
+                <a href="research.html" target="_blank">Research</a>
+                <a href="placements.html" target="_blank">Placements</a>
+                <a href="happenings.html" target="_blank">Happenings</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-dark">
+        <h1>Placement Office</h1>
+        <p>Connecting India's brightest engineering minds with global industry leaders. The Placement Office facilitates campus interviews, internships, and corporate relations.</p>
+        <a href="#" class="btn-download"><i class="fas fa-file-pdf"></i> Download Placement Brochure 2026</a>
+    </section>
+
+    <div class="container">
+        
+        <div class="stats-grid">
+            <div class="stat-img-card">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Students collaborating">
+                <div class="stat-content">
+                    <h2>96%</h2>
+                    <p>Overall Placement Rate</p>
+                </div>
+            </div>
+            <div class="stat-img-card">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Corporate building">
+                <div class="stat-content">
+                    <h2>350+</h2>
+                    <p>Participating Companies</p>
+                </div>
+            </div>
+            <div class="stat-img-card">
+                <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Meeting room">
+                <div class="stat-content">
+                    <h2>150+</h2>
+                    <p>Pre-Placement Offers (PPO)</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Placement Trends</h2>
+        <p class="section-subtitle">Consistent year-over-year growth in average compensation packages (LPA).</p>
+        <div class="trend-graph-container">
+            <div class="trend-graph">
+                <div class="trend-bar-wrapper">
+                    <div class="trend-bar" style="height: 55%;">
+                        <span class="trend-value">18.5 L</span>
+                    </div>
+                    <span class="trend-year">2023</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                    <div class="trend-bar" style="height: 65%;">
+                        <span class="trend-value">21.2 L</span>
+                    </div>
+                    <span class="trend-year">2024</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                    <div class="trend-bar" style="height: 80%;">
+                        <span class="trend-value">24.8 L</span>
+                    </div>
+                    <span class="trend-year">2025</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                    <div class="trend-bar" style="height: 95%;">
+                        <span class="trend-value">28.4 L</span>
+                    </div>
+                    <span class="trend-year">2026</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Placement Procedure</h2>
+        <div class="procedure-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Job Announcement Form (JAF)</h3>
+                <p>Companies fill out the formal JAF containing job profiles and criteria. The Placement Cell makes this available to eligible students.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Pre-Placement Talks (PPT)</h3>
+                <p>Organizations visit campus to conduct PPTs, interacting with students and providing insights into the company culture.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Resume Submission</h3>
+                <p>Eligible students submit their verified resumes through the central placement portal for shortlisting by the recruiters.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Phase-I Interviews</h3>
+                <p>Shortlisted candidates undergo technical and HR interviews on campus during designated placement phases.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Prominent Recruiters</h2>
+        <div class="logo-grid">
+            
+            <div class="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+                <div class="logo-overlay">
+                    <i class="fas fa-code"></i>
+                    <span>Google</span>
+                </div>
+            </div>
+
+            <div class="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+                <div class="logo-overlay">
+                    <i class="fas fa-window-maximize"></i>
+                    <span>Microsoft</span>
+                </div>
+            </div>
+
+            <div class="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                <div class="logo-overlay">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Amazon</span>
+                </div>
+            </div>
+
+            <div class="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Cisco">
+                <div class="logo-overlay">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Cisco Systems</span>
+                </div>
+            </div>
+
+            <div class="logo-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDsl7zDjzKeYOcQI5cCUgmAwG48d8LKA4Hzg&s" alt="Tech Mahindra">
+                <div class="logo-overlay">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Tech Mahindra</span>
+                </div>
+            </div>
+
+            <div class="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Samsung_wordmark.svg" alt="Samsung">
+                <div class="logo-overlay">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Samsung R&D</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech Placement Office. Hackathon Prototype.</p>
+    </footer>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+    </script>
+</body>
+</html>
