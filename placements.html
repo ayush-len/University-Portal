@@ -7,6 +7,15 @@
     <title>Placements | Global Tech University</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Smooth Page Fade-In */
+body {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         /* --- Global Tech Theme Variables (Caltech Style) --- */
         :root {
             --primary-color: #111111; 
@@ -123,8 +132,10 @@
                 <a href="academics.html"  target="_blank">Academics</a>
                 <a href="admissions.html" target="_blank">Admissions</a>
                 <a href="research.html" target="_blank">Research</a>
-                <a href="placements.html" target="_blank">Placements</a>
+                <a href="campus.html" target="_blank">Campus</a>
                 <a href="happenings.html" target="_blank">Happenings</a>
+                <a href="placements.html" target="_blank">Placements</a>
+                <a href="others.html" target="_blank">Others</a>
             </div>
         </nav>
     </header>
@@ -272,6 +283,8 @@
     </div>
 
     <footer>
+        <li><i class="fas fa-phone"></i> <a href="tel:+18005550199" style="color: #cccccc; text-decoration: none;">+1 (800) 555-0199</a></li>
+        <li><i class="fas fa-envelope"></i> <a href="mailto:admissions@globaltech.edu" style="color: #cccccc; text-decoration: none;">admissions@globaltech.edu</a></li>
         <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
         <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech Placement Office. Hackathon Prototype.</p>
     </footer>
