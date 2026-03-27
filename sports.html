@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Complex | O-ZONE Facilities</title>
+    <style>
+        /* CSS STYLING - Integrated Orange Theme */
+        :root {
+            --primary-orange: #FF6600;
+            --dark-orange: #E65C00;
+            --bg-dark: #1a1a1a;
+            --bg-light: #fff5ed;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdfdfd;
+            color: var(--text-dark);
+        }
+
+        /* Header Section */
+        header {
+            background-color: var(--bg-dark);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--primary-orange);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* Sports Grid */
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card Style */
+        .sports-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .sports-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
+            border-color: var(--primary-orange);
+        }
+
+        .sports-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--primary-orange);
+        }
+
+        .sports-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .sports-content h2 {
+            margin: 0 0 10px 0;
+            color: var(--bg-dark);
+            font-size: 1.4rem;
+        }
+
+        .sports-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Equipment Box */
+        .equip-box {
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .equip-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--dark-orange);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .equip-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: var(--primary-orange);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-dark);
+            color: white;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sports Arena</h1>
+        <p>Championing fitness and team spirit on campus.</p>
+    </header>
+
+    <div class="container">
+        <div class="sports-grid">
+            
+            <div class="sports-card">
+                <img src="https://images.unsplash.com/photo-1544911845-1f34a3eb46b1?auto=format&fit=crop&w=500&q=80" alt="Football Field" class="sports-image">
+                <div class="sports-content">
+                    <h2>Athletic Grounds</h2>
+                    <p class="sports-description">Full-sized synthetic turf for football and a dedicated cricket ground with professional practice nets.</p>
+                    <div class="equip-box">
+                        <h4>Facilities</h4>
+                        <div class="equip-tags">
+                            <span class="tag">Cricket Nets</span>
+                            <span class="tag">Floodlights</span>
+                            <span class="tag">Dugouts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sports-card">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=80" alt="Gym" class="sports-image">
+                <div class="sports-content">
+                    <h2>Modern Gymnasium</h2>
+                    <p class="sports-description">Fully air-conditioned fitness center featuring high-end cardio machines, free weights, and expert trainers.</p>
+                    <div class="equip-box">
+                        <h4>Available</h4>
+                        <div class="equip-tags">
+                            <span class="tag">Treadmills</span>
+                            <span class="tag">Yoga Studio</span>
+                            <span class="tag">Steam Room</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sports-card">
+                <img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?auto=format&fit=crop&w=500&q=80" alt="Badminton Court" class="sports-image">
+                <div class="sports-content">
+                    <h2>Indoor Stadium</h2>
+                    <p class="sports-description">Multiple wooden-floored courts for badminton, basketball, and table tennis tournaments.</p>
+                    <div class="equip-box">
+                        <h4>Courts</h4>
+                        <div class="equip-tags">
+                            <span class="tag">Badminton</span>
+                            <span class="tag">Basketball</span>
+                            <span class="tag">Referees</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sports-card">
+                <img src="https://images.unsplash.com/photo-1519315901367-f34ff9154487?auto=format&fit=crop&w=500&q=80" alt="Swimming Pool" class="sports-image">
+                <div class="sports-content">
+                    <h2>Olympic Pool</h2>
+                    <p class="sports-description">Temperature-controlled swimming pool with professional coaching staff and lifeguard supervision.</p>
+                    <div class="equip-box">
+                        <h4>Features</h4>
+                        <div class="equip-tags">
+                            <span class="tag">Laps</span>
+                            <span class="tag">Life Guards</span>
+                            <span class="tag">Locker Rooms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sports & Recreation | Designed for Champions</p>
+    </footer>
+
+</body>
+</html>
