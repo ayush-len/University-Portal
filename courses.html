@@ -5,8 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Catalog | Global Tech University</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Smooth Page Fade-In */
+body {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         /* --- Global Tech Theme Variables --- */
         :root {
             --primary-color: #111111; 
@@ -34,12 +44,24 @@
         .nav-links a:hover { color: var(--secondary-color); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
         
+        /* --- Active Navigation State --- */
+        .nav-links a.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 2px;
+        }
+        /* Highlight the main dropdown button if a sub-page is active */
+        .dropdown .dropbtn.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
         /* Dropdown */
         .dropdown { position: relative; display: inline-flex; align-items: center; }
         .dropdown .dropbtn i { font-size: 0.8rem; margin-left: 3px; transition: transform 0.3s; }
         .dropdown:hover .dropbtn i { transform: rotate(180deg); }
         .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: var(--white); min-width: 180px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 3px solid var(--secondary-color); z-index: 1001; flex-direction: column; }
-        .dropdown-content a { padding: 12px 20px; display: block; border-bottom: 1px solid var(--border-color); font-weight: 500; }
+        .dropdown-content a { padding: 12px 20px; display: block; border-bottom: 1px solid var(--border-color); font-weight: 500; border-bottom-width: 1px !important; }
         .dropdown-content a:hover { background-color: var(--bg-light); color: var(--secondary-color); padding-left: 25px; transition: all 0.3s ease; }
         .dropdown:hover .dropdown-content { display: flex; }
 
@@ -64,6 +86,9 @@
         /* --- Course List --- */
         .course-list { max-width: 1200px; margin: 0 auto 5rem; padding: 0 5%; display: flex; flex-direction: column; gap: 1.5rem; }
         .stats-bar { margin-bottom: 1rem; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
+        
+        /* Optimization: CSS Grid for better paint performance */
+        #courseGrid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
 
         /* Course Card */
         .course-card { background: var(--white); border-radius: 6px; padding: 2rem; border: 1px solid var(--border-color); border-left: 5px solid var(--secondary-color); box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; gap: 1rem; }
@@ -83,6 +108,13 @@
         .meta-tag i { color: var(--primary-color); }
 
         .no-results { text-align: center; padding: 4rem; color: var(--text-light); font-size: 1.2rem; background: var(--white); border-radius: 8px; border: 1px dashed var(--border-color); }
+
+        /* --- Pagination Controls --- */
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; flex-wrap: wrap; }
+        .page-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: var(--white); cursor: pointer; border-radius: 4px; font-weight: 600; color: var(--primary-color); transition: 0.2s; }
+        .page-btn:hover:not(:disabled) { background: var(--bg-light); border-color: var(--primary-color); }
+        .page-btn.active { background: var(--primary-color); color: var(--white); border-color: var(--primary-color); }
+        .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         /* --- Footer --- */
         footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; }
@@ -121,8 +153,6 @@
 
                 <a href="admissions.html">Admissions</a>
                 <a href="research.html">Research</a>
-                <a href="placements.html">Placements</a>
-                <a href="happenings.html">Happenings</a>
             </div>
         </nav>
     </header>
@@ -149,7 +179,7 @@
                 <option value="EE">Electrical Engineering</option>
                 <option value="CE">Civil Engineering</option>
                 <option value="AE">Aerospace Engineering</option>
-                <option value="BME">Biomedical Engineering</option>
+                <option value="BME">Biomedical & Bioengineering</option>
                 <option value="MSE">Materials Science</option>
                 <option value="CHE">Chemical Engineering</option>
                 <option value="DS">Data Science & AI</option>
@@ -168,8 +198,8 @@
 
     <div class="course-list">
         <div class="stats-bar" id="resultStats">Loading courses...</div>
-        <div id="courseGrid">
-            </div>
+        <div id="courseGrid"></div>
+        <div class="pagination" id="paginationControls"></div>
     </div>
 
     <footer>
@@ -178,102 +208,179 @@
     </footer>
 
     <script>
+        // --- ACTIVE NAVIGATION HIGHLIGHTER ---
+        function setActiveNavLink() {
+            const currentPath = window.location.pathname;
+            let currentFileName = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+            
+            if (currentFileName === '') currentFileName = 'index.html';
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentFileName) {
+                    link.classList.add('active');
+                    const dropdownParent = link.closest('.dropdown');
+                    if (dropdownParent) dropdownParent.querySelector('.dropbtn').classList.add('active');
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+
         // Mobile Menu Logic
         document.getElementById('mobile-menu').addEventListener('click', () => { 
             document.getElementById('nav-links').classList.toggle('active'); 
         });
 
-        // --- DUMMY COURSE DATA ---
+        // --- GLOBAL TECH UNIFIED COURSE DATA ---
         const courses = [
             // CS
-            { code: "CS 101", title: "Introduction to Algorithmic Thinking", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 4, desc: "A foundational course covering basic data structures, control flow, and computational problem-solving using Python." },
-            { code: "CS 450", title: "Machine Learning Architecture", dept: "CS", deptName: "Computer Science", level: "Graduate", credits: 3, desc: "Advanced study of neural network architectures, backpropagation, and optimization algorithms for deep learning models." },
-            { code: "CS 320", title: "Applied Cryptography", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 3, desc: "Explores symmetric and asymmetric encryption, hash functions, digital signatures, and secure protocol design." },
+            { code: "GB-CS401", title: "Introduction to Algorithms", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 4, desc: "Introduction to mathematical modeling of computational problems, as well as common algorithms, algorithmic paradigms, and data structures to solve these problems." },
+            { code: "GB-CS402", title: "Introduction to Machine Learning", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 4, desc: "Principles and algorithms for turning training data into effective automated predictions. Topics include representation, overfitting, regularization, and deep learning." },
+            { code: "GB-CS601", title: "Distributed Computer Systems Engineering", dept: "CS", deptName: "Computer Science", level: "Graduate", credits: 3, desc: "Abstractions and implementation techniques for engineering distributed systems. Fault tolerance, consistency, and consensus protocols like Raft and Paxos." },
+            { code: "GB-CS602", title: "Computer Systems Security", dept: "CS", deptName: "Computer Science", level: "Graduate", credits: 3, desc: "Design and implementation of secure computer systems. Covers threat models, memory safety, privilege separation, and web security." },
+            { code: "GB-CS201", title: "Data Structures and Algorithms", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 4, desc: "Core concepts of lists, stacks, queues, trees, graphs, and sorting algorithms. Emphasizes worst-case and average-case analysis." },
+            { code: "GB-CS330", title: "Operating Systems", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 4, desc: "Process management, concurrency, synchronization, deadlocks, memory management, and file systems." },
+            { code: "GB-CS610", title: "Advanced Compiler Design", dept: "CS", deptName: "Computer Science", level: "Graduate", credits: 3, desc: "Lexical analysis, parsing, semantic analysis, intermediate representation, code generation, and advanced code optimization." },
+            { code: "GB-CS748", title: "Quantum Computing Algorithms", dept: "CS", deptName: "Computer Science", level: "Graduate", credits: 3, desc: "Quantum mechanics basics for computer scientists, qubits, quantum gates, Shor's algorithm, and Grover's search." },
             
             // ME
-            { code: "ME 210", title: "Thermodynamics I", dept: "ME", deptName: "Mechanical Engineering", level: "Undergraduate", credits: 4, desc: "First and second laws of thermodynamics, properties of pure substances, and basic power generation cycles." },
-            { code: "ME 512", title: "Advanced Kinematics and Robotics", dept: "ME", deptName: "Mechanical Engineering", level: "Graduate", credits: 3, desc: "Spatial descriptions, forward and inverse kinematics, Jacobian matrices, and trajectory generation for robotic manipulators." },
+            { code: "GB-ME201", title: "Mechanics and Materials I", dept: "ME", deptName: "Mechanical Engineering", level: "Undergraduate", credits: 4, desc: "Introduction to statics and the mechanics of deformable solids. Stress, strain, and material properties." },
+            { code: "GB-ME203", title: "Dynamics and Control I", dept: "ME", deptName: "Mechanical Engineering", level: "Undergraduate", credits: 4, desc: "Newtonian dynamics of particles and rigid bodies in 3D. Introduction to control systems and feedback." },
+            { code: "GB-ME651", title: "Advanced System Dynamics", dept: "ME", deptName: "Mechanical Engineering", level: "Graduate", credits: 3, desc: "Modeling and analysis of multi-domain physical systems (mechanical, electrical, fluid, thermal) using bond graphs." },
+            { code: "GB-ME202", title: "Thermodynamics", dept: "ME", deptName: "Mechanical Engineering", level: "Undergraduate", credits: 4, desc: "First and second laws, entropy, properties of pure substances, vapor and gas power cycles." },
+            { code: "GB-ME310", title: "Fluid Mechanics", dept: "ME", deptName: "Mechanical Engineering", level: "Undergraduate", credits: 4, desc: "Fluid statics, conservation of mass, momentum, and energy. Navier-Stokes equations and boundary layer theory." },
+            { code: "GB-ME641", title: "Robotics and Kinematics", dept: "ME", deptName: "Mechanical Engineering", level: "Graduate", credits: 3, desc: "Spatial transformations, forward/inverse kinematics, manipulator dynamics, and trajectory planning." },
             
             // EE
-            { code: "EE 201", title: "Circuit Analysis", dept: "EE", deptName: "Electrical Engineering", level: "Undergraduate", credits: 4, desc: "Fundamental principles of electrical circuits, including Ohm's Law, Kirchhoff's laws, node/mesh analysis, and op-amps." },
-            { code: "EE 605", title: "Quantum Computing Hardware", dept: "EE", deptName: "Electrical Engineering", level: "Graduate", credits: 3, desc: "Physical implementation of qubits, superconducting circuits, trapped ions, and quantum error correction hardware." },
+            { code: "GB-EE202", title: "Circuits and Electronics", dept: "EE", deptName: "Electrical Engineering", level: "Undergraduate", credits: 4, desc: "Fundamentals of linear and non-linear circuits, MOSFETs, operational amplifiers, and energy storage elements." },
+            { code: "GB-EE311", title: "Signals, Systems and Inference", dept: "EE", deptName: "Electrical Engineering", level: "Undergraduate", credits: 4, desc: "Continuous and discrete-time signals, Fourier analysis, Laplace transforms, and probabilistic inference." },
+            { code: "GB-EE636", title: "Introduction to Numerical Simulation", dept: "EE", deptName: "Electrical Engineering", level: "Graduate", credits: 3, desc: "Algorithms for simulating physical systems, solving PDEs, and computational electromagnetics." },
+            { code: "GB-EE201", title: "Digital Logic Design", dept: "EE", deptName: "Electrical Engineering", level: "Undergraduate", credits: 3, desc: "Boolean algebra, combinational and sequential logic circuits, state machines, and FPGA basics." },
+            { code: "GB-EE302", title: "Control Systems", dept: "EE", deptName: "Electrical Engineering", level: "Undergraduate", credits: 4, desc: "Modeling of dynamic systems, transfer functions, root locus, Bode plots, and PID controller design." },
+            { code: "GB-EE675", title: "VLSI System Design", dept: "EE", deptName: "Electrical Engineering", level: "Graduate", credits: 4, desc: "CMOS logic, layout techniques, timing analysis, and ASIC/SOC design methodologies." },
             
             // CE
-            { code: "CE 305", title: "Structural Analysis", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 4, desc: "Analysis of statically determinate and indeterminate structures, including trusses, beams, and frames." },
-            { code: "CE 410", title: "Sustainable Urban Design", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 3, desc: "Designing resilient city infrastructure, green building standards, and integration of smart city IoT sensors." },
+            { code: "GB-CE250", title: "Solid Mechanics", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 4, desc: "Deformation, strain, and stress in structural elements. Failure criteria and buckling." },
+            { code: "GB-CE100", title: "Intro to Computers and Engineering Problem Solving", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 3, desc: "Computational thinking applied to civil and environmental engineering problems using Java and Python." },
+            { code: "GB-CE202", title: "Structural Analysis", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 4, desc: "Analysis of statically determinate and indeterminate trusses, beams, and frames. Matrix methods." },
+            { code: "GB-CE430", title: "Geotechnical Engineering", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 4, desc: "Soil mechanics, stress distribution, consolidation, shear strength, and foundation design." },
+            { code: "GB-CE612", title: "Earthquake Resistant Design", dept: "CE", deptName: "Civil Engineering", level: "Graduate", credits: 3, desc: "Structural dynamics, response spectra, seismic hazard analysis, and retrofitting techniques." },
             
             // AE
-            { code: "AE 315", title: "Aerodynamics", dept: "AE", deptName: "Aerospace Engineering", level: "Undergraduate", credits: 4, desc: "Inviscid and viscous flows, airfoil and wing theory, and an introduction to compressible flow." },
-            { code: "AE 550", title: "Spacecraft Propulsion", dept: "AE", deptName: "Aerospace Engineering", level: "Graduate", credits: 3, desc: "Chemical rockets, ion drives, plasma propulsion, and the thermodynamic limits of deep space travel." },
+            { code: "GB-AE100", title: "Introduction to Aerospace Engineering", dept: "AE", deptName: "Aerospace Engineering", level: "Undergraduate", credits: 3, desc: "Fundamentals of flight, propulsion, orbital mechanics, and aerospace systems design." },
+            { code: "GB-AE631", title: "Feedback Control Systems", dept: "AE", deptName: "Aerospace Engineering", level: "Graduate", credits: 4, desc: "State-space control, LQR, Kalman filtering, and robust control applied to aerospace vehicles." },
+            { code: "GB-AE301", title: "Aerodynamics", dept: "AE", deptName: "Aerospace Engineering", level: "Undergraduate", credits: 4, desc: "Incompressible potential flow, airfoil theory, finite wing theory, and boundary layer effects." },
+            { code: "GB-AE504", title: "Spacecraft Propulsion", dept: "AE", deptName: "Aerospace Engineering", level: "Graduate", credits: 3, desc: "Chemical rockets, nozzle theory, solid/liquid propellants, electric propulsion, and ion drives." },
             
             // BME
-            { code: "BME 220", title: "Biomechanics", dept: "BME", deptName: "Biomedical Engineering", level: "Undergraduate", credits: 3, desc: "Application of engineering mechanics to biological tissues, bone structure analysis, and fluid dynamics of the cardiovascular system." },
-            { code: "BME 601", title: "Neural Engineering", dept: "BME", deptName: "Biomedical Engineering", level: "Graduate", credits: 4, desc: "Brain-computer interfaces, neural prosthetics, and the electrical properties of the human nervous system." },
+            { code: "GB-BM210", title: "Thermodynamics of Biomolecular Systems", dept: "BME", deptName: "Biomedical & Bioengineering", level: "Undergraduate", credits: 4, desc: "Equilibrium thermodynamics applied to biological systems, protein folding, and binding interactions." },
+            { code: "GB-BM201", title: "Human Anatomy and Physiology for Engineers", dept: "BME", deptName: "Biomedical & Bioengineering", level: "Undergraduate", credits: 3, desc: "Engineering perspective on the skeletal, muscular, cardiovascular, and nervous systems." },
+            { code: "GB-BM610", title: "Medical Imaging Systems", dept: "BME", deptName: "Biomedical & Bioengineering", level: "Graduate", credits: 3, desc: "Physics and signal processing of X-ray, CT, MRI, and ultrasound imaging modalities." },
             
             // MSE
-            { code: "MSE 201", title: "Introduction to Materials Science", dept: "MSE", deptName: "Materials Science", level: "Undergraduate", credits: 3, desc: "Atomic structure, crystal lattices, defects, and the relationship between microstructures and physical properties." },
-            { code: "MSE 455", title: "Nanomaterials and Nanotechnology", dept: "MSE", deptName: "Materials Science", level: "Graduate", credits: 3, desc: "Synthesis and characterization of nanoscale materials, carbon nanotubes, graphene, and quantum dots." },
+            { code: "GB-MS191", title: "Introduction to Solid-State Chemistry", dept: "MSE", deptName: "Materials Science", level: "Undergraduate", credits: 4, desc: "Chemical principles applied to solid-state materials, crystal structure, electronic structure, and defects." },
+            { code: "GB-MS620", title: "Thermodynamics of Materials", dept: "MSE", deptName: "Materials Science", level: "Graduate", credits: 3, desc: "Phase diagrams, solution thermodynamics, and phase transformations in metals and ceramics." },
+            { code: "GB-MS201", title: "Materials Structure and Properties", dept: "MSE", deptName: "Materials Science", level: "Undergraduate", credits: 3, desc: "Relationship between atomic structure, microstructure, and the mechanical/electrical properties of materials." },
+            { code: "GB-MS455", title: "Nanomaterials", dept: "MSE", deptName: "Materials Science", level: "Graduate", credits: 3, desc: "Synthesis, characterization, and applications of carbon nanotubes, graphene, and quantum dots." },
             
             // CHE
-            { code: "CHE 310", title: "Chemical Kinetics and Reactor Design", dept: "CHE", deptName: "Chemical Engineering", level: "Undergraduate", credits: 4, desc: "Rate equations, ideal reactor models (CSTR, PFR), and the design of catalytic and non-catalytic chemical reactors." },
+            { code: "GB-CH110", title: "Introduction to Chemical Engineering", dept: "CHE", deptName: "Chemical Engineering", level: "Undergraduate", credits: 4, desc: "Mass and energy balances, process flowsheeting, and chemical process thermodynamics." },
+            { code: "GB-CH302", title: "Transport Processes", dept: "CHE", deptName: "Chemical Engineering", level: "Undergraduate", credits: 4, desc: "Heat and mass transfer phenomena, diffusion, convection, and design of heat exchangers." },
+            { code: "GB-CH201", title: "Chemical Kinetics and Reactor Design", dept: "CHE", deptName: "Chemical Engineering", level: "Undergraduate", credits: 4, desc: "Reaction rates, ideal reactor models (CSTR, PFR), and catalysis." },
+            { code: "GB-CH620", title: "Advanced Separation Processes", dept: "CHE", deptName: "Chemical Engineering", level: "Graduate", credits: 3, desc: "Membrane separations, adsorption, chromatography, and advanced distillation techniques." },
             
             // DS
-            { code: "DS 100", title: "Data Science Foundations", dept: "DS", deptName: "Data Science & AI", level: "Undergraduate", credits: 3, desc: "Data wrangling, exploratory data analysis, visualization techniques, and basic statistical modeling using R and Python." },
-            { code: "DS 502", title: "Natural Language Processing", dept: "DS", deptName: "Data Science & AI", level: "Graduate", credits: 4, desc: "Text processing, sequence-to-sequence models, transformers, and large language model fine-tuning." },
+            { code: "GB-DS667", title: "Machine Learning", dept: "DS", deptName: "Data Science & AI", level: "Graduate", credits: 4, desc: "Rigorous exploration of classification, regression, clustering, reinforcement learning, and graphical models." },
+            { code: "GB-DS620", title: "Statistical Learning Theory", dept: "DS", deptName: "Data Science & AI", level: "Graduate", credits: 3, desc: "Mathematical foundations of learning, Reproducing Kernel Hilbert Spaces, and regularization." },
+            { code: "GB-DS301", title: "Foundations of Data Science", dept: "DS", deptName: "Data Science & AI", level: "Undergraduate", credits: 3, desc: "Data cleaning, EDA, visualization, PCA, and statistical modeling using Python and R." },
+            { code: "GB-DS650", title: "Deep Learning for Computer Vision", dept: "DS", deptName: "Data Science & AI", level: "Graduate", credits: 4, desc: "CNNs, object detection, image segmentation, and generative adversarial networks (GANs)." },
             
             // PHY
-            { code: "PHY 110", title: "Physics for Engineers I: Mechanics", dept: "PHY", deptName: "Applied Physics", level: "Undergraduate", credits: 4, desc: "Classical mechanics, Newton's laws, conservation of energy and momentum, and rotational dynamics." },
-            { code: "PHY 405", title: "Solid State Physics", dept: "PHY", deptName: "Applied Physics", level: "Graduate", credits: 3, desc: "Lattice vibrations, electron bands in metals and semiconductors, and magnetic properties of solids." }
+            { code: "GB-PH101", title: "Physics I: Classical Mechanics", dept: "PHY", deptName: "Applied Physics", level: "Undergraduate", credits: 4, desc: "Newton's laws, conservation of momentum and energy, rotational dynamics, and angular momentum." },
+            { code: "GB-PH102", title: "Physics II: Electricity and Magnetism", dept: "PHY", deptName: "Applied Physics", level: "Undergraduate", credits: 4, desc: "Electric and magnetic fields, Maxwell's equations, electromagnetic waves, and basic circuits." },
+            { code: "GB-PH201", title: "Quantum Physics for Engineers", dept: "PHY", deptName: "Applied Physics", level: "Undergraduate", credits: 3, desc: "Wave-particle duality, Schrödinger equation, quantum well, and tunneling applications in electronics." },
+            { code: "GB-PH405", title: "Solid State Physics", dept: "PHY", deptName: "Applied Physics", level: "Graduate", credits: 3, desc: "Crystal lattices, phonons, band theory of solids, and magnetic properties of materials." }
         ];
 
-        // --- RENDER UI ---
+        // --- OPTIMIZED RENDER LOGIC WITH PAGINATION ---
         const courseGrid = document.getElementById('courseGrid');
         const searchInput = document.getElementById('searchInput');
         const deptSelect = document.getElementById('deptSelect');
         const levelSelect = document.getElementById('levelSelect');
         const statsBar = document.getElementById('resultStats');
+        const paginationControls = document.getElementById('paginationControls');
 
-        function renderCourses(data) {
-            courseGrid.innerHTML = '';
-            statsBar.textContent = `Displaying ${data.length} course${data.length !== 1 ? 's' : ''}`;
-            
-            if(data.length === 0) {
-                courseGrid.innerHTML = '<div class="no-results"><i class="fas fa-search" style="font-size: 2rem; color: #ddd; margin-bottom: 1rem; display: block;"></i>No courses found matching your criteria. Try adjusting your filters.</div>';
+        let currentFilteredData = [...courses];
+        let currentPage = 1;
+        const itemsPerPage = 12;
+
+        function renderCourses() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedData = currentFilteredData.slice(startIndex, endIndex);
+
+            if(currentFilteredData.length === 0) {
+                statsBar.textContent = "No courses found";
+                courseGrid.innerHTML = '<div class="no-results"><i class="fas fa-search" style="font-size: 2rem; color: #ddd; margin-bottom: 1rem; display: block;"></i>No courses found matching your criteria.</div>';
+                paginationControls.innerHTML = '';
                 return;
             }
 
-            data.forEach(course => {
-                const card = document.createElement('div');
-                card.className = 'course-card';
-                
-                // Assign an icon based on level
-                const levelIcon = course.level === 'Undergraduate' ? 'fa-user-graduate' : 'fa-microscope';
+            const endDisplayNumber = Math.min(endIndex, currentFilteredData.length);
+            statsBar.textContent = `Displaying ${startIndex + 1}-${endDisplayNumber} of ${currentFilteredData.length} courses`;
 
-                card.innerHTML = `
-                    <div class="course-header">
-                        <div class="course-code-title">
-                            <span class="course-code">${course.code}</span>
-                            <h3 class="course-title">${course.title}</h3>
+            const htmlString = paginatedData.map(course => {
+                const levelIcon = course.level === 'Undergraduate' ? 'fa-user-graduate' : 'fa-microscope';
+                return `
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-code-title">
+                                <span class="course-code">${course.code}</span>
+                                <h3 class="course-title">${course.title}</h3>
+                            </div>
+                            <span class="course-credits">${course.credits} Credits</span>
                         </div>
-                        <span class="course-credits">${course.credits} Credits</span>
-                    </div>
-                    <p class="course-desc">${course.desc}</p>
-                    <div class="course-meta">
-                        <span class="meta-tag"><i class="fas ${levelIcon}"></i> ${course.level}</span>
-                        <span class="meta-tag"><i class="fas fa-building"></i> ${course.deptName}</span>
+                        <p class="course-desc">${course.desc}</p>
+                        <div class="course-meta">
+                            <span class="meta-tag"><i class="fas ${levelIcon}"></i> ${course.level}</span>
+                            <span class="meta-tag"><i class="fas fa-building"></i> ${course.deptName}</span>
+                        </div>
                     </div>
                 `;
-                courseGrid.appendChild(card);
-            });
+            }).join('');
+
+            courseGrid.innerHTML = htmlString;
+            renderPagination();
         }
 
-        // --- FILTERING LOGIC ---
+        function renderPagination() {
+            const totalPages = Math.ceil(currentFilteredData.length / itemsPerPage);
+            if (totalPages <= 1) {
+                paginationControls.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">Previous</button>`;
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `<button class="page-btn ${currentPage === i ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+            paginationHTML += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">Next</button>`;
+            paginationControls.innerHTML = paginationHTML;
+        }
+
+        window.changePage = function(newPage) {
+            currentPage = newPage;
+            renderCourses();
+            document.querySelector('.catalog-controls').scrollIntoView({ behavior: 'smooth' });
+        };
+
         function filterCourses() {
             const searchTerm = searchInput.value.toLowerCase();
             const deptFilter = deptSelect.value;
             const levelFilter = levelSelect.value;
 
-            const filtered = courses.filter(course => {
+            currentFilteredData = courses.filter(course => {
                 const matchesSearch = course.title.toLowerCase().includes(searchTerm) || 
                                       course.code.toLowerCase().includes(searchTerm) || 
                                       course.desc.toLowerCase().includes(searchTerm);
@@ -283,18 +390,40 @@
                 return matchesSearch && matchesDept && matchesLevel;
             });
 
-            renderCourses(filtered);
+            currentPage = 1; 
+            renderCourses();
         }
 
-        // Event Listeners
         searchInput.addEventListener('input', filterCourses);
         deptSelect.addEventListener('change', filterCourses);
         levelSelect.addEventListener('change', filterCourses);
 
-        // Initial render on page load
-        renderCourses(courses);
+
+        // --- AUTO-FILTER FROM URL LOGIC ---
+        // This runs automatically to check if a department was clicked from another page
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlDept = urlParams.get('dept');
+
+        if (urlDept) {
+            // Check if the parameter matches one of our actual options (to prevent errors)
+            let optionExists = false;
+            for (let i = 0; i < deptSelect.options.length; i++) {
+                if (deptSelect.options[i].value === urlDept) {
+                    optionExists = true;
+                    break;
+                }
+            }
+            
+            if (optionExists) {
+                deptSelect.value = urlDept;
+            }
+            // Trigger the filter function which will also render the courses
+            filterCourses();
+        } else {
+            // If there is no URL parameter, just load everything normally
+            renderCourses();
+        }
 
     </script>
-    <script src="chatbot.js"></script>
 </body>
 </html>
