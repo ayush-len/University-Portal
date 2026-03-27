@@ -3,84 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Tech University | Innovating the Future</title>
+    <title>Campus Life | Global Tech University</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- Core Variables & Reset --- */
+        /* --- Global Tech Theme Variables (Caltech/MIT Style) --- */
         :root {
-            --primary-color: #0f172a;
-            --secondary-color: #3b82f6;
-            --accent-color: #1d4ed8;
-            --bg-light: #f8fafc;
-            --text-main: #334155;
-            --text-light: #94a3b8;
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --border-color: #dddddd;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
         html { scroll-behavior: smooth; }
 
-        /* --- Navigation --- */
-        header { background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        /* --- Global Navigation --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
         .logo span { color: var(--secondary-color); }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--secondary-color); }
-        .btn-apply { background-color: var(--secondary-color); color: white !important; padding: 0.5rem 1.5rem; border-radius: 25px; transition: background 0.3s; }
-        .btn-apply:hover { background-color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
 
-        /* --- Hero Section --- */
-        .hero { 
-            height: 80vh; 
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;
+        /* --- Dark Hero Section --- */
+        .hero-dark { 
+            background-color: var(--primary-color); 
+            color: var(--white); 
+            padding: 6rem 5% 4rem; 
+            text-align: center;
+            border-bottom: 5px solid var(--secondary-color);
+            background-image: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.9)), url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
         }
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-inline: auto; }
-        .hero-btns { display: flex; gap: 1rem; justify-content: center; }
-        .btn-primary, .btn-secondary { padding: 0.8rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s; }
-        .btn-primary { background-color: var(--secondary-color); color: white; }
-        .btn-secondary { background-color: transparent; border: 2px solid white; color: white; }
-        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); }
+        .hero-dark h1 { font-size: 3.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .hero-dark p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #cccccc; }
 
-        /* --- Stats Strip --- */
-        .stats { display: flex; justify-content: space-around; background-color: white; padding: 3rem 5%; box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 2rem; }
-        .stat-item { text-align: center; }
-        .stat-item h3 { font-size: 2.5rem; color: var(--secondary-color); }
-        .stat-item p { font-weight: 600; color: var(--text-light); text-transform: uppercase; font-size: 0.9rem; }
+        /* --- Layout & Typography --- */
+        .container { max-width: 1200px; margin: 4rem auto; padding: 0 5%; }
+        .section-title { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 2rem; border-left: 6px solid var(--secondary-color); padding-left: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- Section Styling (Academics & Campus) --- */
-        .section-header { text-align: center; margin: 5rem 0 3rem; }
-        .section-header h2 { font-size: 2.5rem; color: var(--primary-color); }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 0 5%; max-width: 1400px; margin: auto; }
+        /* --- AR/VR Prototype UI (The "Hackathon Smoke & Mirrors") --- */
+        .ar-container { background: var(--white); border: 1px solid var(--border-color); padding: 2rem; margin-bottom: 5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .ar-viewfinder { 
+            position: relative; 
+            height: 450px; 
+            background-image: linear-gradient(rgba(17, 17, 17, 0.5), rgba(17, 17, 17, 0.7)), url('https://images.unsplash.com/photo-1617802690992-15d93263d3a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; 
+            background-position: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden;
+        }
+        /* The Camera Brackets */
+        .ar-viewfinder::before, .ar-viewfinder::after { content: ''; position: absolute; width: 60px; height: 60px; border: 4px solid var(--secondary-color); pointer-events: none; }
+        .ar-viewfinder::before { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+        .ar-viewfinder::after { bottom: 30px; right: 30px; border-left: none; border-top: none; }
         
-        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .card-img { height: 200px; background-color: #ddd; background-size: cover; background-position: center; }
-        .card-content { padding: 1.5rem; }
-        .card-content h3 { margin-bottom: 0.5rem; color: var(--primary-color); }
-        .card-content p { color: var(--text-light); margin-bottom: 1.5rem; }
-        .card-link { color: var(--secondary-color); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; }
+        .ar-ui-text { color: var(--white); text-align: center; z-index: 2; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .ar-ui-text h3 { font-size: 2rem; margin-bottom: 5px; letter-spacing: 1px; }
+        .ar-ui-text p { font-family: monospace; color: #aaa; }
         
+        .btn-ar { background-color: var(--secondary-color); color: var(--white); border: none; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); display: flex; align-items: center; gap: 10px; }
+        .btn-ar:hover { background-color: var(--accent-color); transform: scale(1.05); }
+        .btn-ar i { font-size: 1.3rem; }
+
+        /* --- Campus Life Grid --- */
+        .life-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; margin-bottom: 5rem; }
+        .life-card { background: var(--white); border-radius: 0; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s; position: relative; border-bottom: 4px solid transparent; }
+        .life-card:hover { transform: translateY(-8px); border-bottom: 4px solid var(--secondary-color); }
+        .life-img { height: 220px; overflow: hidden; }
+        .life-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: grayscale(20%); }
+        .life-card:hover .life-img img { transform: scale(1.08); filter: grayscale(0%); }
+        .life-content { padding: 2rem; }
+        .life-content h3 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .life-content p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .life-icon { position: absolute; top: 20px; right: 20px; background: var(--secondary-color); color: var(--white); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+
+        /* --- Essential Info Grid --- */
+        .essentials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+        .essential-item { background: var(--primary-color); color: var(--white); padding: 2rem; text-align: center; border-top: 4px solid var(--secondary-color); transition: background 0.3s; }
+        .essential-item:hover { background: #222; }
+        .essential-item i { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem; }
+        .essential-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .essential-item p { font-size: 0.85rem; color: #aaa; }
+
         /* --- Footer --- */
-        footer { background-color: var(--primary-color); color: white; padding: 4rem 5% 2rem; margin-top: 5rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-col h4 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary-color); }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 0.8rem; }
-        .footer-col a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
-        .footer-col a:hover { color: white; }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-size: 0.9rem; }
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; border-top: 1px solid #222; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--white); text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .footer-logo span { color: var(--secondary-color); }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-btns { flex-direction: column; }
+            .hero-dark h1 { font-size: 2.5rem; }
+            .ar-viewfinder { height: 300px; }
         }
     </style>
 </head>
@@ -89,80 +117,129 @@
     <header>
         <nav class="nav-container">
             <a href="index.html" class="logo">Global<span>Tech</span></a>
-    
             <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
-    
             <div class="nav-links" id="nav-links">
-                <a href="index.html">Home</a>
-                <a href="academics.html">Academics</a>
-                <a href="campus.html">Campus Life</a>
-        
-                <a href="index.html" class="btn-apply">Apply Now</a>
+                <a href="index.html" target="_blank">Home</a>
+                <a href="about.html" target="_blank">About</a>
+                <a href="academics.html"  target="_blank">Academics</a>
+                <a href="admissions.html" target="_blank">Admissions</a>
+                <a href="research.html" target="_blank">Research</a>
+                <a href="placements.html" target="_blank">Placements</a>
+                <a href="happenings.html" target="_blank">Happenings</a>
             </div>
         </nav>
     </header>
 
-    <section id="campus">
-        <div class="section-header">
-            <h2>Campus & Facilities</h2>
-            <p>Where ideas become reality.</p>
-        </div>
-        <div class="grid-container">
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
-                    <h3>The IdeaLAB Center</h3>
-                    <p>Our premier prototyping facility featuring advanced 3D printers, laser cutters, and hardware testing benches.</p>
-                    <a href="#" class="card-link">Explore the Lab <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="card-content">
-                    <h3>Annual Techno-Cultural Fest</h3>
-                    <p>Participate in 24-hour hackathons, robotics competitions, and major cultural performances.</p>
-                    <a href="#" class="card-link">See Event Gallery <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
+    <section class="hero-dark">
+        <h1>Campus Experience</h1>
+        <p>A 250-acre ecosystem designed for collaboration, innovation, and holistic student development. Explore where our students live, work, and build the future.</p>
     </section>
 
+    <div class="container">
+
+        <h2 class="section-title">Immersive Campus Tour</h2>
+        <div class="ar-container">
+            <div class="ar-viewfinder">
+                <div class="ar-ui-text">
+                    <h3>Spatial Mapping Engine</h3>
+                    <p>STATUS: STANDBY | ENGINE: WebGL</p>
+                </div>
+                <button class="btn-ar" onclick="launchAR()">
+                    <i class="fas fa-vr-cardboard"></i> Initialize AR Tour
+                </button>
+            </div>
+        </div>
+
+        <h2 class="section-title">Life at Global Tech</h2>
+        <div class="life-grid">
+            
+            <div class="life-card">
+                <div class="life-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="life-img">
+                    <img src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Modern Lecture Hall">
+                </div>
+                <div class="life-content">
+                    <h3>Smart Classrooms</h3>
+                    <p>Moving beyond traditional lectures. Our Tier-1 lecture halls are equipped with dual-projection, high-fidelity acoustic arrays, and localized high-speed intranets for seamless digital learning.</p>
+                </div>
+            </div>
+
+            <div class="life-card">
+                <div class="life-icon"><i class="fas fa-bed"></i></div>
+                <div class="life-img">
+                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Student Dorm Lounge">
+                </div>
+                <div class="life-content">
+                    <h3>Residential Hostels</h3>
+                    <p>More than just a place to sleep. Our residential blocks feature high-speed LAN, common recreation rooms, 24/7 security, and collaborative study lounges optimized for late-night coding sessions.</p>
+                </div>
+            </div>
+
+            <div class="life-card">
+                <div class="life-icon"><i class="fas fa-users-cog"></i></div>
+                <div class="life-img">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Students in a tech club">
+                </div>
+                <div class="life-content">
+                    <h3>Clubs & Societies</h3>
+                    <p>Join over 40 active organizations. From the Robotics Club and Google Developer Student Club to the Motorsports Team building fully functional electric race cars.</p>
+                </div>
+            </div>
+
+            <div class="life-card">
+                <div class="life-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="life-img">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Campus Fest Crowd">
+                </div>
+                <div class="life-content">
+                    <h3>Annual Fest & Events</h3>
+                    <p>Our flagship Techno-Cultural Fest brings together over 15,000 students for 24-hour hackathons, robotics wars, esports tournaments, and headline musical performances.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">Campus Essentials</h2>
+        <div class="essentials-grid">
+            <div class="essential-item">
+                <i class="fas fa-wifi"></i>
+                <h4>Campus Wi-Fi</h4>
+                <p>10 Gbps Backbone. 100% coverage across academic blocks and hostels.</p>
+            </div>
+            <div class="essential-item">
+                <i class="fas fa-book-reader"></i>
+                <h4>Central Library</h4>
+                <p>Over 100k physical volumes and unlimited digital journal access via IEEE Xplore.</p>
+            </div>
+            <div class="essential-item">
+                <i class="fas fa-hamburger"></i>
+                <h4>Cafeterias</h4>
+                <p>4 distinct food courts serving pan-Indian and continental cuisine. Open till 2 AM.</p>
+            </div>
+            <div class="essential-item">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Health Center</h4>
+                <p>24/7 medical facility with resident doctors and a dedicated ambulance service.</p>
+            </div>
+        </div>
+
+    </div>
+
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <a href="#" class="logo" style="color: white;">Global<span style="color: var(--secondary-color);">Tech</span></a>
-                <p style="margin-top: 1rem; color: #cbd5e1;">Creating the next generation of engineering leaders through innovation and hands-on experience.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#academics">Academic Departments</a></li>
-                    <li><a href="#admissions">Admissions & Aid</a></li>
-                    <li><a href="#campus">Student Life</a></li>
-                    <li><a href="#">Alumni Network</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> University Campus Boulevard</li>
-                    <li><i class="fas fa-phone"></i> +1 (800) 555-0199</li>
-                    <li><i class="fas fa-envelope"></i> admissions@globaltech.edu</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Global Tech University. Hackathon Prototype.</p>
-        </div>
+        <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech University Campus. Hackathon Prototype.</p>
     </footer>
 
     <script>
+        // Mobile Menu Script
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
+        mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        // AR/VR Hackathon Alert Function
+        function launchAR() {
+            alert("SYSTEM NOTIFICATION: \n\nAR Module Prototype loaded. \n\nFor the purpose of this MVP demonstration, full 3D spatial WebGL rendering has been paused to optimize browser performance. \n\nFull environment tracking is slated for the Phase 2 deployment pipeline.");
+        }
     </script>
 </body>
 </html>
