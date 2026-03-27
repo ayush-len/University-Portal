@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Catalog | Global Tech University</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- Global Tech Theme Variables --- */
+        :root {
+            --primary-color: #111111; 
+            --secondary-color: #ff6b00; 
+            --accent-color: #e65c00;
+            --bg-light: #f4f4f6;
+            --bg-card: #ffffff;
+            --text-main: #222222; 
+            --text-light: #555555;
+            --text-muted: #777777;
+            --white: #ffffff;
+            --border-color: #dddddd;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+
+        /* --- Global Navigation --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
+        .logo span { color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--secondary-color); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
+        
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-flex; align-items: center; }
+        .dropdown .dropbtn i { font-size: 0.8rem; margin-left: 3px; transition: transform 0.3s; }
+        .dropdown:hover .dropbtn i { transform: rotate(180deg); }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: var(--white); min-width: 180px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 3px solid var(--secondary-color); z-index: 1001; flex-direction: column; }
+        .dropdown-content a { padding: 12px 20px; display: block; border-bottom: 1px solid var(--border-color); font-weight: 500; }
+        .dropdown-content a:hover { background-color: var(--bg-light); color: var(--secondary-color); padding-left: 25px; transition: all 0.3s ease; }
+        .dropdown:hover .dropdown-content { display: flex; }
+
+        /* --- Page Header --- */
+        .page-header { background-color: var(--primary-color); color: var(--white); padding: 4rem 5%; text-align: center; }
+        .page-header h1 { font-size: 3rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .page-header p { color: #cccccc; max-width: 600px; margin: auto; font-size: 1.1rem; }
+
+        /* --- Catalog Controls --- */
+        .catalog-controls { max-width: 1200px; margin: -2rem auto 3rem; padding: 2rem; background: var(--white); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; gap: 1rem; flex-wrap: wrap; position: relative; z-index: 10; border: 1px solid var(--border-color); }
+        
+        .control-group { flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 0.5rem; }
+        .control-group label { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        
+        .search-input-wrapper { display: flex; align-items: center; background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.6rem 1rem; }
+        .search-input-wrapper i { color: var(--text-light); margin-right: 10px; }
+        .search-input-wrapper input { border: none; outline: none; background: transparent; width: 100%; font-size: 1rem; color: var(--primary-color); }
+        
+        select.filter-select { padding: 0.7rem 1rem; border: 1px solid var(--border-color); border-radius: 4px; background-color: var(--bg-light); font-size: 1rem; color: var(--primary-color); outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23111111%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 1rem top 50%; background-size: 0.65rem auto; }
+        select.filter-select:focus { border-color: var(--secondary-color); }
+
+        /* --- Course List --- */
+        .course-list { max-width: 1200px; margin: 0 auto 5rem; padding: 0 5%; display: flex; flex-direction: column; gap: 1.5rem; }
+        .stats-bar { margin-bottom: 1rem; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
+
+        /* Course Card */
+        .course-card { background: var(--white); border-radius: 6px; padding: 2rem; border: 1px solid var(--border-color); border-left: 5px solid var(--secondary-color); box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; gap: 1rem; }
+        .course-card:hover { transform: translateX(5px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        
+        .course-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; }
+        .course-code-title { display: flex; flex-direction: column; gap: 0.3rem; }
+        .course-code { font-weight: 800; color: var(--secondary-color); letter-spacing: 1px; font-size: 1.1rem; }
+        .course-title { font-size: 1.5rem; color: var(--primary-color); line-height: 1.3; }
+        
+        .course-credits { background: var(--bg-light); color: var(--primary-color); padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.9rem; border: 1px solid var(--border-color); white-space: nowrap; }
+
+        .course-desc { color: var(--text-light); font-size: 1rem; line-height: 1.6; max-width: 900px; }
+        
+        .course-meta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.5rem; border-top: 1px solid var(--bg-light); padding-top: 1.5rem; }
+        .meta-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--text-muted); background: #f8f9fa; padding: 4px 10px; border-radius: 50px; font-weight: 600; }
+        .meta-tag i { color: var(--primary-color); }
+
+        .no-results { text-align: center; padding: 4rem; color: var(--text-light); font-size: 1.2rem; background: var(--white); border-radius: 8px; border: 1px dashed var(--border-color); }
+
+        /* --- Footer --- */
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 5% 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--white); text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .footer-logo span { color: var(--secondary-color); }
+
+        /* --- Mobile --- */
+        @media (max-width: 900px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .dropdown { display: flex; flex-direction: column; width: 100%; }
+            .dropdown-content { position: static; box-shadow: none; border-top: none; background-color: var(--bg-light); width: 100%; }
+            .catalog-controls { margin-top: 0; border-radius: 0; border-left: none; border-right: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Global<span>Tech</span></a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                
+                <div class="dropdown">
+                    <a href="academics.html" class="dropbtn">Academics <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="faculty.html">Faculty</a>
+                        <a href="courses.html">Courses</a>
+                        <a href="departments.html">Departments</a>
+                    </div>
+                </div>
+
+                <a href="admissions.html">Admissions</a>
+                <a href="research.html">Research</a>
+                <a href="placements.html">Placements</a>
+                <a href="happenings.html">Happenings</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h1>Course Catalog</h1>
+        <p>Explore hundreds of cutting-edge courses designed to bridge theoretical knowledge with practical, real-world application.</p>
+    </section>
+
+    <div class="catalog-controls">
+        <div class="control-group">
+            <label for="searchInput">Search Courses</label>
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Keywords or Course Code...">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="deptSelect">Department</label>
+            <select id="deptSelect" class="filter-select">
+                <option value="all">All Departments</option>
+                <option value="CS">Computer Science</option>
+                <option value="ME">Mechanical Engineering</option>
+                <option value="EE">Electrical Engineering</option>
+                <option value="CE">Civil Engineering</option>
+                <option value="AE">Aerospace Engineering</option>
+                <option value="BME">Biomedical Engineering</option>
+                <option value="MSE">Materials Science</option>
+                <option value="CHE">Chemical Engineering</option>
+                <option value="DS">Data Science & AI</option>
+                <option value="PHY">Applied Physics</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="levelSelect">Academic Level</label>
+            <select id="levelSelect" class="filter-select">
+                <option value="all">All Levels</option>
+                <option value="Undergraduate">Undergraduate</option>
+                <option value="Graduate">Graduate</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="course-list">
+        <div class="stats-bar" id="resultStats">Loading courses...</div>
+        <div id="courseGrid">
+            </div>
+    </div>
+
+    <footer>
+        <a href="index.html" class="footer-logo">Global<span>Tech</span></a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">&copy; 2026 Global Tech Academics. Hackathon Prototype.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        document.getElementById('mobile-menu').addEventListener('click', () => { 
+            document.getElementById('nav-links').classList.toggle('active'); 
+        });
+
+        // --- DUMMY COURSE DATA ---
+        const courses = [
+            // CS
+            { code: "CS 101", title: "Introduction to Algorithmic Thinking", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 4, desc: "A foundational course covering basic data structures, control flow, and computational problem-solving using Python." },
+            { code: "CS 450", title: "Machine Learning Architecture", dept: "CS", deptName: "Computer Science", level: "Graduate", credits: 3, desc: "Advanced study of neural network architectures, backpropagation, and optimization algorithms for deep learning models." },
+            { code: "CS 320", title: "Applied Cryptography", dept: "CS", deptName: "Computer Science", level: "Undergraduate", credits: 3, desc: "Explores symmetric and asymmetric encryption, hash functions, digital signatures, and secure protocol design." },
+            
+            // ME
+            { code: "ME 210", title: "Thermodynamics I", dept: "ME", deptName: "Mechanical Engineering", level: "Undergraduate", credits: 4, desc: "First and second laws of thermodynamics, properties of pure substances, and basic power generation cycles." },
+            { code: "ME 512", title: "Advanced Kinematics and Robotics", dept: "ME", deptName: "Mechanical Engineering", level: "Graduate", credits: 3, desc: "Spatial descriptions, forward and inverse kinematics, Jacobian matrices, and trajectory generation for robotic manipulators." },
+            
+            // EE
+            { code: "EE 201", title: "Circuit Analysis", dept: "EE", deptName: "Electrical Engineering", level: "Undergraduate", credits: 4, desc: "Fundamental principles of electrical circuits, including Ohm's Law, Kirchhoff's laws, node/mesh analysis, and op-amps." },
+            { code: "EE 605", title: "Quantum Computing Hardware", dept: "EE", deptName: "Electrical Engineering", level: "Graduate", credits: 3, desc: "Physical implementation of qubits, superconducting circuits, trapped ions, and quantum error correction hardware." },
+            
+            // CE
+            { code: "CE 305", title: "Structural Analysis", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 4, desc: "Analysis of statically determinate and indeterminate structures, including trusses, beams, and frames." },
+            { code: "CE 410", title: "Sustainable Urban Design", dept: "CE", deptName: "Civil Engineering", level: "Undergraduate", credits: 3, desc: "Designing resilient city infrastructure, green building standards, and integration of smart city IoT sensors." },
+            
+            // AE
+            { code: "AE 315", title: "Aerodynamics", dept: "AE", deptName: "Aerospace Engineering", level: "Undergraduate", credits: 4, desc: "Inviscid and viscous flows, airfoil and wing theory, and an introduction to compressible flow." },
+            { code: "AE 550", title: "Spacecraft Propulsion", dept: "AE", deptName: "Aerospace Engineering", level: "Graduate", credits: 3, desc: "Chemical rockets, ion drives, plasma propulsion, and the thermodynamic limits of deep space travel." },
+            
+            // BME
+            { code: "BME 220", title: "Biomechanics", dept: "BME", deptName: "Biomedical Engineering", level: "Undergraduate", credits: 3, desc: "Application of engineering mechanics to biological tissues, bone structure analysis, and fluid dynamics of the cardiovascular system." },
+            { code: "BME 601", title: "Neural Engineering", dept: "BME", deptName: "Biomedical Engineering", level: "Graduate", credits: 4, desc: "Brain-computer interfaces, neural prosthetics, and the electrical properties of the human nervous system." },
+            
+            // MSE
+            { code: "MSE 201", title: "Introduction to Materials Science", dept: "MSE", deptName: "Materials Science", level: "Undergraduate", credits: 3, desc: "Atomic structure, crystal lattices, defects, and the relationship between microstructures and physical properties." },
+            { code: "MSE 455", title: "Nanomaterials and Nanotechnology", dept: "MSE", deptName: "Materials Science", level: "Graduate", credits: 3, desc: "Synthesis and characterization of nanoscale materials, carbon nanotubes, graphene, and quantum dots." },
+            
+            // CHE
+            { code: "CHE 310", title: "Chemical Kinetics and Reactor Design", dept: "CHE", deptName: "Chemical Engineering", level: "Undergraduate", credits: 4, desc: "Rate equations, ideal reactor models (CSTR, PFR), and the design of catalytic and non-catalytic chemical reactors." },
+            
+            // DS
+            { code: "DS 100", title: "Data Science Foundations", dept: "DS", deptName: "Data Science & AI", level: "Undergraduate", credits: 3, desc: "Data wrangling, exploratory data analysis, visualization techniques, and basic statistical modeling using R and Python." },
+            { code: "DS 502", title: "Natural Language Processing", dept: "DS", deptName: "Data Science & AI", level: "Graduate", credits: 4, desc: "Text processing, sequence-to-sequence models, transformers, and large language model fine-tuning." },
+            
+            // PHY
+            { code: "PHY 110", title: "Physics for Engineers I: Mechanics", dept: "PHY", deptName: "Applied Physics", level: "Undergraduate", credits: 4, desc: "Classical mechanics, Newton's laws, conservation of energy and momentum, and rotational dynamics." },
+            { code: "PHY 405", title: "Solid State Physics", dept: "PHY", deptName: "Applied Physics", level: "Graduate", credits: 3, desc: "Lattice vibrations, electron bands in metals and semiconductors, and magnetic properties of solids." }
+        ];
+
+        // --- RENDER UI ---
+        const courseGrid = document.getElementById('courseGrid');
+        const searchInput = document.getElementById('searchInput');
+        const deptSelect = document.getElementById('deptSelect');
+        const levelSelect = document.getElementById('levelSelect');
+        const statsBar = document.getElementById('resultStats');
+
+        function renderCourses(data) {
+            courseGrid.innerHTML = '';
+            statsBar.textContent = `Displaying ${data.length} course${data.length !== 1 ? 's' : ''}`;
+            
+            if(data.length === 0) {
+                courseGrid.innerHTML = '<div class="no-results"><i class="fas fa-search" style="font-size: 2rem; color: #ddd; margin-bottom: 1rem; display: block;"></i>No courses found matching your criteria. Try adjusting your filters.</div>';
+                return;
+            }
+
+            data.forEach(course => {
+                const card = document.createElement('div');
+                card.className = 'course-card';
+                
+                // Assign an icon based on level
+                const levelIcon = course.level === 'Undergraduate' ? 'fa-user-graduate' : 'fa-microscope';
+
+                card.innerHTML = `
+                    <div class="course-header">
+                        <div class="course-code-title">
+                            <span class="course-code">${course.code}</span>
+                            <h3 class="course-title">${course.title}</h3>
+                        </div>
+                        <span class="course-credits">${course.credits} Credits</span>
+                    </div>
+                    <p class="course-desc">${course.desc}</p>
+                    <div class="course-meta">
+                        <span class="meta-tag"><i class="fas ${levelIcon}"></i> ${course.level}</span>
+                        <span class="meta-tag"><i class="fas fa-building"></i> ${course.deptName}</span>
+                    </div>
+                `;
+                courseGrid.appendChild(card);
+            });
+        }
+
+        // --- FILTERING LOGIC ---
+        function filterCourses() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const deptFilter = deptSelect.value;
+            const levelFilter = levelSelect.value;
+
+            const filtered = courses.filter(course => {
+                const matchesSearch = course.title.toLowerCase().includes(searchTerm) || 
+                                      course.code.toLowerCase().includes(searchTerm) || 
+                                      course.desc.toLowerCase().includes(searchTerm);
+                const matchesDept = deptFilter === 'all' || course.dept === deptFilter;
+                const matchesLevel = levelFilter === 'all' || course.level === levelFilter;
+
+                return matchesSearch && matchesDept && matchesLevel;
+            });
+
+            renderCourses(filtered);
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', filterCourses);
+        deptSelect.addEventListener('change', filterCourses);
+        levelSelect.addEventListener('change', filterCourses);
+
+        // Initial render on page load
+        renderCourses(courses);
+
+    </script>
+    <script src="chatbot.js"></script>
+</body>
+</html>
