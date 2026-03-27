@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O-ZONE | Student Portal</title>
+    <style>
+        /* Smooth Page Fade-In */
+body {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+        :root {
+            --bg-light: #ffffff;
+            --bg-alt: #fffaf7; 
+            --orange: #ff6600;
+            --orange-hover: #e65c00;
+            --text-dark: #222222;
+            --text-gray: #666666;
+            --border-color: #f1f1f1;
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            height: 75px;
+            border-bottom: 4px solid var(--orange);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.08);
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--orange); text-decoration: none; }
+        .logo span { color: var(--text-dark); }
+
+        .nav-links { list-style: none; display: flex; margin: 0; height: 100%; padding: 0; }
+        .nav-links li { position: relative; height: 100%; }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links li a:hover, .dropdown:hover > a { color: var(--orange); background: var(--bg-alt); }
+
+        /* --- Dropdown Logic --- */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            min-width: 220px;
+            top: 71px;
+            left: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--orange);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .dropdown:hover .dropdown-content { display: block; }
+
+        .dropdown-content a {
+            padding: 15px 20px !important;
+            border-bottom: 1px solid var(--border-color);
+            text-transform: capitalize !important;
+            width: 100%;
+            display: block;
+            height: auto !important;
+        }
+
+        /* --- Main Content --- */
+        .container { max-width: 1000px; margin: 50px auto; padding: 0 25px; min-height: 70vh; }
+        
+        .header-box { text-align: center; margin-bottom: 40px; }
+        .header-box h1 { font-size: 2.8rem; margin: 0; color: var(--text-dark); }
+        .header-box h1 span { color: var(--orange); }
+
+        /* --- Scholarship UI --- */
+        .scholar-grid { display: grid; gap: 20px; margin-top: 30px; }
+        .scholar-card { 
+            background: #fff; 
+            padding: 25px; 
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
+            border-left: 6px solid var(--orange);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .scholar-card h3 { color: var(--orange); margin: 0 0 10px 0; font-size: 1.4rem; }
+        .tag { font-size: 0.7rem; background: var(--bg-alt); color: var(--orange); padding: 4px 10px; border-radius: 20px; font-weight: bold; }
+
+        /* --- Fee Table UI --- */
+        .table-container { overflow-x: auto; background: #fff; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 20px; margin-bottom: 40px; }
+        .table-title { padding: 15px 20px; background: var(--bg-alt); border-bottom: 2px solid var(--orange); margin: 0; font-size: 1.2rem; font-weight: bold; color: var(--orange); }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        th { background: var(--orange); color: white; padding: 18px; text-align: left; }
+        td { padding: 15px 18px; border-bottom: 1px solid var(--border-color); }
+        .total-row { font-weight: bold; color: var(--orange); font-size: 1.1rem; }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-color); color: var(--text-gray); margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">GLOBAL<span>TECH</span></a>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Academics</a></li>
+            <li><a href="#">Admissions</a></li>
+            <li><a href="#">Research</a></li>
+            <li><a href="#">Campus</a></li>
+            <li><a href="#">Happenings</a></li>
+            <li><a href="#">Placement</a></li>
+            <li class="dropdown">
+                <a href="#" style="color: var(--orange);">Others <i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="renderFees()">Fee Structure</a>
+                    <a href="javascript:void(0)" onclick="renderScholarships()">Scholarships</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container" id="view-container"></main>
+
+    <footer>
+        &copy; 2026 O-ZONE ACADEMIC SERVICES | ORANGE & WHITE THEME
+    </footer>
+
+    <script>
+        const container = document.getElementById('view-container');
+
+        // Renamed function to match navbar call
+        function renderScholarships() {
+            container.innerHTML = `
+                <div class="header-box">
+                    <h1>Available <span>Scholarships</span></h1>
+                    <p>Merit and need-based financial assistance programs for students.</p>
+                </div>
+                <div class="scholar-grid">
+                    <div class="scholar-card">
+                        <span class="tag">MERIT</span>
+                        <h3>Academic Excellence Grant</h3>
+                        <p>Full 100% tuition waiver for the top 3 students across all engineering branches based on SEM-end results.</p>
+                    </div>
+                    <div class="scholar-card">
+                        <span class="tag">SUPPORT</span>
+                        <h3>Community Outreach Scholarship</h3>
+                        <p>A ₹50,000 annual grant for students demonstrating exceptional service to local rural education initiatives.</p>
+                    </div>
+                    <div class="scholar-card">
+                        <span class="tag">DIVERSITY</span>
+                        <h3>Women in Tech Scholarship</h3>
+                        <p>Special 30% reduction in laboratory fees for all female candidates in Computer Science and IT fields.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Renamed function to match navbar call
+        function renderFees() {
+            container.innerHTML = `
+                <div class="header-box">
+                    <h1>Annual <span>Fee Structure</span></h1>
+                    <p>Transparent breakdown of academic and residential costs.</p>
+                </div>
+
+                <div class="table-container">
+                    <h3 class="table-title"><i class="fas fa-university"></i> Academic Fees</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tuition</td>
+                                <td>Standard Academic Instruction</td>
+                                <td>2,10,000</td>
+                            </tr>
+                            <tr>
+                                <td>Development</td>
+                                <td>Infrastructure & Lab Maintenance</td>
+                                <td>40,000</td>
+                            </tr>
+                            <tr>
+                                <td>Library</td>
+                                <td>Digital & Physical Resource Access</td>
+                                <td>10,000</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>Total Academic</td>
+                                <td>Total Annual Academic Fee</td>
+                                <td>₹2,60,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-container">
+                    <h3 class="table-title"><i class="fas fa-bed"></i> Hostel & Residential Fees</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room Type</th>
+                                <th>Facilities</th>
+                                <th>Annual Fee (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>4-Sharing Room</td>
+                                <td>Common Bath, Basic Furnishing</td>
+                                <td>85,000</td>
+                            </tr>
+                            <tr>
+                                <td>2-Sharing Room</td>
+                                <td>Attached Bath, Standard Furnishing</td>
+                                <td>1,15,000</td>
+                            </tr>
+                            <tr>
+                                <td>Premium Single</td>
+                                <td>Attached Bath, AC, High-speed Wi-Fi</td>
+                                <td>1,60,000</td>
+                            </tr>
+                            <tr>
+                                <td>Mess Charges</td>
+                                <td>3 Meals + Tea/Coffee (Mandatory)</td>
+                                <td>45,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="color:var(--text-gray); font-size:0.9rem;">* All hostel fees include electricity and water charges up to standard consumption limits.</p>
+            `;
+        }
+
+        // Initialize with Scholarships on load
+        window.onload = renderScholarships;
+    </script>
+</body>
+</html>
