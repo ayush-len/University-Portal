@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O-ZONE | Digital Ops</title>
@@ -189,7 +190,7 @@
     <nav class="navbar">
         <div class="logo">EVENTS-ZONE</div>
         <ul class="nav-links">
-            <li><a id="ongoing-tab" onclick="render('ongoing')">ONGOING EVENTS</a></li>
+            <li><a id="ongoing-tab" onclick="render('ongoing')" >ONGOING EVENTS</a></li>
             <li><a id="upcoming-tab" onclick="render('upcoming')">UPCOMING EVENTS</a></li>
         </ul>
     </nav>
@@ -256,5 +257,139 @@
         // Initialize with Ongoing
         window.onload = () => render('ongoing');
     </script>
+    <style>
+    .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .chat-toggle-btn { width: 65px; height: 65px; background-color: #ff6b00; color: white; border: none; border-radius: 50%; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); cursor: pointer; font-size: 28px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+    .chat-toggle-btn:hover { transform: scale(1.1); }
+    .chat-window { display: none; position: absolute; bottom: 85px; right: 0; width: 350px; height: 500px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
+    .chat-header { background-color: #111111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .chat-header h4 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+    .chat-header i.fa-robot { color: #ff6b00; }
+    .close-chat { background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; }
+    .chat-body { flex: 1; padding: 20px; overflow-y: auto; background-color: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
+    .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; }
+    .msg-bot { background-color: #eeeeee; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+    .msg-user { background-color: #ff6b00; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+    .chat-input-area { padding: 15px; background-color: white; border-top: 1px solid #ddd; display: flex; gap: 10px; }
+    .chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; font-size: 0.95rem; }
+    .chat-input-area input:focus { border-color: #ff6b00; }
+    .chat-send-btn { background-color: #111111; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
+    .chat-send-btn:hover { background-color: #ff6b00; }
+</style>
+
+<div class="chat-widget">
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h4><i class="fas fa-robot"></i> Global Tech Assistant</h4>
+            <button class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg msg-bot">Hello! I am the Global Tech AI. Try asking me about 'fees', 'dorms', 'salaries', or say 'Take me to admissions'.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+            <button class="chat-send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="Open AI Assistant">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+</div>
+
+<script>
+    // --- UI Logic ---
+    const chatWindow = document.getElementById('chatWindow');
+    const chatBody = document.getElementById('chatBody');
+    const userInput = document.getElementById('userInput');
+
+    function toggleChat() {
+        if (chatWindow.style.display === 'flex') {
+            chatWindow.style.display = 'none';
+        } else {
+            chatWindow.style.display = 'flex';
+        }
+    }
+
+    function handleEnter(event) {
+        if (event.key === 'Enter') { sendMessage(); }
+    }
+
+    function sendMessage() {
+        const text = userInput.value.trim();
+        if (text === '') return;
+
+        addMessage(text, 'user');
+        userInput.value = '';
+
+        setTimeout(() => {
+            const botReply = generateBotResponse(text.toLowerCase());
+            addMessage(botReply.text, 'bot');
+            
+            if (botReply.redirect) {
+                setTimeout(() => { window.location.href = botReply.redirect; }, 1500);
+            }
+        }, 600); 
+    }
+
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'msg msg-' + sender; // Foolproof string formatting
+        msgDiv.innerText = text;
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // --- The Smarter "Brain" (Synonym Arrays) ---
+    function generateBotResponse(input) {
+        let response = { text: "", redirect: null };
+        
+        const containsAny = (wordsArray) => wordsArray.some(word => input.includes(word));
+
+        // --- NAVIGATION COMMANDS ---
+        if (containsAny(['take me', 'go to', 'redirect', 'open', 'show me'])) {
+            if (containsAny(['admission', 'apply'])) {
+                response.text = "Navigating you to the Admissions portal..."; response.redirect = "admissions.html";
+            } else if (containsAny(['placement', 'job', 'career'])) {
+                response.text = "Taking you to the Placements office..."; response.redirect = "placements.html";
+            } else if (containsAny(['academic', 'course', 'major', 'degree'])) {
+                response.text = "Opening our Academic programs..."; response.redirect = "academics.html";
+            } else if (containsAny(['research', 'lab', 'urop'])) {
+                response.text = "Heading over to Research & Innovation..."; response.redirect = "research.html";
+            } else if (containsAny(['campus', 'life', 'dorm', 'hostel'])) {
+                response.text = "Let's explore the Campus facilities..."; response.redirect = "campus.html";
+            } else if (containsAny(['happening', 'event', 'fest'])) {
+                response.text = "Redirecting you to Campus Happenings..."; response.redirect = "happenings.html";
+            } else {
+                response.text = "I couldn't find that page. Try asking to go to Admissions, Placements, or Campus!";
+            }
+            return response;
+        }
+
+        // --- INFORMATION COMMANDS ---
+        if (containsAny(['fee', 'cost', 'tuition', 'price', 'pay', 'expensive'])) {
+            response.text = "Tuition is $18,500/semester. We also offer merit-based scholarships up to 40% based on your application portfolio.";
+        } 
+        else if (containsAny(['hostel', 'dorm', 'housing', 'room', 'live', 'stay', 'bed'])) {
+            response.text = "We provide Tier-1 residential housing featuring high-speed Wi-Fi, 24/7 security, and fully furnished rooms for all engineering students.";
+        }
+        else if (containsAny(['placement', 'stat', 'salary', 'job', 'recruit', 'hire', 'package'])) {
+            response.text = "Our placement rate is 96%! The highest package this year is 28.4 LPA. Top recruiters include Google, Microsoft, Amazon, and Cisco.";
+        } 
+        else if (containsAny(['deadline', 'date', 'when'])) {
+            response.text = "Early action closes Nov 15th. Regular Decision is January 10th.";
+        }
+        else if (containsAny(['academic', 'course', 'program', 'major', 'study'])) {
+            response.text = "We offer programs in Embedded Systems & IoT, AR/VR & Spatial Computing, and Computer Science.";
+        } 
+        else if (containsAny(['hi', 'hello', 'hey', 'greetings'])) {
+            response.text = "Hi there! I can explain our academics, admissions, placements, or navigate you to a specific page. Try typing: 'Take me to placements'.";
+        } 
+        else {
+            response.text = "I am a prototype AI and I didn't quite catch that. Try asking about 'dorms', 'salaries', 'tuition', or say 'Take me to campus'.";
+        }
+
+        return response;
+    }
+</script>
 </body>
 </html>
