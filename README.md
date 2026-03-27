@@ -8,19 +8,22 @@
 A high-performance, fully responsive university portal engineered for the 12-Hour Hackathon. This project replicates the structure, user experience, and prestige of a Tier-1 global engineering institution without relying on heavy frameworks.
 
 ## 🚀 Live Demonstration
-WEBSITE -- https://ayush-len.github.io/University-Portal/
+Website -- https://ayush-len.github.io/University-Portal/
 
-GITHUB REPO LINK -- https://github.com/ayush-len/University-Portal
+Github repo link -- https://github.com/ayush-len/University-Portal
+
 ---
 
 ## 🏗️ Architecture & Features
 To optimize for speed and mobile responsiveness, this portal was built with a strict **zero-dependency frontend architecture** (Pure HTML/CSS/Vanilla JS). 
 
-Our 7-page ecosystem features institutional-grade UI layouts:
+Our fully routed 8-page ecosystem features institutional-grade UI layouts:
+* **Integrated AI Assistant (NEW):** A custom-built, zero-dependency JavaScript chatbot featuring rule-based NLP synonym matching (`containsAny` logic) and automated webpage routing via DOM manipulation.
 * **Editorial Academics Page:** An asymmetrical, magazine-style layout designed for high readability and premium branding.
 * **Data-Driven Placements Page:** Features zero-JavaScript CSS trend graphs and interactive, color-shifting recruiter matrices.
 * **"Bento Box" Research Feed:** A masonry-style grid highlighting scientific breakthroughs and undergraduate research opportunities (UROP).
 * **Immersive Campus UI:** Includes high-fidelity frontend prototypes for spatial computing and lab telemetry.
+* **Accessibility (a11y) Compliant:** Implemented ARIA labels across dynamic menu toggles and interactive widgets for screen-reader support.
 
 ---
 
@@ -36,16 +39,16 @@ Because this project utilizes a lightweight, static architecture (no backend dat
 
 ---
 
-## 💡 Phase 2: Additional Ideas & Roadmap (Mandatory Feature List)
+## 💡 Phase 2: Future Roadmap 
 As part of our hackathon roadmap, we designed the frontend UI to accommodate the following advanced backend integrations for Phase 2:
 
-1. **Interactive AR Campus Tour:** * *Concept:* Upgrading the current Campus "Spatial Mapping Engine" prototype into a fully functional WebGL `<model-viewer>`. This will allow prospective students to drop 3D models of campus buildings directly into their physical environment using their smartphone cameras.
-2. **Live IoT Hardware Telemetry:** * *Concept:* Connecting the IdeaLAB UI cards to actual JSON data streams from campus IoT sensors, displaying real-time 3D printer queue statuses and robotics track availability.
-3. **NLP Admissions Chatbot:** * *Concept:* Implementing an AI assistant trained exclusively on the university's prospectus to instantly answer prospective student queries regarding fee structures, visa requirements, and deadlines.
+1. **Interactive AR Campus Tour:** Upgrading the current Campus "Spatial Mapping Engine" prototype into a fully functional WebGL `<model-viewer>`. This will allow prospective students to drop 3D models of campus buildings directly into their physical environment using their smartphone cameras.
+2. **Live IoT Hardware Telemetry:** Connecting the IdeaLAB UI cards to actual JSON data streams from campus IoT sensors, displaying real-time 3D printer queue statuses and robotics track availability.
+3. **OAuth Authentication Portal:** Building out a secure Node.js/Express backend to allow current students to log in, view their grades, and register for Happenings/Events.
 
 ---
 
 ## 🧑‍💻 The Development Team
 * **[AYUSH KUMAR]** 
-* **[KSHITIZ RAJ]** 
+* **[KSHITIZ RAJ]**
 * **[RISHUB KUMAR]** 
