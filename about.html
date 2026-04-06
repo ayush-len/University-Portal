@@ -505,23 +505,85 @@ body {
             <i class="fas fa-comment-dots"></i>
         </button>
     </div>
+        <script>
+        /* --- Mobile Navigation --- */
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 
-    <script>
-        // --- Chatbot UI Logic & State Memory ---
+        /* --- Scroll Fade Animations & Numbers --- */
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                
+                if (entry.target.classList.contains('stat-item')) {
+                    const counter = entry.target.querySelector('.counter');
+                    updateCounter(counter);
+                }
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        fadeElements.forEach(el => appearOnScroll.observe(el));
+
+        function updateCounter(counter) {
+            const target = +counter.getAttribute('data-target');
+            const increment = target / (2000 / 16); 
+            let current = 0;
+            const update = () => {
+                current += increment;
+                if (current < target) {
+                    counter.innerText = Math.ceil(current).toLocaleString();
+                    requestAnimationFrame(update);
+                } else {
+                    counter.innerText = target.toLocaleString() + (target > 1000 ? '+' : '');
+                }
+            };
+            update();
+        }
+
+        /* --- Carousel Logic --- */
+        const track = document.getElementById('track');
+        if(track) {
+            const slides = Array.from(track.children);
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            let currentIndex = 0;
+            let slideInterval;
+
+            function updateCarousel() {
+                const slideWidth = slides[0].getBoundingClientRect().width;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+            function moveToNextSlide() {
+                currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+                updateCarousel();
+            }
+            function moveToPrevSlide() {
+                currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+                updateCarousel();
+            }
+
+            nextBtn.addEventListener('click', () => { moveToNextSlide(); resetInterval(); });
+            prevBtn.addEventListener('click', () => { moveToPrevSlide(); resetInterval(); });
+            window.addEventListener('resize', updateCarousel);
+            
+            function startSlideShow() { slideInterval = setInterval(moveToNextSlide, 5000); }
+            function resetInterval() { clearInterval(slideInterval); startSlideShow(); }
+            startSlideShow();
+        }
+
+        /* --- Chatbot Logic with Memory --- */
         const chatWindow = document.getElementById('chatWindow');
         const chatBody = document.getElementById('chatBody');
         const userInput = document.getElementById('userInput');
 
         window.addEventListener('DOMContentLoaded', () => {
             const savedChat = sessionStorage.getItem('globalTechChatHistory');
-            if (savedChat) {
-                chatBody.innerHTML = savedChat;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }
+            if (savedChat) { chatBody.innerHTML = savedChat; chatBody.scrollTop = chatBody.scrollHeight; }
             const isChatOpen = sessionStorage.getItem('globalTechChatState');
-            if (isChatOpen === 'true') {
-                chatWindow.style.display = 'flex';
-            }
+            if (isChatOpen === 'true') { chatWindow.style.display = 'flex'; }
         });
 
         function toggleChat() {
@@ -534,21 +596,17 @@ body {
             }
         }
 
-        function handleEnter(event) {
-            if (event.key === 'Enter') { sendMessage(); }
-        }
+        function handleEnter(event) { if (event.key === 'Enter') { sendMessage(); } }
 
         function sendMessage() {
             const text = userInput.value.trim();
             if (text === '') return;
-
             addMessage(text, 'user');
             userInput.value = '';
 
             setTimeout(() => {
                 const botReply = generateBotResponse(text.toLowerCase());
                 addMessage(botReply.text, 'bot');
-                
                 if (botReply.redirect) {
                     setTimeout(() => { window.location.href = botReply.redirect; }, 1500);
                 }
@@ -564,52 +622,29 @@ body {
             sessionStorage.setItem('globalTechChatHistory', chatBody.innerHTML);
         }
 
-        // --- The Chatbot Brain ---
         function generateBotResponse(input) {
             let response = { text: "", redirect: null };
             const containsAny = (wordsArray) => wordsArray.some(word => input.includes(word));
 
             if (containsAny(['take me', 'go to', 'redirect', 'open', 'show me'])) {
-                if (containsAny(['admission', 'apply'])) {
-                    response.text = "Navigating you to the Admissions portal..."; response.redirect = "admissions.html";
-                } else if (containsAny(['placement', 'job', 'career'])) {
-                    response.text = "Taking you to the Placements office..."; response.redirect = "placements.html";
-                } else if (containsAny(['academic', 'course', 'major', 'degree'])) {
-                    response.text = "Opening our Academic programs..."; response.redirect = "academics.html";
-                } else if (containsAny(['research', 'lab', 'urop'])) {
-                    response.text = "Heading over to Research & Innovation..."; response.redirect = "research.html";
-                } else if (containsAny(['campus', 'life', 'dorm', 'hostel'])) {
-                    response.text = "Let's explore the Campus facilities..."; response.redirect = "campus.html";
-                } else if (containsAny(['happening', 'event', 'fest'])) {
-                    response.text = "Redirecting you to Campus Happenings..."; response.redirect = "happenings.html";
-                } else {
-                    response.text = "I couldn't find that page. Try asking to go to Admissions, Placements, or Campus!";
-                }
+                if (containsAny(['admission', 'apply'])) { response.text = "Navigating you to Admissions..."; response.redirect = "admissions.html"; }
+                else if (containsAny(['placement', 'job', 'career'])) { response.text = "Taking you to Placements..."; response.redirect = "placements.html"; }
+                else if (containsAny(['academic', 'course', 'major', 'degree'])) { response.text = "Opening Academic programs..."; response.redirect = "academics.html"; }
+                else if (containsAny(['research', 'lab', 'urop'])) { response.text = "Heading to Research..."; response.redirect = "research.html"; }
+                else if (containsAny(['campus', 'life', 'dorm', 'hostel'])) { response.text = "Let's explore Campus..."; response.redirect = "campus.html"; }
+                else if (containsAny(['happening', 'event', 'fest'])) { response.text = "Redirecting to Happenings..."; response.redirect = "happenings.html"; }
+                else { response.text = "I couldn't find that page. Try asking to go to Admissions, Placements, or Campus!"; }
                 return response;
             }
 
-            if (containsAny(['fee', 'cost', 'tuition', 'price', 'pay'])) {
-                response.text = "Tuition is $18,500/semester. We also offer merit-based scholarships up to 40% based on your portfolio.";
-            } 
-            else if (containsAny(['hostel', 'dorm', 'housing', 'room', 'live'])) {
-                response.text = "We provide Tier-1 residential housing featuring high-speed Wi-Fi, 24/7 security, and fully furnished rooms.";
-            }
-            else if (containsAny(['placement', 'stat', 'salary', 'job', 'recruit', 'package'])) {
-                response.text = "Our placement rate is 96%! The highest package this year is 28.4 LPA. Top recruiters include Google, Microsoft, and Amazon.";
-            } 
-            else if (containsAny(['deadline', 'date', 'when'])) {
-                response.text = "Early action closes Nov 15th. Regular Decision is January 10th.";
-            }
-            else if (containsAny(['hi', 'hello', 'hey'])) {
-                response.text = "Hi there! I can explain our academics, admissions, placements, or navigate you to a specific page.";
-            } 
-            else {
-                response.text = "I am a prototype AI and I didn't quite catch that. Try asking about 'dorms', 'salaries', 'tuition', or say 'Take me to campus'.";
-            }
-
+            if (containsAny(['fee', 'cost', 'tuition', 'price', 'pay'])) { response.text = "Tuition is $18,500/semester. We also offer merit-based scholarships up to 40% based on your portfolio."; } 
+            else if (containsAny(['hostel', 'dorm', 'housing', 'room', 'live'])) { response.text = "We provide Tier-1 residential housing featuring high-speed Wi-Fi, 24/7 security, and fully furnished rooms."; }
+            else if (containsAny(['placement', 'stat', 'salary', 'job', 'recruit', 'package'])) { response.text = "Our placement rate is 96%! The highest package this year is 28.4 LPA. Top recruiters include Google, Microsoft, and Amazon."; } 
+            else if (containsAny(['deadline', 'date', 'when'])) { response.text = "Early action closes Nov 15th. Regular Decision is January 10th."; }
+            else if (containsAny(['hi', 'hello', 'hey'])) { response.text = "Hi there! I can explain our academics, admissions, placements, or navigate you to a specific page."; } 
+            else { response.text = "I am a prototype AI and I didn't quite catch that. Try asking about 'dorms', 'salaries', 'tuition', or say 'Take me to campus'."; }
             return response;
         }
     </script>
-    
 </body>
 </html>
